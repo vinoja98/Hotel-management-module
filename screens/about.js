@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   cardCol:{
     flexDirection:'column',
     paddingLeft:30,
-    // paddingRight:50
   },
   cardTop:{
     flexDirection:'row',
