@@ -1,21 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React,{useState} from 'react';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Navigator from './routes/homeStack'
+import Navi from './routes/ReviewStack'
+
+const Drawer=createDrawerNavigator()
+
+const getFonts=()=>Font.loadAsync({
+      'nunito-regular':require('./assets/fonts/Nunito-Regular.ttf'),
+      'nunito-bold':require('./assets/fonts/Nunito-Bold.ttf')
+    })
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const [fontsLoaded, setFontsLoaded]=useState(false)
+
+  if(fontsLoaded){
+    return (
+      <NavigationContainer>
+        <Drawer.Navigator
+           drawerContentOptions={{
+            activeTintColor: '#80593a',
+            inactiveTintColor:'#232323',
+            itemStyle: { marginVertical: 5 },
+          }}
+        >
+            <Drawer.Screen name="Home" children={Navigator} />
+            <Drawer.Screen name="Review Details" children={Navi}/>
+        </Drawer.Navigator>
+      </NavigationContainer>
+      );
+  }
+  else{
+   return(
+    <AppLoading
+      startAsync={getFonts} 
+      onFinish={()=>setFontsLoaded(true)}
+      onError={console.warn}
+    />
+  
+   )
+  }
+
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
