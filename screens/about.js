@@ -7,8 +7,8 @@ import Card from '../shared/card';
 export default function About({route}) {
   const { name } = route.params;
   const { price} = route.params;
-  const { description} = route.params;
-  const { rating} = route.params;
+  const { description } = route.params;
+  const { rating } = route.params;
   return (
     <View style={globalStyles.container}>
       <Card>
