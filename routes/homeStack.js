@@ -13,7 +13,7 @@ const HomeStack = () => {
             <Stack.Screen
                 name="Home"
                 component={Home}
-                options={({navigation})=>{
+                options={({ navigation })=>{
                   return{
                     headerTitle:()=><Header navigation={navigation} title="HOME"/>
                   }
