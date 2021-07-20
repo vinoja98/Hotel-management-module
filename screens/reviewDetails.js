@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View ,Button,FlatList,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View ,Button,FlatList,TouchableOpacity,SafeAreaView} from 'react-native';
 import { globalStyles } from '../styles/global';
 import Card from '../shared/card';
 

@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,SafeAreaView} from 'react-native';
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
@@ -20,7 +20,7 @@ export default function About({route}) {
               <Text style={globalStyles.itemText}>{description}</Text>
           </View>
           <View style={styles.iconCol}>
-            <MaterialIcons name='delete' size={28}/>
+            
             <MaterialIcons name='mode-edit' size={28} style={styles.edit}/>
           </View>
           

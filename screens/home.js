@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
-import { Button, StyleSheet, Text, View ,FlatList,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard} from 'react-native';
+import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard,SafeAreaView} from 'react-native';
 import { globalStyles } from '../styles/global';
 import Card from '../shared/card';
 import {MaterialIcons} from '@expo/vector-icons'
 import FoodForm from './foodForm';
+import FlatButton from '../shared/button';
 
 export default function Home({navigation}) {
   const[modelOpen,setModelOpen]=useState(false)
@@ -22,7 +23,27 @@ export default function Home({navigation}) {
       return[food, ...current]
     })
     setModelOpen(false)
+
   }
+  const deleteFood= (key) =>{
+    setFoodItems((prevFood)=>{
+     return prevFood.filter(food=> food.key != key)
+    })
+    setModelOpen(false)
+ }
+ const deleteAlert = ({item,deleteFood}) =>
+    Alert.alert(
+      "Deleting Food",
+      "Are you sure you want to delete?",
+      [
+        {
+          text: "No",
+          onPress: () => console.log('cancel'),
+          style: "cancel"
+        },
+        { text: "Yes", onPress: () => deleteFood(item.key) }
+      ]
+    );
   return (
     <View style={globalStyles.container}>
       <Modal visible={modelOpen} animationType='slide'>
@@ -39,25 +60,39 @@ export default function Home({navigation}) {
           </View>
          </TouchableWithoutFeedback>
       </Modal>
-
-      <MaterialIcons
-        name='add'
-        size={24}
-        style={styles.modalToggle}
-        onPress={()=>setModelOpen(true)}
-      />
-
-      <Button title='go to Details' onPress={() =>
-        navigation.navigate('Details')}
-        color='black'/>
+      <View style={styles.topROw}>
+        <MaterialIcons
+          name='add'
+          size={24}
+          style={styles.modalToggle}
+          onPress={()=>setModelOpen(true)}
+        />
+        <View style={styles.btn}>
+          <FlatButton  text='go to Details' onPress={() =>
+            navigation.navigate('Details')}/>
+        </View>
+        
+      </View>
+      
         <FlatList
           data={foodItems}
           renderItem={({item})=>(
-                <TouchableOpacity onPress={()=>navigation.navigate('About',item)}>
-                    <Card>
+            <View style={styles.foodROw}>
+              <View style={styles.crd}>
+                <TouchableOpacity onPress={()=>navigation.navigate('About',item)}> 
+                  <Card>
                         <Text style={globalStyles.itemText}>{item.name}</Text>
-                    </Card> 
+                  </Card> 
                 </TouchableOpacity>
+              </View>
+              <View style={styles.del}>
+                  <TouchableOpacity onPress={()=>deleteAlert({item,deleteFood})}>
+                          <MaterialIcons  name='delete' size={28} />
+                  </TouchableOpacity>
+              </View>
+            </View>
+               
+               
           )}
         />
     </View>
@@ -80,5 +115,26 @@ const styles=StyleSheet.create({
   modalContent:{
     flex:1,
 
+  },
+  topROw:{
+    flexDirection:'row'
+  },
+  btn:{
+    paddingLeft:120
+  },
+  del:{
+    width:'10%',
+    paddingTop:8
+    // position:'absolute'
+  },
+  foodROw:{
+    flexDirection:'row',
+    width:'100%',
+    // position:'relative'
+  }
+  ,crd:{
+    width:'90%',
+    paddingRight:10
+    // position:'absolute'
   }
 })

@@ -25,7 +25,9 @@ export default function App() {
            drawerContentOptions={{
             activeTintColor: '#80593a',
             inactiveTintColor:'#232323',
-            itemStyle: { marginVertical: 5 },
+            itemStyle: { marginVertical: 5},
+            labelStyle:{fontFamily:'nunito-bold'}
+            
           }}
         >
             <Drawer.Screen name="Home" children={Navigator} />
