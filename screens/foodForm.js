@@ -3,9 +3,23 @@ import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,TextInput,Button
 import { globalStyles,images } from '../styles/global';
 import { Formik } from 'formik';
 import * as yup from 'yup'
+import { string } from 'yup/lib/locale';
 
-const FoodSchema=yup.object({
-    
+const foodSchema=yup.object({
+  name:yup.string()
+  .required()
+  .min(3),
+  price:yup.string()
+  .required()
+  .min(2),
+  description:yup.string()
+  .required()
+  .min(3),
+  rating:yup.string()
+  .required()
+  .test('is 4 or 5','rating ust be 4 or 5',(val)=>{
+    return parseInt(val)<6 && parseInt(val)>3
+  })
 })
 
 export default function FoodForm({addFood}) {
@@ -13,6 +27,7 @@ export default function FoodForm({addFood}) {
       <View style={globalStyles.container}>
         <Formik
             initialValues={{name:'',price:'',description:'',rating:''}}
+            validationSchema={foodSchema}
             onSubmit={(values,actions)=>{
                     addFood(values)
                     // actions.resetForm()
