@@ -3,6 +3,7 @@ import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,Modal,Touchabl
 import { globalStyles } from '../styles/global';
 import Card from '../shared/card';
 import {MaterialIcons} from '@expo/vector-icons'
+import {AntDesign} from '@expo/vector-icons'
 import FoodForm from './foodForm';
 import FlatButton from '../shared/button';
 
@@ -81,7 +82,12 @@ export default function Home({navigation}) {
               <View style={styles.crd}>
                 <TouchableOpacity onPress={()=>navigation.navigate('About',item)}> 
                   <Card>
+                    <View style={styles.crdrow}>
                         <Text style={globalStyles.itemText}>{item.name}</Text>
+                        <View style={styles.ant}>
+                          <AntDesign  style={styles.right} name='doubleright' size={20} />
+                        </View>
+                    </View>
                   </Card> 
                 </TouchableOpacity>
               </View>
@@ -124,7 +130,7 @@ const styles=StyleSheet.create({
   },
   del:{
     width:'10%',
-    paddingTop:8
+    paddingTop:15
     // position:'absolute'
   },
   foodROw:{
@@ -136,5 +142,16 @@ const styles=StyleSheet.create({
     width:'90%',
     paddingRight:10
     // position:'absolute'
+  },
+  crdrow:{
+    flexDirection:'row',
+  },
+  right:{
+   
+  },
+  ant:{
+    position:'absolute',
+    right:0,
+    justifyContent:'center'
   }
 })
