@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard,SafeAreaView} from 'react-native';
+import React,{useEffect,useState} from 'react';
+import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard,ActivityIndicator} from 'react-native';
 import { globalStyles } from '../styles/global';
 import Card from '../shared/card';
 import {MaterialIcons} from '@expo/vector-icons'
@@ -8,27 +8,36 @@ import FoodForm from './foodForm';
 import FlatButton from '../shared/button';
 
 export default function Home({navigation}) {
+  const[loading,setLoading]=useState(true)
   const[modelOpen,setModelOpen]=useState(false)
   const[foodItems,setFoodItems]=useState([
-    {name:'Burger',price:200,description:'Robust',rating:4,key:'1'},
-    {name:'Pizza',price:1000,description:'Spicy',rating:5,key:'2'},
-    {name:'Pasta',price:800,description:'Spicy',rating:4,key:'3'},
-    {name:'HotDog',price:300,description:'Robust',rating:5,key:'4'},
-    {name:'Fanta',price:100,description:'Cooling',rating:4,key:'5'},
-    {name:'Necto',price:120,description:'Cooling',rating:5,key:'6'},
+    // {name:'Burger',price:200,description:'Robust',rating:4,_id:'1'},
+    // {name:'Pizza',price:1000,description:'Spicy',rating:5,_id:'2'},
+    // {name:'Pasta',price:800,description:'Spicy',rating:4,_id:'3'},
+])
 
-  ])
+useEffect(()=>{
+  fetch('http://10.0.2.2:5000/food/')
+  .then(res=>res.json())
+  .then(results=>{
+    setFoodItems(results)
+    setLoading(false)
+  })
+})
+
   const addFood=(food)=>{
-    food.key=Math.random().toString()
+    food._id=Math.random().toString()
     setFoodItems((current)=>{
       return[food, ...current]
     })
     setModelOpen(false)
 
   }
-  const deleteFood= (key) =>{
+
+
+  const deleteFood= (_id) =>{
     setFoodItems((prevFood)=>{
-     return prevFood.filter(food=> food.key != key)
+     return prevFood.filter(food=> food._id != _id)
     })
     setModelOpen(false)
  }
@@ -42,7 +51,7 @@ export default function Home({navigation}) {
           onPress: () => console.log('cancel'),
           style: "cancel"
         },
-        { text: "Yes", onPress: () => deleteFood(item.key) }
+        { text: "Yes", onPress: () => deleteFood(item._id) }
       ]
     );
   return (
@@ -57,7 +66,7 @@ export default function Home({navigation}) {
                 style={[styles.modalToggle, styles.modalClose]}
                 onPress={()=>setModelOpen(false)}
               />
-              <FoodForm addFood={addFood}/>
+              <FoodForm/>
           </View>
          </TouchableWithoutFeedback>
       </Modal>
@@ -74,33 +83,37 @@ export default function Home({navigation}) {
         </View>
         
       </View>
-      
-        <FlatList
-          data={foodItems}
-          renderItem={({item})=>(
-            <View style={styles.foodROw}>
-              <View style={styles.crd}>
-                <TouchableOpacity onPress={()=>navigation.navigate('About',item)}> 
-                  <Card>
-                    <View style={styles.crdrow}>
-                        <Text style={globalStyles.itemText}>{item.name}</Text>
-                        <View style={styles.ant}>
-                          <AntDesign  style={styles.right} name='doubleright' size={20} />
-                        </View>
-                    </View>
-                  </Card> 
-                </TouchableOpacity>
-              </View>
-              <View style={styles.del}>
-                  <TouchableOpacity onPress={()=>deleteAlert({item,deleteFood})}>
-                          <MaterialIcons  name='delete' size={28} />
-                  </TouchableOpacity>
-              </View>
-            </View>
-               
-               
-          )}
-        />
+        {loading?  
+            <ActivityIndicator size='large' color='#0000ff'/>
+            :    <FlatList
+            data={foodItems}
+             renderItem={({item})=>(
+               <View style={styles.foodROw}>
+                 <View style={styles.crd}>
+                   <TouchableOpacity onPress={()=>navigation.navigate('About',item)}> 
+                     <Card>
+                       <View style={styles.crdrow}>
+                           <Text style={globalStyles.itemText}>{item.name}</Text>
+                           <View style={styles.ant}>
+                             <AntDesign  style={styles.right} name='doubleright' size={20} />
+                           </View>
+                       </View>
+                     </Card> 
+                   </TouchableOpacity>
+                 </View>
+                 <View style={styles.del}>
+                     <TouchableOpacity onPress={()=>deleteAlert({item,deleteFood})}>
+                             <MaterialIcons  name='delete' size={28} />
+                     </TouchableOpacity>
+                 </View>
+               </View>
+                  
+                  
+             )}
+             keyExtractor={item=>item.id}
+           />
+          }
+    
     </View>
   );
 }
@@ -140,7 +153,7 @@ const styles=StyleSheet.create({
   }
   ,crd:{
     width:'90%',
-    paddingRight:10
+    // paddingRight:10
     // position:'absolute'
   },
   crdrow:{
