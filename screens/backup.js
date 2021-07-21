@@ -5,30 +5,31 @@ import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
 
-export default function FoodForm({navigation}) {
+const foodSchema=yup.object({
+  name:yup.string()
+  .required()
+  .min(3),
+  price:yup.string()
+  .required()
+  .min(2),
+  description:yup.string()
+  .required()
+  .min(3),
+  rating:yup.string()
+  .required()
+  .test('is 4 or 5','rating must be 4 or 5',(val)=>{
+    return parseInt(val)<6 && parseInt(val)>3
+  })
+})
+
+export default function FoodForm({navigation,addFood}) {
   const[name,setName]=useState("")
     const[price,setPrice]=useState("")
     const[description,setDescription]=useState("")
     const[rating,setRating]=useState("")
     const[modelOpen,setModelOpen]=useState(false)
 
-    const foodSchema=yup.object({
-      name:yup.string()
-      .required()
-      .min(3),
-      price:yup.string()
-      .required()
-      .min(2),
-      description:yup.string()
-      .required()
-      .min(3),
-      rating:yup.string()
-      .required()
-      .test('is 4 or 5','rating must be 4 or 5',(val)=>{
-        return parseInt(val)<6 && parseInt(val)>3
-      })
-    })
- 
+
     
   const submitFood=(food)=>{
     fetch('http://10.0.2.2:5000/food/add',{
@@ -41,13 +42,13 @@ export default function FoodForm({navigation}) {
           price,
           description,
           rating,
-         
+          modelOpen
       })
     })
     .then(res=>res.json())
     .then(data=>{
-      Alert.alert(`food item ${data.name} added`)
-    
+      Alert.alert(`food item ${data} added`)
+      setModelOpen(false)
     })
   }
     return (
@@ -57,16 +58,14 @@ export default function FoodForm({navigation}) {
             validationSchema={foodSchema}
             onSubmit={(values,actions)=>{
                     onsubmit(values)
-                    actions.resetForm()
+                    // actions.resetForm()
             }}>
-      
             {(props)=>(
                 <View>
                     <TextInput style={globalStyles.input}
                         placeholder='Name of Food Item'
                         onChangeText={text => setName(text)}
-                        value={name}
-                        minLength={3}
+                        value={{name}}
                         onBlur={props.handleBlur('name')}/> 
                     <Text style={globalStyles.errorText}>{props.touched.name && props.errors.name}</Text>
                      <TextInput style={globalStyles.input}
