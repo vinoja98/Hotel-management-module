@@ -1,7 +1,6 @@
 const router=require('express').Router()
 let Food=require('../models/food.model')
 
-
 router.route('/').get((req,res)=>{
    Food.find()
    .then(Foods=>res.json(Foods))
@@ -16,7 +15,6 @@ router.route('/add').post((req,res)=>{
     const rating=Number(req.body.rating)
 
     const newFood=new Food({name,description,price,rating})
-
     //save to mongodb database
     newFood.save()
     .then(()=>res.json('Food added'))
