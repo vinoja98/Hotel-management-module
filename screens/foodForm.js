@@ -54,13 +54,13 @@ export default function FoodForm({navigation}) {
     return (
       <View style={globalStyles.container}>
         <Formik
-            initialValues={{name:'',price:'',description:'',rating:''}}
-            validationSchema={foodSchema}
+            initialValues={{name:'',price:'',description:'',rating:''}}>
+            {/* validationSchema={foodSchema}
             onSubmit={(values,actions)=>{
                     onsubmit(values)
                     actions.resetForm()
-            }}>
-      
+            }}
+       */}
             {(props)=>(
                 <View>
                     <TextInput style={globalStyles.input}

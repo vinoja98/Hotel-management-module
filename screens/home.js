@@ -78,7 +78,7 @@ useEffect(()=>{
           onPress={()=>setModelOpen(true)}
         />
         <View style={styles.btn}>
-          <FlatButton  text='go to Details' onPress={() =>
+          <FlatButton  text='Staff Details' onPress={() =>
             navigation.navigate('Details')}/>
         </View>
         
@@ -110,7 +110,7 @@ useEffect(()=>{
                   
                   
              )}
-             keyExtractor={item=>item.id}
+             keyExtractor={item=>item._id}
            />
           }
     
@@ -120,9 +120,10 @@ useEffect(()=>{
 const styles=StyleSheet.create({
  
   modalToggle:{
+      color:'#03498f',
       marginBottom:10,
       borderWidth:1,
-      borderColor:'gray',
+      borderColor:'#08b8e1',
       padding:10,
       borderRadius:10,
       alignSelf:'center'
@@ -139,7 +140,7 @@ const styles=StyleSheet.create({
     flexDirection:'row'
   },
   btn:{
-    paddingLeft:120
+    paddingLeft:162
   },
   del:{
     width:'10%',
@@ -163,6 +164,7 @@ const styles=StyleSheet.create({
    color:'#03498f'
   },
   del:{
+    paddingTop:5,
     color:'#03498f'
    },
   ant:{

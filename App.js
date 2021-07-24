@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Navigator from './routes/homeStack'
 import Navi from './routes/ReviewStack'
+import Details from './screens/details';
 
 const Drawer=createDrawerNavigator()
 
@@ -32,6 +33,7 @@ export default function App() {
         >
             <Drawer.Screen name="Home" children={Navigator} />
             <Drawer.Screen name="Review Details" children={Navi}/>
+            {/* <Drawer.Screen name="Special Offers" component={Details}/> */}
         </Drawer.Navigator>
       </NavigationContainer>
       );

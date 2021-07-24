@@ -24,17 +24,17 @@ const HomeStack = () => {
                 name="About" component={About} 
                 options={{
                   title:"About",
-                  headerStyle:{backgroundColor:'#80593a',height:56},
+                  headerStyle:{backgroundColor:'#08b8e1',height:56},
                   headerTitleStyle:{fontFamily:'nunito-bold'},
-                  headerTintColor:"black",
+                  headerTintColor:"#03498f",
                   // headerTransparent:require('../assets/pexels-photo-2504911.jpeg'),
                   // height:60,
                  
             }}/>
            <Stack.Screen 
-                name="Staff Details" component={Details} 
+                name="Details" component={Details} 
                 options={{
-                  title:"DETAILS",
+                  title:"Staff Details",
                   headerStyle:{backgroundColor:'#80593a',height:56},
                   headerTintColor:"black",
                   headerTitleStyle:{fontFamily:'nunito-bold'},

@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     paddingEnd:1
   },
   edit:{
+    color:'#03498f',
     paddingTop:10
   }
 })

@@ -48,9 +48,9 @@ export default function Header({navigation,title}) {
         color:'#03498f'
    },
    headerLogo:{
-     height:50,
-     width:50,
-     marginHorizontal:12,
+     height:55,
+     width:60,
+     marginHorizontal:8,
      borderRadius: 25
    },
    headerTitle:{
