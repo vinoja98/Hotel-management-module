@@ -9,13 +9,15 @@ export default function Header({navigation,title}) {
     }
 
     return (
-      <ImageBackground source={require('../assets/pexels-photo-2504911.jpeg')} style={styles.header}>
+      // <ImageBackground source={require('../assets/pexels-photo-2504911.jpeg')} style={styles.header}>
+      <View style={styles.header}>
           <MaterialIcons name='menu' size={28} onPress={openMenu} style={styles.icon}/>
          <View style={styles.headerTitle}>
             <Image style={styles.headerLogo} source={require('../assets/logo.png')}/>
             <Text style={styles.headerText}>{ title }</Text>
          </View>
-      </ImageBackground>
+      </View>
+       
     );
   }
 
@@ -27,13 +29,14 @@ export default function Header({navigation,title}) {
       //  width:'100%',
        alignItems:'center',
        justifyContent:'center',
-       backgroundColor:'pink',height:56
+       backgroundColor:'white',height:56
    },
    headerText:{
-       letterSpacing:1,
+       letterSpacing:2,
       //  fontWeight:'bold',
+      padding:10,
        fontSize:25,
-       color:'white',
+       color:'#03498f',
        fontFamily:'nunito-bold',
        textShadowColor: 'rgba(0, 0, 0, 0.75)',
       textShadowOffset: {width: -1, height: 1},
@@ -42,11 +45,11 @@ export default function Header({navigation,title}) {
    icon:{
         position:'absolute',
         left:16,
-        color:'white'
+        color:'#03498f'
    },
    headerLogo:{
-     height:30,
-     width:30,
+     height:50,
+     width:50,
      marginHorizontal:12,
      borderRadius: 25
    },
