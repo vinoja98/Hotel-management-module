@@ -23,7 +23,7 @@ const HomeStack = () => {
             <Stack.Screen 
                 name="About" component={About} 
                 options={{
-                  title:"ABOUT",
+                  title:"About",
                   headerStyle:{backgroundColor:'#80593a',height:56},
                   headerTitleStyle:{fontFamily:'nunito-bold'},
                   headerTintColor:"black",
@@ -32,7 +32,7 @@ const HomeStack = () => {
                  
             }}/>
            <Stack.Screen 
-                name="Details" component={Details} 
+                name="Staff Details" component={Details} 
                 options={{
                   title:"DETAILS",
                   headerStyle:{backgroundColor:'#80593a',height:56},

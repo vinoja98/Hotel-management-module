@@ -103,7 +103,7 @@ useEffect(()=>{
                  </View>
                  <View style={styles.del}>
                      <TouchableOpacity onPress={()=>deleteAlert({item,deleteFood})}>
-                             <MaterialIcons  name='delete' size={28} />
+                             <MaterialIcons style={styles.del} name='delete' size={28} />
                      </TouchableOpacity>
                  </View>
                </View>
@@ -160,8 +160,11 @@ const styles=StyleSheet.create({
     flexDirection:'row',
   },
   right:{
-   
+   color:'#03498f'
   },
+  del:{
+    color:'#03498f'
+   },
   ant:{
     position:'absolute',
     right:0,

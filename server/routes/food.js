@@ -1,14 +1,17 @@
 const router=require('express').Router()
-let Food=require('../models/food.model')
+let {Food,validateFood}=require('../models/food.model')
 
 router.route('/').get((req,res)=>{
-   Food.find()
+   Food.find().sort('name')
    .then(Foods=>res.json(Foods))
    .catch(err=>res.status(400).json('Error: '+err))
     
 })
 
 router.route('/add').post((req,res)=>{
+    // const { error } = validateFood(req.body); 
+    // if (error) return res.status(400).send(error.message);
+
     const name=req.body.name
     const description=req.body.description
     const price=Number(req.body.price)
@@ -37,6 +40,9 @@ router.route('/:id').get((req,res)=>{
  })
 
  router.route('/update/:id').post((req,res)=>{
+    // const { error } = validateFood(req.body); 
+    // if (error) return res.status(400).send(error.details[0].message);
+
     Food.findById(req.params.id)
     .then(Food=>{
             Food.name=req.body.name

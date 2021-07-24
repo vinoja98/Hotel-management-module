@@ -18,12 +18,12 @@ export default function FlatButton({text,onPress}) {
         borderRadius:8,
         paddingVertical:14,
         paddingHorizontal:10,
-        backgroundColor:'#80593a',
+        backgroundColor:'#08b8e1'
     },
     buttonText:{
-      color:'white',
+      color:'#03498f',
       fontFamily:'nunito-bold',
-      textTransform:'uppercase',
+      // textTransform:'uppercase',
       fontSize:16,
       textAlign:'center'
     },

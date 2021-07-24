@@ -8,7 +8,7 @@ export const globalStyles = StyleSheet.create({
       itemText:{
           fontFamily:'nunito-regular'
           ,fontSize:18,
-          color:'#232323'
+          color:'#03498f'
       },
       paragraph:{
           marginVertical:8,
@@ -16,13 +16,13 @@ export const globalStyles = StyleSheet.create({
       },
       input:{
           borderWidth:1,
-          borderColor:'#ddd',
+          borderColor:'#03498f',
           padding:10,
           fontSize:18,
           borderRadius:6
       },
       errorText:{
-          color:'#80593a',
+          color:'#03498f',
           fontFamily:'nunito-bold',
           marginBottom:10,
           textAlign:'center',

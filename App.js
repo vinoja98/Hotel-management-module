@@ -23,8 +23,8 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator
            drawerContentOptions={{
-            activeTintColor: '#80593a',
-            inactiveTintColor:'#232323',
+            activeTintColor: '#03498f',
+            inactiveTintColor:'#08b8e1',
             itemStyle: { marginVertical: 5},
             labelStyle:{fontFamily:'nunito-bold'}
             
