@@ -5,12 +5,12 @@ import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
 
-export default function FoodForm({navigation}) {
+export default function FoodForm({navigation ,setModelOpen}) {
   const[name,setName]=useState("")
     const[price,setPrice]=useState("")
     const[description,setDescription]=useState("")
     const[rating,setRating]=useState("")
-    const[modelOpen,setModelOpen]=useState(false)
+    // const[modelOpen,setModelOpen]=useState(false)
 
     // const foodSchema=yup.object({
     //   name:yup.string()
@@ -46,10 +46,13 @@ export default function FoodForm({navigation}) {
     })
     .then(res=>res.json())
     .then(data=>{
-      Alert.alert(`food item ${data.name} added`)
+      // Alert.alert(`food item ${data.name} added`)
+      setModelOpen(false)
     
     })
-    // .catch(err=>res.status(400).json('Error: '+err))
+    .catch(err=>{
+      Alert.alert("something went wrong")
+    })
   }
     return (
       <View style={globalStyles.container}>
@@ -92,7 +95,7 @@ export default function FoodForm({navigation}) {
                         keyboardType='numeric'/>
                     {/* <Text style={globalStyles.errorText}>{props.touched.rating && props.errors.rating}</Text> */}
                 
-                    <FlatButton text='add' onPress={submitFood}/>
+                    <FlatButton text='Add' onPress={submitFood}/>
                 </View>
             )
             }

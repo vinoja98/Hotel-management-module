@@ -34,9 +34,9 @@ const HomeStack = () => {
            <Stack.Screen 
                 name="Details" component={Details} 
                 options={{
-                  title:"Staff Details",
-                  headerStyle:{backgroundColor:'#80593a',height:56},
-                  headerTintColor:"black",
+                  title:"Staff   Details",
+                  headerStyle:{backgroundColor:'#08b8e1',height:56},
+                  headerTintColor:"#03498f",
                   headerTitleStyle:{fontFamily:'nunito-bold'},
                   // fontFamily:'nunito-regular'
             }}/>

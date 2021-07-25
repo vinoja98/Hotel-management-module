@@ -36,10 +36,31 @@ useEffect(()=>{
 
 
   const deleteFood= (_id) =>{
-    setFoodItems((prevFood)=>{
+    console.log(_id)
+    // setFoodItems((prevFood)=>{
+    //  return prevFood.filter(food=> food._id != _id)
+    // })
+    // setModelOpen(false)
+    fetch("http://10.0.2.2:5000/food/" +_id,{
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+         id:_id
+      })
+    })
+    .then(res=>res.json())
+    .then(deleted=>{
+      console.log(deleted)
+      Alert.alert(`food item ${deleted.name} deleted`)
+      setFoodItems((prevFood)=>{
      return prevFood.filter(food=> food._id != _id)
     })
-    setModelOpen(false)
+    })
+    .catch(err=>{
+      Alert.alert("something went wrong")
+    })
  }
  const deleteAlert = ({item,deleteFood}) =>
     Alert.alert(
@@ -66,7 +87,7 @@ useEffect(()=>{
                 style={[styles.modalToggle, styles.modalClose]}
                 onPress={()=>setModelOpen(false)}
               />
-              <FoodForm/>
+              <FoodForm modelOpen={modelOpen} setModelOpen={setModelOpen}/>
           </View>
          </TouchableWithoutFeedback>
       </Modal>
@@ -78,7 +99,7 @@ useEffect(()=>{
           onPress={()=>setModelOpen(true)}
         />
         <View style={styles.btn}>
-          <FlatButton  text='Staff Details' onPress={() =>
+          <FlatButton  text='Staff   Details' onPress={() =>
             navigation.navigate('Details')}/>
         </View>
         

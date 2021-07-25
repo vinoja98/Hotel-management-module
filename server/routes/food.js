@@ -1,4 +1,5 @@
 const router=require('express').Router()
+const mongoose=require('mongoose');
 let {Food,validateFood}=require('../models/food.model')
 
 router.route('/').get((req,res)=>{
@@ -33,7 +34,9 @@ router.route('/:id').get((req,res)=>{
  })
 
  router.route('/:id').delete((req,res)=>{
-    Food.findByIdAndDelete(req.params.id)
+    //  const foodId=JSON.parse(req.params.id)
+    // const objectId = mongoose.Types.ObjectId(foodId);         
+    Food.findByIdAndRemove(req.params.id)
     .then(()=>res.json('Food deleted'))
     .catch(err=>res.status(400).json('Error: '+err))
      
@@ -58,8 +61,8 @@ router.route('/:id').get((req,res)=>{
         .catch(err=>res.status(400).json('Error: '+err))
     })
     
-router.route('delete').post((req,res)=>{
-    Food.findByIdAndRemove(req.body.id)
+router.route('/delete').delete((req,res)=>{
+    Food.findByIdAndRemove(req.params.id)
     .then(()=>res.json('Food deleted'))
     .catch(err=>res.status(400).json('Error: '+err))
 })
