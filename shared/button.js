@@ -16,7 +16,7 @@ export default function FlatButton({text,onPress}) {
   const styles = StyleSheet.create({
     button:{
         borderRadius:8,
-        paddingVertical:14,
+        paddingVertical:18,
         paddingHorizontal:10,
         backgroundColor:'#08b8e1'
     },

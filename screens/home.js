@@ -35,7 +35,7 @@ useEffect(()=>{
   }
 
 
-  const deleteFood= (_id) =>{
+  const deleteFood= (_id,name) =>{
     console.log(_id)
     // setFoodItems((prevFood)=>{
     //  return prevFood.filter(food=> food._id != _id)
@@ -52,8 +52,7 @@ useEffect(()=>{
     })
     .then(res=>res.json())
     .then(deleted=>{
-      console.log(deleted)
-      Alert.alert(`food item ${deleted.name} deleted`)
+      Alert.alert(`food item ${name} deleted`)
       setFoodItems((prevFood)=>{
      return prevFood.filter(food=> food._id != _id)
     })
@@ -72,19 +71,19 @@ useEffect(()=>{
           onPress: () => console.log('cancel'),
           style: "cancel"
         },
-        { text: "Yes", onPress: () => deleteFood(item._id) }
+        { text: "Yes", onPress: () => deleteFood(item._id,item.name) }
       ]
     );
   return (
     <View style={globalStyles.container}>
       <Modal visible={modelOpen} animationType='slide'>
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.modalContent}>
+          <View style={globalStyles.modalContent}>
 
               <MaterialIcons
                 name='close'
                 size={24}
-                style={[styles.modalToggle, styles.modalClose]}
+                style={[ globalStyles.modalToggle,  globalStyles.modalClose]}
                 onPress={()=>setModelOpen(false)}
               />
               <FoodForm modelOpen={modelOpen} setModelOpen={setModelOpen}/>
@@ -95,7 +94,7 @@ useEffect(()=>{
         <MaterialIcons
           name='add'
           size={24}
-          style={styles.modalToggle}
+          style={ globalStyles.modalToggle}
           onPress={()=>setModelOpen(true)}
         />
         <View style={styles.btn}>
@@ -139,24 +138,8 @@ useEffect(()=>{
   );
 }
 const styles=StyleSheet.create({
- 
-  modalToggle:{
-      color:'#03498f',
-      marginBottom:10,
-      borderWidth:1,
-      borderColor:'#08b8e1',
-      padding:10,
-      borderRadius:10,
-      alignSelf:'center'
-  },
-  modalClose:{
-    marginTop:20,
-    marginBottom:0
-  },
-  modalContent:{
-    flex:1,
 
-  },
+ 
   topROw:{
     flexDirection:'row'
   },

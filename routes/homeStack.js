@@ -4,6 +4,7 @@ import Home from "../screens/home";
 import About from '../screens/about';
 import Header from '../shared/header';
 import Details from '../screens/details';
+import FoodEdit from '../screens/foodEdit';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,16 @@ const HomeStack = () => {
                   headerTitleStyle:{fontFamily:'nunito-bold'},
                   // fontFamily:'nunito-regular'
             }}/>
+                 <Stack.Screen 
+                name="FoodEdit" component={FoodEdit} 
+                options={{
+                  title:"Edit Food Items",
+                  headerStyle:{backgroundColor:'#08b8e1',height:56},
+                  headerTintColor:"#03498f",
+                  headerTitleStyle:{fontFamily:'nunito-bold'},
+                  // fontFamily:'nunito-regular'
+            }}/>
+
           
         </Stack.Navigator>
  

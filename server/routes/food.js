@@ -46,19 +46,32 @@ router.route('/:id').get((req,res)=>{
     // const { error } = validateFood(req.body); 
     // if (error) return res.status(400).send(error.details[0].message);
 
-    Food.findById(req.params.id)
-    .then(Food=>{
-            Food.name=req.body.name
-            Food.description=req.body.description
-            Food.price=Number(req.body.price)
-            Food.rating=Number(req.body.rating)
+    // Food.findById(req.params.id)
+    // .then(Food=>{
+    //         Food.name=req.body.name
+    //         Food.description=req.body.description
+    //         Food.price=Number(req.body.price)
+    //         Food.rating=Number(req.body.rating)
             
-            //save to mongodb database
-            Food.save()
-            .then(()=>res.json('Food updated'))
-            .catch(err=>res.status(400).json('Error: '+err))
-        })
-        .catch(err=>res.status(400).json('Error: '+err))
+    //         //save to mongodb database
+    //         Food.save()
+    //         .then(()=>res.json('Food updated'))
+    //         .catch(err=>res.status(400).json('Error: '+err))
+    //     })
+    //     .catch(err=>res.status(400).json('Error: '+err))
+    
+    Food.findByIdAndUpdate(req.params.id,{
+        name:req.body.name,
+        price:Number(req.body.price),
+        description:req.body.description,
+        rating:Number(req.body.rating)
+    }).then(data=>{
+        console.log(data)
+        res.send(data)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
     })
     
 router.route('/delete').delete((req,res)=>{

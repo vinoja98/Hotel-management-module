@@ -27,7 +27,24 @@ export const globalStyles = StyleSheet.create({
           marginBottom:10,
           textAlign:'center',
           marginTop:6
-      }
+      },
+      modalToggle:{
+        color:'#03498f',
+        marginBottom:10,
+        borderWidth:1,
+        borderColor:'#08b8e1',
+        padding:10,
+        borderRadius:10,
+        alignSelf:'center'
+    },
+    modalClose:{
+      marginTop:20,
+      marginBottom:0
+    },
+    modalContent:{
+        flex:1,
+    
+      },
 })
 export const images={
     ratings:{
