@@ -7,7 +7,8 @@ import FoodEdit from './foodEdit';
 
 export default function About({route}) {
   const {_id} =route.params
-  // const { name } = route.params;
+
+  const { createdAt } = route.params;
   // const { price} = route.params;
   // const { description } = route.params;
   // const { rating } = route.params;
@@ -58,6 +59,7 @@ export default function About({route}) {
           <Image style={styles.pic2} source={require('../assets/cover-for-street-food-in-sydney.jpg')}/>
           <View  style={styles.cardCol}>
               <Text style={globalStyles.itemText}>{name}</Text>
+              
               <Text style={globalStyles.itemText}>Rs.{price}</Text>
               <Text style={globalStyles.itemText}>{description}</Text>
           </View>
@@ -71,6 +73,11 @@ export default function About({route}) {
         <View style={styles.rating}>
             <Text style={globalStyles.itemText}>Rating:</Text>
             <Image style={styles.pic} source={images.ratings[rating]}/>
+            
+        </View>
+        <View style={styles.rating}>
+          <Text style={globalStyles.itemText}>createdAt:</Text>
+          <Text style={globalStyles.itemText}>{createdAt}</Text>
         </View>
       </Card>
     </View>

@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -8,8 +9,12 @@ import Navigator from './routes/homeStack'
 import Navi from './routes/ReviewStack'
 import Navi2 from './routes/offersStack'
 import Navi3 from './routes/roomBookingStack'
-
+// import LoadingScreen from './screens/loading';
+import LoginScreen from './screens/login';
+import SignupScreen from './screens/signup';
+const Stack = createStackNavigator();
 const Drawer=createDrawerNavigator()
+import HomeScreen from './screens/homeScreen';
 
 const getFonts=()=>Font.loadAsync({
       'nunito-regular':require('./assets/fonts/Nunito-Regular.ttf'),
@@ -23,7 +28,21 @@ export default function App() {
   if(fontsLoaded){
     return (
       <NavigationContainer>
-        <Drawer.Navigator
+          {/* <NavigationNativeContainer> */}
+      <Stack.Navigator
+      headerMode="none"
+      >
+ 
+            {/* <Stack.Screen name="loading" component={LoadingScreen} /> */}
+            
+            <Stack.Screen name="login" component={LoginScreen} />
+            <Stack.Screen name="signup" component={SignupScreen} />
+            <Stack.Screen name="homeScreen" component={HomeScreen} />
+        
+        
+      </Stack.Navigator>
+    {/* </NavigationNativeContainer> */}
+        {/* <Drawer.Navigator
            drawerContentOptions={{
             activeTintColor: '#03498f',
             inactiveTintColor:'#08b8e1',
@@ -36,7 +55,7 @@ export default function App() {
             <Drawer.Screen name="Review Details" children={Navi}/>
             <Drawer.Screen name="Special Offers" children={Navi2}/>
             <Drawer.Screen name="Room Bookings" children={Navi3}/>
-        </Drawer.Navigator>
+        </Drawer.Navigator> */}
       </NavigationContainer>
       );
   }

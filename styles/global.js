@@ -1,6 +1,13 @@
 import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
+    front:{
+        justifyContent:'center',
+        alignItems:'center',
+        color:'white',
+        width:'100%',
+        height:'100%'
+    },
     container: {
         flex:1,
         padding:24

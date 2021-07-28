@@ -7,7 +7,7 @@ import {AntDesign} from '@expo/vector-icons'
 import FoodForm from './foodForm';
 import FlatButton from '../shared/button';
 
-export default function Home({navigation}) {
+export default function Home({navigation,props}) {
   const[loading,setLoading]=useState(true)
   const[modelOpen,setModelOpen]=useState(false)
   const[foodItems,setFoodItems]=useState([
@@ -101,6 +101,10 @@ useEffect(()=>{
           <FlatButton  text='Staff   Details' onPress={() =>
             navigation.navigate('Details')}/>
         </View>
+        <View style={styles.btn2}>
+          <FlatButton  text='Logout'/>
+          
+        </View>
         
       </View>
         {loading?  
@@ -114,6 +118,7 @@ useEffect(()=>{
                      <Card>
                        <View style={styles.crdrow}>
                            <Text style={globalStyles.itemText}>{item.name}</Text>
+                           
                            <View style={styles.ant}>
                              <AntDesign  style={styles.right} name='doubleright' size={20} />
                            </View>
@@ -144,7 +149,10 @@ const styles=StyleSheet.create({
     flexDirection:'row'
   },
   btn:{
-    paddingLeft:162
+    paddingLeft:70
+  },
+  btn2:{
+    paddingLeft:10
   },
   del:{
     width:'10%',

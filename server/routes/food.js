@@ -11,8 +11,10 @@ router.route('/').get((req,res)=>{
 
 router.route('/add').post((req,res)=>{
     // const { error } = validateFood(req.body); 
-    // if (error) return res.status(400).send(error.message);
-
+    // if (error) {
+    //     return res.status(400).send(error.message);
+    // }
+   
     const name=req.body.name
     const description=req.body.description
     const price=Number(req.body.price)
@@ -23,6 +25,15 @@ router.route('/add').post((req,res)=>{
     newFood.save()
     .then(()=>res.json('Food added'))
     .catch(err=>res.status(400).json('Error: '+err))
+    
+//   let food = new Food({ 
+//     name: req.body.name,
+//     description:req.body.description,
+//     price:Number(req.body.price),
+//     rating:Number(req.body.rating)
+//   });
+//   food= food.save();
+//   res.send(food)
 
 })
 
