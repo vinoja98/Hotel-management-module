@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react';
-import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard,ActivityIndicator} from 'react-native';
+import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,
+  Modal,TouchableWithoutFeedback,Keyboard,ActivityIndicator,StatusBar, KeyboardAvoidingView,} from 'react-native';
 import { globalStyles } from '../styles/global';
 import Card from '../shared/card';
 import {MaterialIcons} from '@expo/vector-icons'
@@ -76,6 +77,8 @@ useEffect(()=>{
     );
   return (
     <View style={globalStyles.container}>
+    <StatusBar backgroundColor="#03498f" barStyle="light-content" />
+    
       <Modal visible={modelOpen} animationType='slide'>
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={globalStyles.modalContent}>
@@ -140,6 +143,7 @@ useEffect(()=>{
           }
     
     </View>
+   
   );
 }
 const styles=StyleSheet.create({

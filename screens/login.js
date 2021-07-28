@@ -64,7 +64,7 @@ const LoginScreen = (props) => {
   return (
    <> 
    <KeyboardAvoidingView behavior="position" backgroundColor='white'>
-     <StatusBar backgroundColor="blue" barStyle="light-content" />
+     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
     
       <Text 
       style={{fontSize:25,textAlign:'center',marginTop:30,color:"#08b8e1",fontFamily:'nunito-bold'}}>Welcome to</Text>

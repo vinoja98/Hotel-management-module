@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,TextInput,Alert} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert} from 'react-native';
+import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
@@ -59,7 +60,9 @@ export default function FoodEdit({name,price,description,rating,setModelOpen,_id
                 <View>
                     <TextInput style={globalStyles.input}
                          minHeight={50}
-                        placeholder='Name of Food Item'
+                         label='Food Item'
+                         mode="outlined"
+                         theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text =>setName(text)}
                         value={name}
                         minLength={3}/>
@@ -67,7 +70,9 @@ export default function FoodEdit({name,price,description,rating,setModelOpen,_id
                     {/* <Text style={globalStyles.errorText}>{props.touched.name && props.errors.name}</Text> */}
                      <TextInput style={globalStyles.input}
                           minHeight={50}
-                        placeholder='Price'
+                          label='Price'
+                          mode="outlined"
+                          theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text => setPrice(text)}
                         value={price.toString()}
                         // onBlur={props.handleBlur('price')}
@@ -75,7 +80,9 @@ export default function FoodEdit({name,price,description,rating,setModelOpen,_id
                     {/* <Text style={globalStyles.errorText}>{props.touched.price && props.errors.price}</Text> */}
                      <TextInput style={globalStyles.input}
                         multiline minHeight={50}
-                        placeholder='Description of Food Item'
+                        label='Description'
+                        mode="outlined"
+                        theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text => setDescription(text)}
                         value={description}
                         minLength={3}/>
@@ -83,7 +90,9 @@ export default function FoodEdit({name,price,description,rating,setModelOpen,_id
                       {/* <Text style={globalStyles.errorText}>{props.touched.description && props.errors.description}</Text> */}
                      <TextInput style={globalStyles.input}
                          minHeight={50}
-                        placeholder='Rating(4/5)'
+                         label='Rating'
+                         mode="outlined"
+                         theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text => setRating(text)}
                         value={rating.toString()}
                         // onBlur={props.handleBlur('rating')}

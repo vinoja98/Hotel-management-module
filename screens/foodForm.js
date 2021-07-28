@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,TextInput,Alert} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert} from 'react-native';
+import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
@@ -67,29 +68,41 @@ export default function FoodForm({navigation ,setModelOpen}) {
             {(props)=>(
                 <View>
                     <TextInput style={globalStyles.input}
-                        placeholder='Name of Food Item'
+                        label='Food Item'
+                        mode="outlined"
+                        theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text => setName(text)}
                         value={name}
-                        minLength={3}/>
+                        
+                        />
                         {/* onBlur={props.handleBlur('name')}  */}
                     {/* <Text style={globalStyles.errorText}>{props.touched.name && props.errors.name}</Text> */}
                      <TextInput style={globalStyles.input}
-                        placeholder='Price'
+                        label='Price'
+                        mode="outlined"
+                        theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text => setPrice(text)}
                         value={price}
+                        
                         // onBlur={props.handleBlur('price')}
                         keyboardType='numeric'/>
                     {/* <Text style={globalStyles.errorText}>{props.touched.price && props.errors.price}</Text> */}
                      <TextInput style={globalStyles.input}
                         multiline minHeight={80}
-                        placeholder='Description of Food Item'
+                        label='Description'
+                        mode="outlined"
+                        theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text => setDescription(text)}
+                        
                         value={description}/>
                         {/* onBlur={props.handleBlur('description')} */}
                       {/* <Text style={globalStyles.errorText}>{props.touched.description && props.errors.description}</Text> */}
                      <TextInput style={globalStyles.input}
-                        placeholder='Rating(4/5)'
+                        label='Rating'
+                        mode="outlined"
+                        theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text => setRating(text)}
+                        
                         value={rating}
                         // onBlur={props.handleBlur('rating')}
                         keyboardType='numeric'/>

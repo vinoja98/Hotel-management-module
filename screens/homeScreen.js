@@ -12,6 +12,7 @@ import Navigator from '../routes/homeStack'
 import Navi from '../routes/ReviewStack'
 import Navi2 from '../routes/offersStack'
 import Navi3 from '../routes/roomBookingStack'
+import { DrawerContent } from '../screens/drawerContent';
 
 const Drawer=createDrawerNavigator()
 
@@ -52,6 +53,7 @@ const HomeScreen = (props) => {
 //    </>
     
           <Drawer.Navigator
+          drawerContent={props => <DrawerContent {...props} />}
            drawerContentOptions={{
             activeTintColor: '#03498f',
             inactiveTintColor:'#08b8e1',
@@ -60,10 +62,10 @@ const HomeScreen = (props) => {
             
           }}
         >
-            <Drawer.Screen name="Home" children={Navigator} />
-            <Drawer.Screen name="Review Details" children={Navi}/>
-            <Drawer.Screen name="Special Offers" children={Navi2}/>
-            <Drawer.Screen name="Room Bookings" children={Navi3}/>
+            <Drawer.Screen name="Navigator" children={Navigator} />
+            <Drawer.Screen name="Navi" children={Navi}/>
+            <Drawer.Screen name="Navi2" children={Navi2}/>
+            <Drawer.Screen name="Navi3" children={Navi3}/>
         </Drawer.Navigator>
  
   );
