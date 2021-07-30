@@ -17,6 +17,9 @@ const SignupScreen = (props) => {
 
   const [email,setEmail] = useState('');
   const [password,setPassword]=useState('')
+  const [name,setName] = useState('');
+  const [nic,setNIC] = useState('');
+  const [contactNo,setContact] = useState('');
 
 //   const sendCred= async (props)=>{
 //      fetch("http://10.0.2.2:3000/signup",{
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
   return (
     <> 
    <KeyboardAvoidingView behavior="position" backgroundColor='white'>
-     <StatusBar backgroundColor="blue" barStyle="light-content" />
+   <StatusBar backgroundColor="#03498f" barStyle="light-content" />
     
       <Text 
       style={{fontSize:25,textAlign:'center',marginTop:30,color:"#08b8e1",fontFamily:'nunito-bold'}}>Welcome to</Text>
@@ -88,8 +91,9 @@ const styles = StyleSheet.create({
          <View>
       <TextInput
         label='Name'
+        placeholder='Min 3 characters needed'
         mode="outlined"
-        value={email}
+        value={name}
         style={{marginTop:150,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
         theme={{colors:{primary:"#08b8e1"}}}
         onChangeText={(text)=>setEmail(text)}
@@ -97,9 +101,10 @@ const styles = StyleSheet.create({
       />
       <TextInput
         label='NIC'
+        placeholder='10 characters needed'
         mode="outlined"
         secureTextEntry={true}
-        value={password}
+        value={nic}
         onChangeText={(text)=>{setPassword(text)}}
         style={{marginTop:18,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
         theme={{colors:{primary:"#08b8e1"}}}
@@ -107,6 +112,7 @@ const styles = StyleSheet.create({
       />
         <TextInput
         label='Email'
+        placeholder='Min 5 characters needed'
         mode="outlined"
         value={email}
         style={{marginTop:18,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
@@ -116,8 +122,9 @@ const styles = StyleSheet.create({
       />
         <TextInput
         label='Contact Number'
+        placeholder='10 characters needed'
         mode="outlined"
-        value={email}
+        value={contactNo}
         style={{marginTop:18,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
         theme={{colors:{primary:"#08b8e1"}}}
         onChangeText={(text)=>setEmail(text)}
@@ -125,8 +132,9 @@ const styles = StyleSheet.create({
       />
         <TextInput
         label='Password'
+        placeholder='Min 5 characters needed'
         mode="outlined"
-        value={email}
+        value={password}
         style={{marginTop:18,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
         theme={{colors:{primary:"#08b8e1"}}}
         onChangeText={(text)=>setEmail(text)}

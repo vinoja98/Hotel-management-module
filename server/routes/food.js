@@ -1,41 +1,82 @@
 const router=require('express').Router()
 const mongoose=require('mongoose');
+const _ = require('lodash');
 let {Food,validateFood}=require('../models/food.model')
 
-router.route('/').get((req,res)=>{
-   Food.find().sort('name')
-   .then(Foods=>res.json(Foods))
-   .catch(err=>res.status(400).json('Error: '+err))
-    
-})
-
-router.route('/add').post((req,res)=>{
-    // const { error } = validateFood(req.body); 
-    // if (error) {
-    //     return res.status(400).send(error.message);
-    // }
+router.get('/',async(req,res)=>{
+//    Food.find().sort('name')
+//    .then(Foods=>res.json(Foods))
+//    .catch(err=>res.status(400).json('Error: '+err))
+try{const food = await Food.find().sort('name');
+res.send(food);
+}
+catch{
+   return res.status(422).send(err.message)
+}
    
-    const name=req.body.name
-    const description=req.body.description
-    const price=Number(req.body.price)
-    const rating=Number(req.body.rating)
-
-    const newFood=new Food({name,description,price,rating})
-    //save to mongodb database
-    newFood.save()
-    .then(()=>res.json('Food added'))
-    .catch(err=>res.status(400).json('Error: '+err))
     
-//   let food = new Food({ 
-//     name: req.body.name,
-//     description:req.body.description,
-//     price:Number(req.body.price),
-//     rating:Number(req.body.rating)
-//   });
-//   food= food.save();
-//   res.send(food)
-
 })
+
+router.post('/add', async (req, res) => {
+    const validation = validateFood(req.body); 
+    if(validation.error) {
+      return res.status(400).send(validation.error.details[0].message);
+      }      
+try{
+    let newFood = await User.findOne({ name: req.body.name });
+    if (newFood) return res.status(400).send('Food Item already added.');
+    newFood = new Food(_.pick(req.body, ['name', 'description','price','rating']));
+
+    await newFood.save();
+    res.send(_.pick(newFood, ['_id', 'name','description','price','rating']));
+}catch(err){
+    return res.status(422).send(err.message)
+  }
+})
+
+router.delete('/:id',async(req,res)=>{
+    try{
+       const food=await Food.findByIdAndRemove(req.params.id)
+       res.send(food)
+    }
+    catch(err){
+       return res.status(422).send(err.message)
+     }
+    
+})
+
+router.post('/update/:id',async(req,res)=>{
+   const validation = validateFood(req.body); 
+   if(validation.error) {
+     return res.status(400).send(validation.error.details[0].message);
+     }    
+try{
+   let food=await Food.findByIdAndUpdate(req.params.id,{
+   name:req.body.name,
+   price:Number(req.body.price),
+   description:req.body.description,
+   rating:Number(req.body.rating)
+   })
+   res.send(food)
+}
+catch(err){
+   return res.status(422).send(err.message)
+ }
+   // Food.findByIdAndUpdate(req.params.id,{
+   //     name:req.body.name,
+   //     price:Number(req.body.price),
+   //     description:req.body.description,
+   //     rating:Number(req.body.rating)
+   // }).then(data=>{
+   //     console.log(data)
+   //     res.send(data)
+   // })
+   // .catch(err=>{
+   //     console.log(err)
+   // })
+   })
+
+
 
 router.route('/:id').get((req,res)=>{
     Food.findById(req.params.id)
@@ -44,46 +85,7 @@ router.route('/:id').get((req,res)=>{
      
  })
 
- router.route('/:id').delete((req,res)=>{
-    //  const foodId=JSON.parse(req.params.id)
-    // const objectId = mongoose.Types.ObjectId(foodId);         
-    Food.findByIdAndRemove(req.params.id)
-    .then(()=>res.json('Food deleted'))
-    .catch(err=>res.status(400).json('Error: '+err))
-     
- })
 
- router.route('/update/:id').post((req,res)=>{
-    // const { error } = validateFood(req.body); 
-    // if (error) return res.status(400).send(error.details[0].message);
-
-    // Food.findById(req.params.id)
-    // .then(Food=>{
-    //         Food.name=req.body.name
-    //         Food.description=req.body.description
-    //         Food.price=Number(req.body.price)
-    //         Food.rating=Number(req.body.rating)
-            
-    //         //save to mongodb database
-    //         Food.save()
-    //         .then(()=>res.json('Food updated'))
-    //         .catch(err=>res.status(400).json('Error: '+err))
-    //     })
-    //     .catch(err=>res.status(400).json('Error: '+err))
-    
-    Food.findByIdAndUpdate(req.params.id,{
-        name:req.body.name,
-        price:Number(req.body.price),
-        description:req.body.description,
-        rating:Number(req.body.rating)
-    }).then(data=>{
-        console.log(data)
-        res.send(data)
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-    })
     
 router.route('/delete').delete((req,res)=>{
     Food.findByIdAndRemove(req.params.id)

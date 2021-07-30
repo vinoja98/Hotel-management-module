@@ -31,7 +31,7 @@ const LoginScreen = (props) => {
     },
     container: {
       flex:1,
-      color:'white',
+      backgroundColor:'white',
     },
     logo:{
       alignItems:'center'
@@ -63,7 +63,8 @@ const LoginScreen = (props) => {
 
   return (
    <> 
-   <KeyboardAvoidingView behavior="position" backgroundColor='white'>
+   <View style={styles.container}>
+   {/* <KeyboardAvoidingView behavior="position" backgroundColor='white'> */}
      <StatusBar backgroundColor="#03498f" barStyle="light-content" />
     
       <Text 
@@ -124,7 +125,8 @@ const LoginScreen = (props) => {
       >Don't have a account ?</Text>
       </TouchableOpacity>
     
-      </KeyboardAvoidingView>
+      {/* </KeyboardAvoidingView> */}
+      </View>
    </>
   );
 };

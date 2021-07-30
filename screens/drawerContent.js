@@ -66,6 +66,8 @@ export function DrawerContent(props) {
                             )}
                             label="Home"
                             labelStyle={{color:'#08b8e1',fontFamily:'nunito-bold'}}
+                            activeTintColor='#03498f'
+                            inactiveTintColor='#08b8e1'
                             onPress={() => {props.navigation.navigate('Navigator')}}
                         />
                         <DrawerItem 
