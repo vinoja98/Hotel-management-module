@@ -1,40 +1,41 @@
+const auth = require('../middleware/auth');
 const router=require('express').Router()
 const mongoose=require('mongoose');
 const _ = require('lodash');
 let {Food,validateFood}=require('../models/food.model')
 
-router.get('/',async(req,res)=>{
+router.get('/',auth,async(req,res)=>{
 //    Food.find().sort('name')
 //    .then(Foods=>res.json(Foods))
 //    .catch(err=>res.status(400).json('Error: '+err))
-try{const food = await Food.find().sort('name');
-res.send(food);
-}
-catch{
-   return res.status(422).send(err.message)
-}
-   
+   try{const food = await Food.find().sort('name');
+   res.send(food);
+   }
+   catch{
+      return res.status(422).send(err.message)
+   }
+      
     
 })
 
-router.post('/add', async (req, res) => {
+router.post('/add', auth, async (req, res) => {
     const validation = validateFood(req.body); 
     if(validation.error) {
       return res.status(400).send(validation.error.details[0].message);
       }      
-try{
-    let newFood = await User.findOne({ name: req.body.name });
-    if (newFood) return res.status(400).send('Food Item already added.');
-    newFood = new Food(_.pick(req.body, ['name', 'description','price','rating']));
+   try{
+      let newFood = await Food.findOne({ name: req.body.name });
+      if (newFood) return res.status(400).send('Food Item already added.');
+      newFood = new Food(_.pick(req.body, ['name', 'description','price','rating']));
 
-    await newFood.save();
-    res.send(_.pick(newFood, ['_id', 'name','description','price','rating']));
-}catch(err){
-    return res.status(422).send(err.message)
-  }
+      await newFood.save();
+      res.send(_.pick(newFood, ['_id', 'name','description','price','rating']));
+   }catch(err){
+      return res.status(422).send(err.message)
+   }
 })
 
-router.delete('/:id',async(req,res)=>{
+router.delete('/:id',auth,async(req,res)=>{
     try{
        const food=await Food.findByIdAndRemove(req.params.id)
        res.send(food)
@@ -45,7 +46,7 @@ router.delete('/:id',async(req,res)=>{
     
 })
 
-router.post('/update/:id',async(req,res)=>{
+router.post('/update/:id',auth,async(req,res)=>{
    const validation = validateFood(req.body); 
    if(validation.error) {
      return res.status(400).send(validation.error.details[0].message);

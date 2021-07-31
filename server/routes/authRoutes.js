@@ -25,9 +25,6 @@ router.post('/signin',async (req,res)=>{
       }catch(err){
         return res.status(422).send({error :"must provide email or password"})
       }
-   
-
-
 })
  
 function validate(req) {
