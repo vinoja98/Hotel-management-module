@@ -21,7 +21,7 @@ router.post('/signin',async (req,res)=>{
       if (!validPassword) return res.status(400).send('Invalid email or password.');
   
       const token = user.generateAuthToken();
-      res.send(token);
+      res.header('x-auth-token', token).send({token: token});
       }catch(err){
         return res.status(422).send({error :"must provide email or password"})
       }

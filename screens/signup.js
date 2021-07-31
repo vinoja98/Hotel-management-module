@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles } from '../styles/global';
 import {
@@ -11,7 +11,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,Keyboard
 } from 'react-native';
-// import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignupScreen = (props) => {
 
@@ -21,27 +21,30 @@ const SignupScreen = (props) => {
   const [nic,setNIC] = useState('');
   const [contactNo,setContact] = useState('');
 
-//   const sendCred= async (props)=>{
-//      fetch("http://10.0.2.2:3000/signup",{
-//        method:"POST",
-//        headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body:JSON.stringify({
-//         "email":email,
-//         "password":password
-//       })
-//      })
-//      .then(res=>res.json())
-//      .then(async (data)=>{
-//             try {
-//               await AsyncStorage.setItem('token',data.token)
-//               props.navigation.replace("home")
-//             } catch (e) {
-//               console.log("error hai",e)
-//             }
-//      })
-//   }
+  const sendCred= async (props)=>{
+     fetch("http://10.0.2.2:5000/signup",{
+       method:"POST",
+       headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        name,
+        nic,
+        contactNo,
+        email,
+        password
+      })
+     })
+     .then(res=>res.json())
+     .then(async (data)=>{
+            try {
+              await AsyncStorage.setItem('token',data.token)
+              props.navigation.replace("homeScreen")
+            } catch (e) {
+              console.log("error",e)
+            }
+     })
+  }
   
 const styles = StyleSheet.create({
     
@@ -75,18 +78,6 @@ const styles = StyleSheet.create({
       <Image style={styles.headerLogo} source={require('../assets/logo.png')}/>
       </View>
       
-     
-      {/* <View
-      style={{
-        borderBottomColor:"blue",
-        borderBottomWidth:4,
-        borderRadius:10,
-        marginLeft:20,
-        marginRight:20,
-        marginTop:70
-      }}
-       /> */}
-      
        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View>
       <TextInput
@@ -96,16 +87,15 @@ const styles = StyleSheet.create({
         value={name}
         style={{marginTop:150,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
         theme={{colors:{primary:"#08b8e1"}}}
-        onChangeText={(text)=>setEmail(text)}
+        onChangeText={(text)=>setName(text)}
      
       />
       <TextInput
         label='NIC'
         placeholder='10 characters needed'
         mode="outlined"
-        secureTextEntry={true}
         value={nic}
-        onChangeText={(text)=>{setPassword(text)}}
+        onChangeText={(text)=>{setNIC(text)}}
         style={{marginTop:18,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
         theme={{colors:{primary:"#08b8e1"}}}
      
@@ -122,12 +112,12 @@ const styles = StyleSheet.create({
       />
         <TextInput
         label='Contact Number'
-        placeholder='10 characters needed'
+        placeholder='9 characters needed'
         mode="outlined"
         value={contactNo}
         style={{marginTop:18,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
         theme={{colors:{primary:"#08b8e1"}}}
-        onChangeText={(text)=>setEmail(text)}
+        onChangeText={(text)=>setContact(text)}
      
       />
         <TextInput
@@ -137,7 +127,7 @@ const styles = StyleSheet.create({
         value={password}
         style={{marginTop:18,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
         theme={{colors:{primary:"#08b8e1"}}}
-        onChangeText={(text)=>setEmail(text)}
+        onChangeText={(text)=>setPassword(text)}
      
       />
       </View>
@@ -145,7 +135,7 @@ const styles = StyleSheet.create({
       <Button 
         mode="contained"
         style={{marginTop:38,alignSelf:'center',height:30,width:'60%',backgroundColor:"#08b8e1"}}
-        onPress={()=>props.navigation.replace('login')}>
+        onPress={() => sendCred(props)}>
            <Text style={{
         fontSize:13,fontFamily:'nunito-bold',color:"#03498f"
       }}>Signup</Text>

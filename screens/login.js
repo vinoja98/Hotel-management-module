@@ -12,7 +12,7 @@ import {
   TouchableWithoutFeedback,Keyboard,
   Alert
 } from 'react-native';
-// import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const LoginScreen = (props) => {
@@ -38,28 +38,28 @@ const LoginScreen = (props) => {
     }
  
  })
-//   const sendCred = async (props)=>{
-//     fetch("http://10.0.2.2:3000/signin",{
-//       method:"POST",
-//       headers: {
-//        'Content-Type': 'application/json'
-//      },
-//      body:JSON.stringify({
-//        "email":email,
-//        "password":password
-//      })
-//     })
-//     .then(res=>res.json())
-//     .then(async (data)=>{
-//            try {
-//              await AsyncStorage.setItem('token',data.token)
-//              props.navigation.replace("home")
-//            } catch (e) {
-//              console.log("error hai",e)
-//               Alert(e)
-//            }
-//     })
-//  }
+  const sendCred = async (props)=>{
+    fetch("http://10.0.2.2:5000/auth/signin",{
+      method:"POST",
+      headers: {
+       'Content-Type': 'application/json'
+     },
+     body:JSON.stringify({
+       "email":email,
+       "password":password
+     })
+    })
+    .then(res=>res.json())
+    .then(async (data)=>{
+           try {
+             await AsyncStorage.setItem('token',data.token)
+             props.navigation.replace("homeScreen")
+           } catch (e) {
+             console.log("error hai",e)
+              Alert(e)
+           }
+    })
+ }
 
   return (
    <> 
@@ -72,18 +72,6 @@ const LoginScreen = (props) => {
       <View style={styles.logo}>
       <Image style={styles.headerLogo} source={require('../assets/logo.png')}/>
       </View>
-      
-     
-      {/* <View
-      style={{
-        borderBottomColor:"blue",
-        borderBottomWidth:4,
-        borderRadius:10,
-        marginLeft:20,
-        marginRight:20,
-        marginTop:70
-      }}
-       /> */}
       
        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View>
@@ -111,7 +99,7 @@ const LoginScreen = (props) => {
       <Button 
         mode="contained"
         style={{marginTop:38,alignSelf:'center',height:30,width:'60%',backgroundColor:"#08b8e1"}}
-        onPress={()=>props.navigation.replace('homeScreen')}>
+        onPress={() => sendCred(props)}>
            <Text style={{
         fontSize:13,fontFamily:'nunito-bold',color:"#03498f"
       }}>Login</Text>

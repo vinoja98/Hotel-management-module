@@ -19,21 +19,21 @@ router.post('/signup', async (req, res) => {
   
   const validation = validate(req.body); 
   if(validation.error) {
-    return res.status(400).send(validation.error.details[0].message);
+    return res.status(400).json(validation.error.details[0].message);
     }
 
 try{
     let user = await User.findOne({ email: req.body.email });
-    if (user) return res.status(400).send('User already registered.');
+    if (user) return res.status(400).json('User already registered.');
     user = new User(_.pick(req.body, ['name', 'email', 'password','nic','contactNo']));
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
 
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email','nic','contactNo']));
+    res.header('x-auth-token', token).json(_.pick(user, ['_id', 'name', 'email','nic','contactNo']));
 }catch(err){
-    return res.status(422).send(err.message)
+    return res.status(422).json(err.message)
   }
   
 });

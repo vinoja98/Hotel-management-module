@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
   Text
 } from 'react-native';
-// import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Navigator from '../routes/homeStack'
@@ -20,7 +20,7 @@ const HomeScreen = (props) => {
 //    const [email,setEmail] = useState("loading")
 //    const Boiler = async ()=>{
 //       const token = await AsyncStorage.getItem("token")
-//     fetch('http://10.0.2.2:3000/',{
+//     fetch('http://10.0.2.2:5000/',{
 //     headers:new Headers({
 //       Authorization:"Bearer "+token
 //     })
@@ -34,24 +34,7 @@ const HomeScreen = (props) => {
 // useEffect(()=>{
 //    Boiler()
 // },[])
-
-//    const logout =(props)=>{
-//       AsyncStorage.removeItem("token").then(()=>{
-//         props.navigation.replace("login")
-//       })
-//    }
-
   return (
-//    <> 
-//     <Text style={{fontSize:18}}>your email is {email}</Text>
-//     <Button 
-//         mode="contained"
-//         style={{marginLeft:18,marginRight:18,marginTop:18}}
-//          onPress={() => logout(props)}>
-//         logout
-//       </Button>
-//    </>
-    
           <Drawer.Navigator
           drawerContent={props => <DrawerContent {...props}  
             activeTintColor= '#03498f'

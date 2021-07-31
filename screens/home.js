@@ -7,41 +7,45 @@ import {MaterialIcons} from '@expo/vector-icons'
 import {AntDesign} from '@expo/vector-icons'
 import FoodForm from './foodForm';
 import FlatButton from '../shared/button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home({navigation,props}) {
-  const[loading,setLoading]=useState(true)
+  // const[loading,setLoading]=useState(true)
   const[modelOpen,setModelOpen]=useState(false)
-  const[foodItems,setFoodItems]=useState([
-    // {name:'Burger',price:200,description:'Robust',rating:4,_id:'1'},
-    // {name:'Pizza',price:1000,description:'Spicy',rating:5,_id:'2'},
-    // {name:'Pasta',price:800,description:'Spicy',rating:4,_id:'3'},
-])
-
+  const[foodItems,setFoodItems]=useState("loading")
+   const Boiler = async ()=>{
+      const token = await AsyncStorage.getItem("token")
+      console.log(token)
+      fetch('http://10.0.2.2:5000/food/')
+      .then(res=>res.json())
+      .then(results=>{
+        setFoodItems(results)
+        
+        console.log(results)
+        // setLoading(false)
+      })
+   }
 useEffect(()=>{
-  fetch('http://10.0.2.2:5000/food/')
-  .then(res=>res.json())
-  .then(results=>{
-    setFoodItems(results)
-    setLoading(false)
-  })
-})
+   Boiler()
+},[])
 
-  const addFood=(food)=>{
-    food._id=Math.random().toString()
-    setFoodItems((current)=>{
-      return[food, ...current]
-    })
-    setModelOpen(false)
+   const logout =(props)=>{
+      AsyncStorage.removeItem("token").then(()=>{
+        navigation.replace("login")
+      })
+   }
+// useEffect(()=>{
+//   fetch('http://10.0.2.2:5000/food/')
+//   .then(res=>res.json())
+//   .then(results=>{
+//     setFoodItems(results)
+//     setLoading(false)
+//   })
+// })
 
-  }
-
-
-  const deleteFood= (_id,name) =>{
+  const deleteFood= async(_id,name) =>{
+    const token = await AsyncStorage.getItem("token")
     console.log(_id)
-    // setFoodItems((prevFood)=>{
-    //  return prevFood.filter(food=> food._id != _id)
-    // })
-    // setModelOpen(false)
     fetch("http://10.0.2.2:5000/food/" +_id,{
       method: 'DELETE',
       headers: {
@@ -105,14 +109,15 @@ useEffect(()=>{
             navigation.navigate('Details')}/>
         </View>
         <View style={styles.btn2}>
-          <FlatButton  text='Logout'/>
+          <FlatButton  text='Logout' onPress={() => logout(props)}/>
           
         </View>
         
       </View>
-        {loading?  
+        {/* {loading?  
             <ActivityIndicator size='large' color='#0000ff'/>
-            :    <FlatList
+            :     */}
+            <FlatList
             data={foodItems}
              renderItem={({item})=>(
                <View style={styles.foodROw}>
@@ -140,8 +145,8 @@ useEffect(()=>{
              )}
              keyExtractor={item=>item._id}
            />
-          }
-    
+          {/* }
+     */}
     </View>
    
   );

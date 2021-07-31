@@ -4,16 +4,17 @@ const mongoose=require('mongoose');
 const _ = require('lodash');
 let {Food,validateFood}=require('../models/food.model')
 
-router.get('/',auth,async(req,res)=>{
-//    Food.find().sort('name')
-//    .then(Foods=>res.json(Foods))
-//    .catch(err=>res.status(400).json('Error: '+err))
-   try{const food = await Food.find().sort('name');
-   res.send(food);
-   }
-   catch{
-      return res.status(422).send(err.message)
-   }
+router.get('/',(req,res)=>{
+   Food.find().sort('name')
+   .then(Foods=>res.json(Foods))
+   .catch(err=>res.status(422).json('Error: '+err))
+
+   // try{const food = await Food.find().sort('name');
+   // res.send(food);
+   // }
+   // catch{
+   //    return res.status(422).send(err.message)
+   // }
       
     
 })
@@ -21,7 +22,7 @@ router.get('/',auth,async(req,res)=>{
 router.post('/add', auth, async (req, res) => {
     const validation = validateFood(req.body); 
     if(validation.error) {
-      return res.status(400).send(validation.error.details[0].message);
+      return res.status(400).json(validation.error.details[0].message);
       }      
    try{
       let newFood = await Food.findOne({ name: req.body.name });
@@ -29,27 +30,23 @@ router.post('/add', auth, async (req, res) => {
       newFood = new Food(_.pick(req.body, ['name', 'description','price','rating']));
 
       await newFood.save();
-      res.send(_.pick(newFood, ['_id', 'name','description','price','rating']));
+      // res.send(_.pick(newFood, ['_id', 'name','description','price','rating']));
+      res.json(_.pick(newFood, ['_id', 'name','description','price','rating']));
    }catch(err){
       return res.status(422).send(err.message)
    }
 })
 
-router.delete('/:id',auth,async(req,res)=>{
-    try{
-       const food=await Food.findByIdAndRemove(req.params.id)
-       res.send(food)
-    }
-    catch(err){
-       return res.status(422).send(err.message)
-     }
-    
+router.delete('/:id',auth,(req,res)=>{
+   Food.findByIdAndRemove(req.params.id)
+    .then(()=>res.json('food deleted'))
+    .catch(err=>res.status(400).json('Error: '+err))
 })
 
 router.post('/update/:id',auth,async(req,res)=>{
    const validation = validateFood(req.body); 
    if(validation.error) {
-     return res.status(400).send(validation.error.details[0].message);
+     return res.status(400).json(validation.error.details[0].message);
      }    
 try{
    let food=await Food.findByIdAndUpdate(req.params.id,{
@@ -58,7 +55,7 @@ try{
    description:req.body.description,
    rating:Number(req.body.rating)
    })
-   res.send(food)
+   res.json(food)
 }
 catch(err){
    return res.status(422).send(err.message)

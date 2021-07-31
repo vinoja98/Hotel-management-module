@@ -6,22 +6,22 @@ import {
   View,
   StyleSheet
 } from 'react-native';
-// import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoadingScreen = (props) => {
 
 
-//   const detectLogin= async ()=>{
-//     const token = await AsyncStorage.getItem('token')
-//         if(token){
-//               props.navigation.replace("home")
-//         }else{
-//             props.navigation.replace("login")
-//         }
-//   }
-//   useEffect(()=>{
-//    detectLogin()
-//   },[])
+  const detectLogin= async ()=>{
+    const token = await AsyncStorage.getItem('token')
+        if(token){
+              props.navigation.replace("homeScreen")
+        }else{
+            props.navigation.replace("login")
+        }
+  }
+  useEffect(()=>{
+   detectLogin()
+  },[])
 
   return (
    <View style={styles.loading}> 
@@ -33,9 +33,9 @@ const LoadingScreen = (props) => {
 
 const styles= StyleSheet.create({
     loading:{
-     flex:1,
-    justifyContent:"center",
-    alignItems:"center" 
+    //  flex:1,
+    // justifyContent:"center",
+    // alignItems:"center" 
     }
     
   })
