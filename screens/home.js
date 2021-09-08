@@ -10,9 +10,11 @@ import FlatButton from '../shared/button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home({navigation,props}) {
-  // const[loading,setLoading]=useState(true)
+  const[loading,setLoading]=useState(true)
   const[modelOpen,setModelOpen]=useState(false)
-  const[foodItems,setFoodItems]=useState("loading")
+  const[foodItems,setFoodItems]=useState([])
+
+
    const Boiler = async ()=>{
       const token = await AsyncStorage.getItem("token")
       console.log(token)
@@ -22,8 +24,8 @@ export default function Home({navigation,props}) {
         setFoodItems(results)
         
         console.log(results)
-        // setLoading(false)
-      })
+        setLoading(false)
+      }).catch(err=>{Alert.alert(err)})
    }
 useEffect(()=>{
    Boiler()
@@ -146,6 +148,8 @@ useEffect(()=>{
                   
              )}
              keyExtractor={item=>item._id}
+             onRefresh={()=>Boiler()}
+             refreshing={loading}
            />
           {/* }
      */}
