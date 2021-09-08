@@ -5,6 +5,7 @@ const mongoose=require('mongoose');
 const userRouter=require('./routes/users')
 const foodRouter=require('./routes/food')
 const authRouter=require('./routes/authRoutes')
+const reviewRouter=require('./routes/review')
 
 require('dotenv').config();
 
@@ -29,6 +30,7 @@ connection.once('open',()=>{
 app.use('/',userRouter)
 app.use('/food',foodRouter);
 app.use('/auth',authRouter);
+app.use('/review',reviewRouter);
 
 
 app.listen(port,()=>{
