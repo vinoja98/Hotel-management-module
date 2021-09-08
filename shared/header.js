@@ -62,7 +62,7 @@ export default function Header({navigation,title}) {
    },
    logo:{
     // position:'absolute',
-    right:-280,
+    right:-310,
     paddingBottom:45
     // alignItems:'center'
    },

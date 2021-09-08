@@ -50,7 +50,7 @@ export default function FoodEdit({name,price,description,rating,setModelOpen,_id
         setModelOpen(false)
     })
     .catch(err=>{
-      Alert.alert("someting went wrong")
+      Alert.alert(err)
   })
 }
     return (

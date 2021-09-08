@@ -31,7 +31,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
     // })
  
     
-  const submitFood=(food)=>{
+  const submitFood=()=>{
     fetch('http://10.0.2.2:5000/food/add',{
       method: 'POST',
       headers: {
