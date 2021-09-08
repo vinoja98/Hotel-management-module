@@ -88,7 +88,7 @@ export default function FoodEdit({name,price,description,rating,setModelOpen,_id
                         minLength={3}/>
                         {/* onBlur={props.handleBlur('description')} */}
                       {/* <Text style={globalStyles.errorText}>{props.touched.description && props.errors.description}</Text> */}
-                     <TextInput style={globalStyles.input}
+                     {/* <TextInput style={globalStyles.input}
                          minHeight={50}
                          label='Rating'
                          mode="outlined"
@@ -96,7 +96,7 @@ export default function FoodEdit({name,price,description,rating,setModelOpen,_id
                         onChangeText={text => setRating(text)}
                         value={rating.toString()}
                         // onBlur={props.handleBlur('rating')}
-                        keyboardType='numeric'/>
+                        keyboardType='numeric'/> */}
                     {/* <Text style={globalStyles.errorText}>{props.touched.rating && props.errors.rating}</Text> */}
                   
                     <FlatButton  text='Modify' onPress={()=>updateDetails({_id})}/>

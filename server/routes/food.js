@@ -19,7 +19,7 @@ router.get('/',(req,res)=>{
     
 })
 
-router.post('/add', auth, async (req, res) => {
+router.post('/add', async (req, res) => {
     const validation = validateFood(req.body); 
     if(validation.error) {
       return res.status(400).json(validation.error.details[0].message);
@@ -27,23 +27,23 @@ router.post('/add', auth, async (req, res) => {
    try{
       let newFood = await Food.findOne({ name: req.body.name });
       if (newFood) return res.status(400).send('Food Item already added.');
-      newFood = new Food(_.pick(req.body, ['name', 'description','price','rating']));
+      newFood = new Food(_.pick(req.body, ['name', 'description','price']));
 
       await newFood.save();
       // res.send(_.pick(newFood, ['_id', 'name','description','price','rating']));
-      res.json(_.pick(newFood, ['_id', 'name','description','price','rating']));
+      res.json(_.pick(newFood, ['_id', 'name','description','price']));
    }catch(err){
       return res.status(422).send(err.message)
    }
 })
 
-router.delete('/:id',auth,(req,res)=>{
+router.delete('/:id',(req,res)=>{
    Food.findByIdAndRemove(req.params.id)
     .then(()=>res.json('food deleted'))
     .catch(err=>res.status(400).json('Error: '+err))
 })
 
-router.post('/update/:id',auth,async(req,res)=>{
+router.post('/update/:id',async(req,res)=>{
    const validation = validateFood(req.body); 
    if(validation.error) {
      return res.status(400).json(validation.error.details[0].message);
@@ -53,7 +53,7 @@ try{
    name:req.body.name,
    price:Number(req.body.price),
    description:req.body.description,
-   rating:Number(req.body.rating)
+   // rating:Number(req.body.rating)
    })
    res.json(food)
 }

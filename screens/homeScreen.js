@@ -10,7 +10,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Navigator from '../routes/homeStack'
 import Navi from '../routes/ReviewStack'
-import Navi2 from '../routes/offersStack'
 import Navi3 from '../routes/roomBookingStack'
 import { DrawerContent } from '../screens/drawerContent';
 
@@ -55,7 +54,6 @@ const HomeScreen = (props) => {
         >
             <Drawer.Screen name="Navigator" children={Navigator} />
             <Drawer.Screen name="Navi" children={Navi}/>
-            <Drawer.Screen name="Navi2" children={Navi2}/>
             <Drawer.Screen name="Navi3" children={Navi3}/>
         </Drawer.Navigator>
  

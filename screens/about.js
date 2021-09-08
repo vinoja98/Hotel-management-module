@@ -70,14 +70,14 @@ export default function About({route}) {
           </View>
           
         </View>
-        <View style={styles.rating}>
+        {/* <View style={styles.rating}>
             <Text style={globalStyles.itemText}>Rating:</Text>
             <Image style={styles.pic} source={images.ratings[rating]}/>
             
-        </View>
+        </View> */}
         <View style={styles.rating}>
-          <Text style={globalStyles.itemText}>createdAt:</Text>
-          <Text style={globalStyles.itemText}>{createdAt}</Text>
+          <Text style={[globalStyles.itemText,styles.createdText]}>createdAt:</Text>
+          <Text style={[globalStyles.itemText,styles.created]}>{createdAt}</Text>
         </View>
       </Card>
     </View>
@@ -107,18 +107,27 @@ const styles = StyleSheet.create({
   },
   cardCol:{
     flexDirection:'column',
-    paddingLeft:30,
+    paddingLeft:10,
   },
   cardTop:{
     flexDirection:'row',
   },
   iconCol:{
     flexDirection:'column',
-    paddingStart:35,
-    paddingEnd:1
+    // paddingStart:35,
+    // paddingEnd:20
+    position:'absolute',
+    right:-10,
   },
   edit:{
     color:'#03498f',
     paddingTop:10
+  },
+  created:{
+    paddingTop:25,
+    right:42
+  },
+  createdText:{
+    left:40
   }
 })

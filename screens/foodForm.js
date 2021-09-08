@@ -6,7 +6,7 @@ import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
 
-export default function FoodForm({navigation ,setModelOpen}) {
+export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItems}) {
   const[name,setName]=useState("")
     const[price,setPrice]=useState("")
     const[description,setDescription]=useState("")
@@ -41,24 +41,27 @@ export default function FoodForm({navigation ,setModelOpen}) {
           name,
           price,
           description,
-          rating,
+          // rating,
          
       })
     })
     .then(res=>res.json())
     .then(data=>{
-      // Alert.alert(`food item ${data.name} added`)
+      // setFoodItems((prevFood)=>{
+      //   return [data, ...prevFood]
+      //  })
+      Alert.alert(`food item ${data.name} added`)
       setModelOpen(false)
     
     })
     .catch(err=>{
-      Alert.alert("something went wrong")
+      Alert.alert(err)
     })
   }
     return (
       <View style={globalStyles.container}>
         <Formik
-            initialValues={{name:'',price:'',description:'',rating:''}}>
+            initialValues={{name:'',price:'',description:''}}>
             {/* validationSchema={foodSchema}
             onSubmit={(values,actions)=>{
                     onsubmit(values)
@@ -97,7 +100,7 @@ export default function FoodForm({navigation ,setModelOpen}) {
                         value={description}/>
                         {/* onBlur={props.handleBlur('description')} */}
                       {/* <Text style={globalStyles.errorText}>{props.touched.description && props.errors.description}</Text> */}
-                     <TextInput style={globalStyles.input}
+                     {/* <TextInput style={globalStyles.input}
                         label='Rating'
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
@@ -105,7 +108,7 @@ export default function FoodForm({navigation ,setModelOpen}) {
                         
                         value={rating}
                         // onBlur={props.handleBlur('rating')}
-                        keyboardType='numeric'/>
+                        keyboardType='numeric'/> */}
                     {/* <Text style={globalStyles.errorText}>{props.touched.rating && props.errors.rating}</Text> */}
                 
                     <FlatButton text='Add' onPress={submitFood}/>

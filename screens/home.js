@@ -93,7 +93,7 @@ useEffect(()=>{
                 style={[ globalStyles.modalToggle,  globalStyles.modalClose]}
                 onPress={()=>setModelOpen(false)}
               />
-              <FoodForm modelOpen={modelOpen} setModelOpen={setModelOpen}/>
+              <FoodForm modelOpen={modelOpen} setModelOpen={setModelOpen} foodItems={foodItems} setFoodItems={setFoodItems}/>
           </View>
          </TouchableWithoutFeedback>
       </Modal>
@@ -122,17 +122,19 @@ useEffect(()=>{
              renderItem={({item})=>(
                <View style={styles.foodROw}>
                  <View style={styles.crd}>
-                   <TouchableOpacity onPress={()=>navigation.navigate('About',item)}> 
+                    
                      <Card>
                        <View style={styles.crdrow}>
                            <Text style={globalStyles.itemText}>{item.name}</Text>
                            
                            <View style={styles.ant}>
+                           <TouchableOpacity onPress={()=>navigation.navigate('About',item)}>
                              <AntDesign  style={styles.right} name='doubleright' size={20} />
+                             </TouchableOpacity>
                            </View>
                        </View>
                      </Card> 
-                   </TouchableOpacity>
+                   
                  </View>
                  <View style={styles.del}>
                      <TouchableOpacity onPress={()=>deleteAlert({item,deleteFood})}>

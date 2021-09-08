@@ -82,18 +82,7 @@ export function DrawerContent(props) {
                             labelStyle={{color:'#08b8e1',fontFamily:'nunito-bold'}}
                             // onPress={() => {props.navigation.navigate('Profile')}}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="offer" 
-                                color="#03498f"
-                                size={size}
-                                />
-                            )}
-                            label="Special Offers"
-                            labelStyle={{color:'#08b8e1',fontFamily:'nunito-bold'}}
-                            onPress={() => {props.navigation.navigate('Navi2')}}
-                        />
+                       
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
