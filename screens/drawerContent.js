@@ -70,7 +70,7 @@ export function DrawerContent(props) {
                             inactiveTintColor='#08b8e1'
                             onPress={() => {props.navigation.navigate('Navigator')}}
                         />
-                        <DrawerItem 
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="account-outline" 
@@ -81,7 +81,7 @@ export function DrawerContent(props) {
                             label="Profile"
                             labelStyle={{color:'#08b8e1',fontFamily:'nunito-bold'}}
                             // onPress={() => {props.navigation.navigate('Profile')}}
-                        />
+                        /> */}
                        
                         <DrawerItem 
                             icon={({color, size}) => (
