@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
       color:'#03498f'
     },
     drawerSection: {
-      marginTop: 15,
+      marginTop: 35,
       fontFamily:'nunito-regular'
     },
     bottomDrawerSection: {
