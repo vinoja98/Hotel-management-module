@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
         fontSize:18,marginTop:20,fontFamily:'nunito-bold',color:"#03498f",alignSelf:'center'
       }}
       onPress={()=>props.navigation.replace("login")}
-      >Already have a account ?</Text>
+      >Already have an account ?</Text>
       </TouchableOpacity>
     
       </KeyboardAvoidingView>

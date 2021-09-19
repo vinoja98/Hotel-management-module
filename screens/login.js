@@ -110,7 +110,7 @@ const LoginScreen = (props) => {
         fontSize:18,marginTop:20,fontFamily:'nunito-bold',color:"#03498f",alignSelf:'center'
       }}
       onPress={()=>props.navigation.replace("signup")}
-      >Don't have a account ?</Text>
+      >Don't have an account ?</Text>
       </TouchableOpacity>
     
       {/* </KeyboardAvoidingView> */}
