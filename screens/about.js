@@ -77,7 +77,10 @@ export default function About({route}) {
         </View> */}
         <View style={styles.rating}>
           <Text style={[globalStyles.itemText,styles.createdText]}>createdAt:</Text>
-          <Text style={[globalStyles.itemText,styles.created]}>{createdAt}</Text>
+          <View style={styles.cardRow}>
+                           <Text style={[globalStyles.itemText,styles.created]}>{createdAt.substring(0,10)}</Text>
+                           <Text style={[globalStyles.itemText,styles.created]}> at {createdAt.substring(11,16)}</Text>
+          </View>
         </View>
       </Card>
     </View>
@@ -129,5 +132,8 @@ const styles = StyleSheet.create({
   },
   createdText:{
     left:40
-  }
+  },
+  cardRow:{
+    flexDirection:'row'
+  },
 })

@@ -3,8 +3,19 @@ import { Alert,StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWi
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
+import Action from '../shared/card';
+import ActionButton from 'react-native-action-button';
 
-export default function Details() {
+export default function Bookings({props}) {
+ 
+  
+  // return (
+  //   <View style={globalStyles.container}>
+  //     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
+  //     <Text style={globalStyles.itemText}>Review Details</Text>
+      
+  //   </View>
+  // );
   const[loading,setLoading]=useState(true)
   const[reviews,setReviews]=useState([])
 
@@ -24,6 +35,8 @@ export default function Details() {
      fetchReviews()
   },[])
 
+  
+
   return (
     <View style={globalStyles.container}>
         <MaterialIcons
@@ -32,7 +45,7 @@ export default function Details() {
           style={ globalStyles.modalToggle}
           
         />
- <StatusBar backgroundColor="#03498f" barStyle="light-content" />
+    <StatusBar backgroundColor="#03498f" barStyle="light-content" />
         {/* {loading?  
             <ActivityIndicator size='large' color='#0000ff'/>
             :     */}
@@ -44,19 +57,19 @@ export default function Details() {
 
                       <View  style={styles.cardCol}>
                           <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Name  : </Text><Text style={globalStyles.itemText}>Waiter1</Text>
+                           <Text style={globalStyles. blackText}>Customer Name  : </Text><Text style={globalStyles.itemText}>Customer1</Text>
                            </View>
                            <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Address : </Text>
-                           <Text style={globalStyles.itemText}>No7, Highlevel road, colombo</Text>
+                           <Text style={globalStyles. blackText}>Room No : </Text>
+                           <Text style={globalStyles.itemText}>3</Text>
                            </View>
                            <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Phone : </Text>
-                           <Text style={globalStyles.itemText}>0789657777</Text>
+                           <Text style={globalStyles. blackText}>Start Date : </Text>
+                           <Text style={globalStyles.itemText}>20/9/2020</Text>
                            </View>
                            <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Salary : </Text>
-                           <Text style={globalStyles.itemText}>Rs 40,000</Text>
+                           <Text style={globalStyles. blackText}>End Date : </Text>
+                           <Text style={globalStyles.itemText}>21/9/2020</Text>
                            </View>
                        </View>
                        <View style={styles.iconCol}>
@@ -109,7 +122,7 @@ const styles=StyleSheet.create({
     right:-10,
   },
   del:{
-    paddingTop:0,
+    paddingTop:5,
     color:'#03498f'
    },
 })

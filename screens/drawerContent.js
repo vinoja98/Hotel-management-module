@@ -17,10 +17,13 @@ import {
 } from '@react-navigation/drawer';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import {AntDesign} from '@expo/vector-icons'
 // import{ AuthContext } from '../components/context';
 
-export function DrawerContent(props) {
+export function DrawerContent({navigation,props}) {
+    const closeMenu=()=>{
+        navigation.closeDrawer()
+    }
 
     // const paperTheme = useTheme();
 
@@ -41,6 +44,7 @@ export function DrawerContent(props) {
                                 <Title style={styles.title}>Hi</Title>
                                 <Caption style={styles.title}>Manager</Caption>
                             </View>
+                            <AntDesign  style={styles.right} name='closecircle' size={20} onPress={closeMenu}/>
                         </View>
 
                         <View style={styles.row}>
@@ -68,7 +72,7 @@ export function DrawerContent(props) {
                             labelStyle={{color:'#08b8e1',fontFamily:'nunito-bold'}}
                             activeTintColor='#03498f'
                             inactiveTintColor='#08b8e1'
-                            onPress={() => {props.navigation.navigate('Navigator')}}
+                            onPress={() => {navigation.navigate('Navigator')}}
                         />
                         {/* <DrawerItem 
                             icon={({color, size}) => (
@@ -93,7 +97,7 @@ export function DrawerContent(props) {
                             )}
                             label="Room Bookings"
                             labelStyle={{color:'#08b8e1',fontFamily:'nunito-bold'}}
-                            onPress={() => {props.navigation.navigate('Navi3')}}
+                            onPress={() => {navigation.navigate('Navi3')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -105,7 +109,7 @@ export function DrawerContent(props) {
                             )}
                             label="Review Details"
                             labelStyle={{color:'#08b8e1',fontFamily:'nunito-bold'}}
-                            onPress={() => {props.navigation.navigate('Navi')}}
+                            onPress={() => {navigation.navigate('Navi')}}
                         />
                     </Drawer.Section>
                     {/* <Drawer.Section title="Preferences">
@@ -194,4 +198,8 @@ const styles = StyleSheet.create({
       paddingVertical: 12,
       paddingHorizontal: 16,
     },
+    right:{
+        color:'#03498f',
+        paddingHorizontal:20
+       },
   });

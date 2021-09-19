@@ -17,6 +17,11 @@ export const globalStyles = StyleSheet.create({
           ,fontSize:18,
           color:'#03498f'
       },
+      blackText:{
+        fontFamily:'nunito-bold'
+        ,fontSize:18,
+        color:'#03498f'
+      },
       paragraph:{
           marginVertical:8,
           lineHeight:20
@@ -55,7 +60,10 @@ export const globalStyles = StyleSheet.create({
 })
 export const images={
     ratings:{
-        '4':require('../assets/rating-4.png'),
-        '5':require('../assets/rating-5.png'),
+        '1':require('../assets/star1.png'),
+        '2':require('../assets/star2.png'),
+        '3':require('../assets/star3.png'),
+        '4':require('../assets/star4.png'),
+        '5':require('../assets/star5.png'),
     }
 }

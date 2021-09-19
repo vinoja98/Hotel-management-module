@@ -7,7 +7,9 @@ import {MaterialIcons} from '@expo/vector-icons'
 import {AntDesign} from '@expo/vector-icons'
 import FoodForm from './foodForm';
 import FlatButton from '../shared/button';
+import ActionButton from 'react-native-action-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function Home({navigation,props}) {
   const[loading,setLoading]=useState(true)
@@ -99,6 +101,7 @@ useEffect(()=>{
           </View>
          </TouchableWithoutFeedback>
       </Modal>
+     
       <View style={styles.topROw}>
         <MaterialIcons
           name='add'
@@ -106,6 +109,7 @@ useEffect(()=>{
           style={ globalStyles.modalToggle}
           onPress={()=>setModelOpen(true)}
         />
+        
         <View style={styles.btn}>
           <FlatButton  text='Staff   Details' onPress={() =>
             navigation.navigate('Details')}/>
@@ -159,7 +163,12 @@ useEffect(()=>{
 }
 const styles=StyleSheet.create({
 
- 
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: '#03498f',
+  },
+
   topROw:{
     flexDirection:'row'
   },

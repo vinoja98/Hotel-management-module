@@ -45,12 +45,20 @@ useEffect(()=>{
                
                      <Card>
 
-                      <View  style={styles.cardCol}>
-                           <Text style={globalStyles.itemText}>Review  : {item.review}</Text>
-                           <Text style={globalStyles.itemText}>Recommendation : {item.recommendation}</Text>
+<View  style={styles.cardCol}>  
+                          <View style={styles.cardRow}>
+                           <Text style={globalStyles. blackText}>Review  : </Text><Text style={globalStyles.itemText}>{item.review}</Text>
+                           </View>
+                           <View >
+                           <Text style={globalStyles. blackText}>Recommendation : </Text>
+                           <Text style={globalStyles.itemText}>{item.recommendation}</Text>
+                           </View>
                            {/* <Text style={globalStyles.itemText}>rating :{item.rating}</Text> */}
                            <Image style={styles.pic} source={images.ratings[item.rating]}/>
-                           <Text style={globalStyles.itemText}>{item.createdAt}</Text>
+                           <View style={styles.cardRow}>
+                           <Text style={globalStyles.itemText}>{item.createdAt.substring(0,10)}</Text>
+                           <Text style={globalStyles.itemText}> at {item.createdAt.substring(11,16)}</Text>
+                           </View>
                        </View>
                      </Card> 
                    
@@ -75,10 +83,13 @@ const styles=StyleSheet.create({
     paddingLeft:5,
     flex:1
   },
+  cardRow:{
+    flexDirection:'row'
+  },
   pic:{
     // flex: 1,
-    width: 150,
-    height: 40,
+    width: 185,
+    height: 35,
     // resizeMode: 'contain'
   },
 })
