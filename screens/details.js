@@ -48,7 +48,7 @@ export default function Details() {
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>Address : </Text>
-                           <Text style={globalStyles.itemText}>No7, Highlevel road, colombo</Text>
+                           <Text style={globalStyles.itemText}>No7, Highlevel road</Text>
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>Phone : </Text>
@@ -85,7 +85,7 @@ const styles=StyleSheet.create({
 
   cardCol:{
     flexDirection:'column',
-    paddingLeft:5,
+    paddingLeft:0,
     flex:1
   },
   cardRow:{

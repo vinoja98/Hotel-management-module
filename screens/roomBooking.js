@@ -87,7 +87,7 @@ const styles=StyleSheet.create({
 
   cardCol:{
     flexDirection:'column',
-    paddingLeft:5,
+    paddingLeft:0,
     flex:1
   },
   new:{
