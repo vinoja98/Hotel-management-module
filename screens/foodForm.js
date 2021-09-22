@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert,ScrollView} from 'react-native';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
@@ -11,7 +11,11 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
   const[name,setName]=useState("")
     const[price,setPrice]=useState("")
     const[description,setDescription]=useState("")
-    const[rating,setRating]=useState("")
+    const[status,setStatus]=useState("")
+    const[discount,setDiscount]=useState("")
+    const[category,setCategory]=useState("")
+    const[img,setImg]=useState("")
+    const[code,setCode]=useState("")
     // const[modelOpen,setModelOpen]=useState(false)
 
     // const foodSchema=yup.object({
@@ -36,7 +40,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
  const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Other',},]
     
   const submitFood=()=>{
-    fetch('https://galaxy-rest-be.herokuapp.com/food/add',{
+    fetch('http://10.0.2.2:5000/food/add',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -45,8 +49,12 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
           name,
           price,
           description,
-          // rating,
-         
+          status,
+          discount,
+          category,
+          img,
+          code
+
       })
     })
     .then(res=>res.json())
@@ -64,8 +72,9 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
   }
     return (
       <View style={globalStyles.container}>
+        <ScrollView>
         <Formik
-            initialValues={{name:'',price:'',description:''}}>
+            initialValues={{name:'',price:'',description:'',category:'',status:'',discount:'',status:'',img:''}}>
             {/* validationSchema={foodSchema}
             onSubmit={(values,actions)=>{
                     onsubmit(values)
@@ -84,18 +93,22 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         />
                         <Dropdown 
                           label="Category"
-                          data={data2}/>
+                          data={data2}
+                          onChangeText={text => setCategory(text)}
+                        value={category}/>
                         <TextInput style={globalStyles.input}
                         label='Food Item Code'
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
-                        
+                        onChangeText={text => setCode(text)}
+                        value={code}
                         />
                          <TextInput style={globalStyles.input}
                         label='Image link'
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
-                        
+                        onChangeText={text => setImg(text)}
+                        value={img}
                         />
                         {/* onBlur={props.handleBlur('name')}  */}
                     {/* <Text style={globalStyles.errorText}>{props.touched.name && props.errors.name}</Text> */}
@@ -134,8 +147,9 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
                         keyboardType='numeric'
-                        // onChangeText={text => setPrice(text)}
-                        // value={price}
+                        onChangeText={text => setDiscount(text)}
+                        value={discount}
+             
                         
                         // onBlur={props.handleBlur('price')}
                         
@@ -148,12 +162,15 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                          
                           <Dropdown 
                           label="Status"
-                          data={data1}/>
+                          data={data1}
+                          onChangeText={text => setStatus(text)}
+                        value={status}/>
                     <FlatButton text='Add' onPress={submitFood}/>
                 </View>
             )
             }
         </Formik>
+        </ScrollView>
       </View>
     );
   }

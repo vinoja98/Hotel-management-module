@@ -20,7 +20,7 @@ export default function Home({navigation,props}) {
    const Boiler = async ()=>{
       const token = await AsyncStorage.getItem("token")
       console.log(token)
-      fetch('https://galaxy-rest-be.herokuapp.com/food/')
+      fetch('http://10.0.2.2:5000/food/')
       .then(res=>res.json())
       .then(results=>{
         setFoodItems(results)
@@ -50,7 +50,7 @@ useEffect(()=>{
   const deleteFood= async(_id,name) =>{
     const token = await AsyncStorage.getItem("token")
     console.log(_id)
-    fetch("https://galaxy-rest-be.herokuapp.com/food/" +_id,{
+    fetch("http://10.0.2.2:5000/food/" +_id,{
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -139,7 +139,7 @@ useEffect(()=>{
                              </TouchableOpacity>
                            </View>
                        </View>
-                       <Text style={globalStyles.itemText}>P1000</Text>
+                       <Text style={globalStyles.itemText}>{item.code}</Text>
                      </Card> 
                    
                  </View>

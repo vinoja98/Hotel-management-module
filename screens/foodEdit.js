@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert,ScrollView} from 'react-native';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
@@ -36,7 +36,7 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
     console.log(_id._id)
     console.log(name)
 
-    fetch("https://galaxy-rest-be.herokuapp.com/food/update/"+id,{
+    fetch("http://10.0.2.2:5000/update/"+id,{
         method:"POST",
         headers:{
           'Content-Type': 'application/json'
@@ -59,6 +59,7 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
 }
     return (
       <View style={globalStyles.container}>
+        <ScrollView>
         <Formik>
             {(props)=>(
                 <View>
@@ -143,6 +144,7 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
             )
             }
         </Formik>
+        </ScrollView>
       </View>
     );
   }
