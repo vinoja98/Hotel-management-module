@@ -3,6 +3,7 @@ import { StyleSheet, Text, View,Image,FlatList,StatusBar,TouchableOpacity,Modal,
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
+import ReviewReply from './reviewReply'
 
 export default function ReviewDetails({props}) {
  
@@ -16,7 +17,7 @@ export default function ReviewDetails({props}) {
   // );
   const[loading,setLoading]=useState(true)
   const[reviews,setReviews]=useState([])
-
+  const[modelOpen,setModelOpen]=useState(false)
 
    const fetchReviews = ()=>{
       
@@ -36,6 +37,21 @@ useEffect(()=>{
   return (
     <View style={globalStyles.container}>
     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
+    <Modal visible={modelOpen} animationType='slide'>
+         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={globalStyles.modalContent}>
+
+              <MaterialIcons
+                name='close'
+                size={24}
+                style={[ globalStyles.modalToggle,  globalStyles.modalClose]}
+                onPress={()=>setModelOpen(false)}
+              />
+              <ReviewReply setModelOpen={setModelOpen}
+              />
+          </View>
+         </TouchableWithoutFeedback>
+      </Modal>
         {/* {loading?  
             <ActivityIndicator size='large' color='#0000ff'/>
             :     */}
@@ -43,9 +59,9 @@ useEffect(()=>{
             data={reviews}
              renderItem={({item})=>(
                
-                     <Card>
+              <Card>
 
-<View  style={styles.cardCol}>  
+                <View  style={styles.cardCol}>  
                           <View style={styles.cardRow}>
                            {/* <Text style={globalStyles. blackText}>Review  : </Text> */}
                            <Text style={globalStyles.itemText}>{item.review}</Text>
@@ -61,10 +77,10 @@ useEffect(()=>{
                            <Text style={globalStyles.itemText}> at {item.createdAt.substring(11,16)}</Text>
                            </View>
                            <View style={styles.cardRow}>
-                           <Text style={globalStyles.itemText}>{item.reply}</Text>
+                           <Text style={globalStyles.itemText}>Reply : {item.reply}</Text>
                            
                            </View>
-                           <TouchableOpacity >
+                           <TouchableOpacity onPress={()=>setModelOpen(true)}>
                              <Text style={globalStyles. blackText}>Add Reply</Text>
                           </TouchableOpacity>
                           

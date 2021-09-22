@@ -1,13 +1,14 @@
 import React,{useEffect,useState} from 'react';
-import { Alert,StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboar,TouchableOpacity} from 'react-native';
+import { Alert,StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard,TouchableOpacity} from 'react-native';
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
+import WaiterForm from './waiterForm'
 
 export default function Details() {
   const[loading,setLoading]=useState(true)
   const[reviews,setReviews]=useState([])
-
+  const[modelOpen,setModelOpen]=useState(false)
   
     const fetchReviews = ()=>{
       
@@ -26,13 +27,28 @@ export default function Details() {
 
   return (
     <View style={globalStyles.container}>
+      <StatusBar backgroundColor="#03498f" barStyle="light-content" />
         <MaterialIcons
           name='add'
           size={24}
           style={ globalStyles.modalToggle}
-          
+          onPress={()=>setModelOpen(true)}
         />
- <StatusBar backgroundColor="#03498f" barStyle="light-content" />
+ 
+ <Modal visible={modelOpen} animationType='slide'>
+         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={globalStyles.modalContent}>
+
+              <MaterialIcons
+                name='close'
+                size={24}
+                style={[ globalStyles.modalToggle,  globalStyles.modalClose]}
+                onPress={()=>setModelOpen(false)}
+              />
+              <WaiterForm modelOpen={modelOpen} setModelOpen={setModelOpen}/>
+          </View>
+         </TouchableWithoutFeedback>
+      </Modal>
         {/* {loading?  
             <ActivityIndicator size='large' color='#0000ff'/>
             :     */}
