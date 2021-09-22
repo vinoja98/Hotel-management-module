@@ -22,7 +22,7 @@ const SignupScreen = (props) => {
   const [contactNo,setContact] = useState('');
 
   const sendCred= async (props)=>{
-     fetch("http://10.0.2.2:5000/signup",{
+     fetch("https://galaxy-rest-be.herokuapp.com/signup",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'

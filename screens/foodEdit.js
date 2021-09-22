@@ -5,6 +5,7 @@ import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
+import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
 
 export default function FoodEdit({name,price,description,rating,setModelOpen,_id,setDescription,setRating,setName,setPrice}) {
    
@@ -25,14 +26,17 @@ export default function FoodEdit({name,price,description,rating,setModelOpen,_id
 //       return ""
 //    }
  
-    
+const data1=[{value:'Available',},
+{value:'Not Available',},]
+
+const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Other',},]
     
   const updateDetails = (_id)=>{
     const id=_id._id
     console.log(_id._id)
     console.log(name)
 
-    fetch("http://10.0.2.2:5000/food/update/"+id,{
+    fetch("https://galaxy-rest-be.herokuapp.com/food/update/"+id,{
         method:"POST",
         headers:{
           'Content-Type': 'application/json'
@@ -66,6 +70,21 @@ export default function FoodEdit({name,price,description,rating,setModelOpen,_id
                         onChangeText={text =>setName(text)}
                         value={name}
                         minLength={3}/>
+                        <Dropdown 
+                          label="Category"
+                          data={data2}/>
+                        <TextInput style={globalStyles.input}
+                        label='Food Item Code'
+                        mode="outlined"
+                        theme={{colors:{primary:"#08b8e1"}}}
+                        
+                        />
+                        <TextInput style={globalStyles.input}
+                        label='Image link'
+                        mode="outlined"
+                        theme={{colors:{primary:"#08b8e1"}}}
+                        
+                        />
                         {/* onBlur={props.handleBlur('name')}  */}
                     {/* <Text style={globalStyles.errorText}>{props.touched.name && props.errors.name}</Text> */}
                      <TextInput style={globalStyles.input}
@@ -98,7 +117,26 @@ export default function FoodEdit({name,price,description,rating,setModelOpen,_id
                         // onBlur={props.handleBlur('rating')}
                         keyboardType='numeric'/> */}
                     {/* <Text style={globalStyles.errorText}>{props.touched.rating && props.errors.rating}</Text> */}
-                  
+                    <TextInput style={globalStyles.input}
+                        label='Discount Percentage'
+                        mode="outlined"
+                        theme={{colors:{primary:"#08b8e1"}}}
+                        keyboardType='numeric'
+                        // onChangeText={text => setPrice(text)}
+                        // value={price}
+                        
+                        // onBlur={props.handleBlur('price')}
+                        
+                        // onChangeText={text => setPrice(text)}
+                        // value={price}
+                        
+                        // onBlur={props.handleBlur('price')}
+                        /> 
+                         
+                         
+                          <Dropdown 
+                          label="Status"
+                          data={data1}/>
                     <FlatButton  text='Modify' onPress={()=>updateDetails({_id})}/>
                    
                 </View>

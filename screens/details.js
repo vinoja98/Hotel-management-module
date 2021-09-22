@@ -11,7 +11,7 @@ export default function Details() {
   
     const fetchReviews = ()=>{
       
-        fetch('http://10.0.2.2:5000/review/')
+        fetch('https://galaxy-rest-be.herokuapp.com/review/')
         .then(res=>res.json())
         .then(results=>{
           setReviews(results)
@@ -56,8 +56,11 @@ export default function Details() {
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>Salary : </Text>
-                           <Text style={globalStyles.itemText}>Rs 40,000</Text>
+                           <Text style={globalStyles.itemText}>Rs 50,000</Text>
                            </View>
+                           <TouchableOpacity >
+                             <Text style={globalStyles. blackText}>Messaging</Text>
+                          </TouchableOpacity>
                        </View>
                        <View style={styles.iconCol}>
                             <TouchableOpacity >

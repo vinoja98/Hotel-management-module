@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,StatusBar,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard} from 'react-native';
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
@@ -20,7 +20,7 @@ export default function ReviewDetails({props}) {
 
    const fetchReviews = ()=>{
       
-      fetch('http://10.0.2.2:5000/review/')
+      fetch('https://galaxy-rest-be.herokuapp.com/review/')
       .then(res=>res.json())
       .then(results=>{
         setReviews(results)
@@ -47,18 +47,27 @@ useEffect(()=>{
 
 <View  style={styles.cardCol}>  
                           <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Review  : </Text><Text style={globalStyles.itemText}>{item.review}</Text>
+                           {/* <Text style={globalStyles. blackText}>Review  : </Text> */}
+                           <Text style={globalStyles.itemText}>{item.review}</Text>
                            </View>
-                           <View >
-                           <Text style={globalStyles. blackText}>Recommendation : </Text>
-                           <Text style={globalStyles.itemText}>{item.recommendation}</Text>
-                           </View>
+                           
                            {/* <Text style={globalStyles.itemText}>rating :{item.rating}</Text> */}
                            <Image style={styles.pic} source={images.ratings[item.rating]}/>
+                           <View >
+                           <Text style={globalStyles.itemText}>{item.name}</Text>
+                           </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles.itemText}>{item.createdAt.substring(0,10)}</Text>
                            <Text style={globalStyles.itemText}> at {item.createdAt.substring(11,16)}</Text>
                            </View>
+                           <View style={styles.cardRow}>
+                           <Text style={globalStyles.itemText}>{item.reply}</Text>
+                           
+                           </View>
+                           <TouchableOpacity >
+                             <Text style={globalStyles. blackText}>Add Reply</Text>
+                          </TouchableOpacity>
+                          
                        </View>
                      </Card> 
                    

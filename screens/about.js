@@ -62,6 +62,7 @@ export default function About({route}) {
               
               <Text style={globalStyles.itemText}>Rs.{price}</Text>
               <Text style={globalStyles.itemText}>{description}</Text>
+              <Text style={globalStyles.itemText}>Available</Text>
           </View>
           <View style={styles.iconCol}>
             <TouchableOpacity onPress={()=>setModelOpen(true)} >
@@ -76,10 +77,20 @@ export default function About({route}) {
             
         </View> */}
         <View style={styles.rating}>
+          <View style={styles.cardCol}>
           <Text style={[globalStyles.itemText,styles.createdText]}>createdAt:</Text>
           <View style={styles.cardRow}>
                            <Text style={[globalStyles.itemText,styles.created]}>{createdAt.substring(0,10)}</Text>
                            <Text style={[globalStyles.itemText,styles.created]}> at {createdAt.substring(11,16)}</Text>
+          </View>
+          <View style={styles.cardRow}>
+            <Text style={[globalStyles.itemText,styles.createdText]}>discount Percentage : </Text>
+                           <Text style={[globalStyles.itemText,styles.created]}>0 </Text>
+          </View>
+          <View style={styles.cardRow}>
+          <Text style={[globalStyles.itemText,styles.createdText]}>Category : </Text>
+                           <Text style={[globalStyles.itemText,styles.created]}>Pizza </Text>
+          </View>
           </View>
         </View>
       </Card>
@@ -110,7 +121,7 @@ const styles = StyleSheet.create({
   },
   cardCol:{
     flexDirection:'column',
-    paddingLeft:10,
+    // paddingLeft:10,
   },
   cardTop:{
     flexDirection:'row',
@@ -127,11 +138,11 @@ const styles = StyleSheet.create({
     paddingTop:10
   },
   created:{
-    paddingTop:25,
-    right:42
+    paddingTop:0,
+    // right:42
   },
   createdText:{
-    left:40
+    left:0
   },
   cardRow:{
     flexDirection:'row'

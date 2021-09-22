@@ -10,6 +10,7 @@ export const globalStyles = StyleSheet.create({
     },
     container: {
         flex:1,
+        paddingTop:20,
         padding:24
       },
       itemText:{
@@ -27,11 +28,11 @@ export const globalStyles = StyleSheet.create({
           lineHeight:20
       },
       input:{
-          borderWidth:1,
+          borderWidth:0,
           borderColor:'#03498f',
-          padding:10,
-          fontSize:18,
-          borderRadius:6
+          padding:0,
+          fontSize:12,
+          borderRadius:0
       },
       errorText:{
           color:'#03498f',
@@ -42,7 +43,7 @@ export const globalStyles = StyleSheet.create({
       },
       modalToggle:{
         color:'#03498f',
-        marginBottom:10,
+        marginBottom:2,
         borderWidth:1,
         borderColor:'#08b8e1',
         padding:10,
@@ -50,8 +51,8 @@ export const globalStyles = StyleSheet.create({
         alignSelf:'center'
     },
     modalClose:{
-      marginTop:20,
-      marginBottom:0
+      marginTop:5,
+      marginBottom:-5
     },
     modalContent:{
         flex:1,

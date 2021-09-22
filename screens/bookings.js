@@ -22,7 +22,7 @@ export default function Bookings({props}) {
   
     const fetchReviews = ()=>{
       
-        fetch('http://10.0.2.2:5000/review/')
+        fetch('https://galaxy-rest-be.herokuapp.com/review/')
         .then(res=>res.json())
         .then(results=>{
           setReviews(results)

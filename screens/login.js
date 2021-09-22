@@ -39,7 +39,7 @@ const LoginScreen = (props) => {
  
  })
   const sendCred = async (props)=>{
-    fetch("http://10.0.2.2:5000/auth/signin",{
+    fetch("https://galaxy-rest-be.herokuapp.com/auth/signin",{
       method:"POST",
       headers: {
        'Content-Type': 'application/json'
