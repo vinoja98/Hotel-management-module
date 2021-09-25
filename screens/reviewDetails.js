@@ -5,7 +5,7 @@ import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
 import ReviewReply from './reviewReply'
 
-export default function ReviewDetails({props}) {
+export default function ReviewDetails({navigation}) {
  
   
   // return (
@@ -37,7 +37,7 @@ useEffect(()=>{
   return (
     <View style={globalStyles.container}>
     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
-    <Modal visible={modelOpen} animationType='slide'>
+    {/* <Modal visible={modelOpen} animationType='slide'>
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={globalStyles.modalContent}>
 
@@ -51,7 +51,7 @@ useEffect(()=>{
               />
           </View>
          </TouchableWithoutFeedback>
-      </Modal>
+      </Modal> */}
         {/* {loading?  
             <ActivityIndicator size='large' color='#0000ff'/>
             :     */}
@@ -62,13 +62,14 @@ useEffect(()=>{
               <Card>
 
                 <View  style={styles.cardCol}>  
+                <Image style={styles.pic} source={images.ratings[item.rating]}/>
                           <View style={styles.cardRow}>
                            {/* <Text style={globalStyles. blackText}>Review  : </Text> */}
                            <Text style={globalStyles.itemText}>{item.review}</Text>
                            </View>
                            
                            {/* <Text style={globalStyles.itemText}>rating :{item.rating}</Text> */}
-                           <Image style={styles.pic} source={images.ratings[item.rating]}/>
+                           
                            <View >
                            <Text style={globalStyles.itemText}>{item.name}</Text>
                            </View>
@@ -80,7 +81,7 @@ useEffect(()=>{
                            <Text style={globalStyles.itemText}>Reply : {item.reply}</Text>
                            
                            </View>
-                           <TouchableOpacity onPress={()=>setModelOpen(true)}>
+                           <TouchableOpacity onPress={()=>navigation.navigate('ReviewReply',item)}>
                              <Text style={globalStyles. blackText}>Add Reply</Text>
                           </TouchableOpacity>
                           
@@ -112,9 +113,16 @@ const styles=StyleSheet.create({
     flexDirection:'row'
   },
   pic:{
-    // flex: 1,
+    flex: 1,
     width: 185,
-    height: 35,
-    // resizeMode: 'contain'
+    height: 20,
+    resizeMode: 'contain'
+    // flex: 1,
+    // aspectRatio: 0.2, 
+    // resizeMode: 'contain',
+    // flex: 1,
+    // width: '100%',
+    // height: '100%',
+    // resizeMode: 'cover', 
   },
 })

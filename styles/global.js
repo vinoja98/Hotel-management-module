@@ -15,12 +15,12 @@ export const globalStyles = StyleSheet.create({
       },
       itemText:{
           fontFamily:'nunito-regular'
-          ,fontSize:18,
+          ,fontSize:15,
           color:'#03498f'
       },
       blackText:{
         fontFamily:'nunito-bold'
-        ,fontSize:18,
+        ,fontSize:15,
         color:'#03498f'
       },
       paragraph:{

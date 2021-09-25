@@ -21,8 +21,16 @@ export default function About({route}) {
                 return route.params.price
              case "description":
                return route.params.description
-             case "rating":
-                 return route.params.rating
+             case "discount":
+                 return route.params.discount
+             case "category":
+                  return route.params.category
+              case "status":
+                 return route.params.status
+              case "img":
+                return route.params.img
+              case "code":
+                  return route.params.code
          }
       
       return ""
@@ -31,7 +39,11 @@ export default function About({route}) {
   const[name,setName]=useState(getDetails("name"))
   const[price,setPrice]=useState(getDetails("price"))
   const[description,setDescription]=useState(getDetails("description"))
-  const[rating,setRating]=useState(getDetails("rating"))
+  const[discount,setDiscount]=useState(getDetails("discount"))
+  const[category,setCategory]=useState(getDetails("category"))
+  const[status,setStatus]=useState(getDetails("status"))
+  const[img,setImg]=useState(getDetails("img"))
+  const[code,setCode]=useState(getDetails("code"))
   return (
     <View style={globalStyles.container}>
       <Modal visible={modelOpen} animationType='slide'>
@@ -45,24 +57,30 @@ export default function About({route}) {
                 onPress={()=>setModelOpen(false)}
               />
               <FoodEdit setModelOpen={setModelOpen} _id={_id} 
-              name={name} price={price} description={description} rating={rating} 
+              name={name} price={price} description={description} discount={discount} category={category} 
+              status={status} img={img} code={code}
               setName={setName}
               setPrice={setPrice}
               setDescription={setDescription}
-              setRating={setRating}
+              setDiscount={setDiscount}
+              setCategory={setCategory}
+              setStatus={setStatus}
+              setImg={setImg}
+              setCode={setCode}
               />
           </View>
          </TouchableWithoutFeedback>
       </Modal>
       <Card>
-        <View style={styles.cardTop}>
-          <Image style={styles.pic2} source={require('../assets/cover-for-street-food-in-sydney.jpg')}/>
-          <View  style={styles.cardCol}>
-              <Text style={globalStyles.itemText}>{name}</Text>
-              
-              <Text style={globalStyles.itemText}>Rs.{price}</Text>
+        {/* <View style={styles.cardTop}> */}
+        <View  style={styles.cardCol}>
+          <Image style={styles.pic2} source={{uri: img}}/>
+          
+              <Text style={globalStyles.itemText}>--- {name}</Text>
+              <Text style={globalStyles.itemText}>--- {code}</Text>
+              <Text style={globalStyles.itemText}>--- Rs.{price}</Text>
               <Text style={globalStyles.itemText}>{description}</Text>
-              <Text style={globalStyles.itemText}>Available</Text>
+              
           </View>
           <View style={styles.iconCol}>
             <TouchableOpacity onPress={()=>setModelOpen(true)} >
@@ -70,7 +88,7 @@ export default function About({route}) {
             </TouchableOpacity>
           </View>
           
-        </View>
+        {/* </View> */}
         {/* <View style={styles.rating}>
             <Text style={globalStyles.itemText}>Rating:</Text>
             <Image style={styles.pic} source={images.ratings[rating]}/>
@@ -78,18 +96,22 @@ export default function About({route}) {
         </View> */}
         <View style={styles.rating}>
           <View style={styles.cardCol}>
-          <Text style={[globalStyles.itemText,styles.createdText]}>createdAt:</Text>
+          <Text style={[globalStyles.blackText,styles.createdText]}>createdAt:</Text>
           <View style={styles.cardRow}>
                            <Text style={[globalStyles.itemText,styles.created]}>{createdAt.substring(0,10)}</Text>
                            <Text style={[globalStyles.itemText,styles.created]}> at {createdAt.substring(11,16)}</Text>
           </View>
           <View style={styles.cardRow}>
-            <Text style={[globalStyles.itemText,styles.createdText]}>discount Percentage : </Text>
-                           <Text style={[globalStyles.itemText,styles.created]}>0 </Text>
+            <Text style={[globalStyles.blackText,styles.createdText]}>discount Percentage : </Text>
+                           <Text style={[globalStyles.itemText,styles.created]}>{discount} </Text>
           </View>
           <View style={styles.cardRow}>
-          <Text style={[globalStyles.itemText,styles.createdText]}>Category : </Text>
-                           <Text style={[globalStyles.itemText,styles.created]}>Pizza </Text>
+          <Text style={[globalStyles.blackText,styles.createdText]}>Category : </Text>
+                           <Text style={[globalStyles.itemText,styles.created]}>{category} </Text>
+          </View>
+          <View style={styles.cardRow}>
+          <Text style={[globalStyles.blackText,styles.createdText]}>Status : </Text>
+                           <Text style={[globalStyles.itemText,styles.created]}>{status} </Text>
           </View>
           </View>
         </View>
@@ -113,11 +135,12 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   pic2:{
-    width: 80,
-    height: 50,
+    width: 250,
+    height: 100,
     resizeMode: 'contain',
     borderRadius: 40,
-    marginTop:10
+    marginTop:10,
+    alignSelf:'center'
   },
   cardCol:{
     flexDirection:'column',

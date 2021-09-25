@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert, TouchableWithoutFeedback,Keyboard} from 'react-native';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
@@ -7,24 +7,32 @@ import * as yup from 'yup'
 import FlatButton from '../shared/button';
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
 
-export default function ReviewReply({setModelOpen}) {
+export default function ReviewReply({route}) {
    
-//     const getDetails = (type)=>{
+  const {_id} =route.params
+
+      const getDetails = (type)=>{
      
-//          switch(type){
-//              case "name":
-//                  return name
-//              case "price":
-//                 return price
-//              case "description":
-//                return description
-//              case "rating":
-//                  return rating
-//          }
+         switch(type){
+             case "name":
+                 return route.params.name
+             case "review":
+                return route.params.review
+             case "rating":
+               return route.params.rating
+             case "reply":
+                 return route.params.reply
+           
+         }
       
-//       return ""
-//    }
- 
+      return ""
+   }
+
+  const[reply,setReply]=useState(getDetails("reply"))
+  const[name,setName]=useState(getDetails("name"))
+  const[rating,setRating]=useState(getDetails("rating"))
+  const[review,setReview]=useState(getDetails("review"))
+  
     
   const updateDetails = (_id)=>{
     const id=_id._id
@@ -37,16 +45,15 @@ export default function ReviewReply({setModelOpen}) {
           'Content-Type': 'application/json'
         },
         body:JSON.stringify({
-            id,
+            review,
             name,
-            price,
-            description,
-            rating:rating
+            rating,
+            reply
         })
     })
     .then(res=>res.json())
     .then(result=>{
-        setModelOpen(false)
+      Alert.alert(`reply updated, REFRESH REVIEW PAGE`)
     })
     .catch(err=>{
       Alert.alert(err)
@@ -54,24 +61,33 @@ export default function ReviewReply({setModelOpen}) {
 }
     return (
       <View style={globalStyles.container}>
-          <Text style={globalStyles.itemText}>review : </Text>
+          <Text style={globalStyles.itemText}>review : {review} </Text>
         <Formik>
+        
             {(props)=>(
-                <View>
-                   
+              
+              // <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
+              <View>
                     <TextInput style={globalStyles.input}
                          minHeight={50}
                          label='Reply'
                          mode="outlined"
                          theme={{colors:{primary:"#08b8e1"}}}
-                        minLength={3}/>
-                        
+                        minLength={3}
+                        onChangeText={text =>setReply(text)}
+                        value={reply}/>
+                      
+                       
                     <FlatButton  text='Add Reply'/>
-                   
-                </View>
+                    </View>
+                    // </TouchableWithoutFeedback>  
+                    
             )
             }
+           
         </Formik>
+       
+              
       </View>
     );
   }

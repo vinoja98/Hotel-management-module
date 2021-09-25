@@ -48,7 +48,7 @@ useEffect(()=>{
             data={reviews}
              renderItem={({item})=>(
                
-                     <Card>
+                     <Card  style={styles.new}>
 
                       <View  style={styles.cardCol}>
                         <View style={styles.cardRow}>
@@ -105,4 +105,7 @@ const styles=StyleSheet.create({
   btn:{
     paddingLeft:0
   },
+  new:{
+    alignItems:'center'
+  }
 })

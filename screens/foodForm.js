@@ -40,7 +40,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
  const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Other',},]
     
   const submitFood=()=>{
-    fetch('http://10.0.2.2:5000/food/add',{
+    fetch('https://galaxy-rest-be.herokuapp.com/food/add',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
       // setFoodItems((prevFood)=>{
       //   return [data, ...prevFood]
       //  })
-      Alert.alert(`food item ${data.name} added`)
+      Alert.alert(`food item ${data.name} added, REFRESH HOME PAGE`)
       setModelOpen(false)
     
     })
