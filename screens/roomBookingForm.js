@@ -8,9 +8,9 @@ import FlatButton from '../shared/button';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 export default function RoomBookingForm({navigation ,setModelOpen}) {
-  const[name,setName]=useState("")
-  const[date,setDate]=useState(new Date())
-    const[date2,setDate2]=useState(new Date())
+  const[customerName,setName]=useState("")
+  const[startDate,setDate]=useState(new Date())
+    const[endDate,setDate2]=useState(new Date())
     const[room,setRoom]=useState("")
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -47,16 +47,15 @@ export default function RoomBookingForm({navigation ,setModelOpen}) {
 
 
     
-  const submitFood=()=>{
-    fetch('https://galaxy-rest-be.herokuapp.com/food/add',{
+  const submitBooking=()=>{
+    fetch('http://10.0.2.2:5000/booking/add',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          name,
-          price,
-          description,
+        customerName,
+        startDate,endDate,room
           // rating,
          
       })
@@ -92,16 +91,16 @@ export default function RoomBookingForm({navigation ,setModelOpen}) {
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text => setName(text)}
-                        value={name}
+                        value={customerName}
                         
                         />
                     
                         <TextInput style={globalStyles.input}
-                        label='Room No'
+                        label='Room'
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text => setRoom(text)}
-                        value={room}
+                        value={room} //here put a dropdown to select entire room object from db, this dropdown should be taken from the backend
                         keyboardType='numeric'
                         />
                      <Button title="Show Start Date Picker" onPress={showDatePicker} />
@@ -111,7 +110,7 @@ export default function RoomBookingForm({navigation ,setModelOpen}) {
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
         minimumDate={new Date()}
-        date={date}
+        date={startDate}
         onDateChange={date1=>setDate(date1)}
       />
       <Button title="Show End Date Picker" onPress={showDatePicker2} />
@@ -120,13 +119,13 @@ export default function RoomBookingForm({navigation ,setModelOpen}) {
         mode="date"
         onConfirm={handleConfirm2}
         onCancel={hideDatePicker2}
-        minimumDate={date}
-        date={date2}
+        minimumDate={startDate}
+        date={endDate}
         onDateChange={date1=>setDate2(date1)}
       />
                    
                 
-                    <FlatButton text='Add' onPress={submitFood}/>
+                    <FlatButton text='Add' onPress={submitBooking}/>
                 </View>
             )
             }

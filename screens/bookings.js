@@ -16,23 +16,23 @@ export default function Bookings({props}) {
   //   </View>
   // );
   const[loading,setLoading]=useState(true)
-  const[reviews,setReviews]=useState([])
+  const[bookings,setBookings]=useState([])
   const[modelOpen,setModelOpen]=useState(false)
 
   
-    const fetchReviews = ()=>{
+    const fetchBookings = ()=>{
       
-        fetch('https://galaxy-rest-be.herokuapp.com/review/')
+        fetch('http://10.0.2.2:5000/booking/')
         .then(res=>res.json())
         .then(results=>{
-          setReviews(results)
+          setBookings(results)
           
           console.log(results)
           setLoading(false)
         }).catch(err=>{Alert.alert(err)})
      }
   useEffect(()=>{
-     fetchReviews()
+     fetchBookings()
   },[])
 
   
@@ -66,26 +66,26 @@ export default function Bookings({props}) {
             <ActivityIndicator size='large' color='#0000ff'/>
             :     */}
             <FlatList
-            data={reviews}
+            data={bookings}
              renderItem={({item})=>(
                
                      <Card>
 
                       <View  style={styles.cardCol}>
                           <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Customer Name  : </Text><Text style={globalStyles.itemText}>Customer1</Text>
+                           <Text style={globalStyles. blackText}>Customer Name  : </Text><Text style={globalStyles.itemText}>{item.customerName}</Text>
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>Room No : </Text>
-                           <Text style={globalStyles.itemText}>3</Text>
+                           <Text style={globalStyles.itemText}>{item.room.roomNo}</Text>
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>Start Date : </Text>
-                           <Text style={globalStyles.itemText}>20/9/2020</Text>
+                           <Text style={globalStyles.itemText}>{item.startDate}</Text>
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>End Date : </Text>
-                           <Text style={globalStyles.itemText}>21/9/2020</Text>
+                           <Text style={globalStyles.itemText}>{item.endDate}</Text>
                            </View>
                        </View>
                        <View style={styles.iconCol}>
@@ -100,7 +100,7 @@ export default function Bookings({props}) {
                   
              )}
              keyExtractor={item=>item._id}
-             onRefresh={()=>fetchReviews()}
+             onRefresh={()=>fetchBookings()}
              refreshing={loading}
            />
           
