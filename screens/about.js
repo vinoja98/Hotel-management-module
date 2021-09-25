@@ -79,7 +79,7 @@ export default function About({route}) {
               <Text style={globalStyles.itemText}>--- {name}</Text>
               <Text style={globalStyles.itemText}>--- {code}</Text>
               <Text style={globalStyles.itemText}>--- Rs.{price}</Text>
-              <Text style={globalStyles.itemText}>{description}</Text>
+              <Text style={globalStyles.itemText}>--- {description}</Text>
               
           </View>
           <View style={styles.iconCol}>
