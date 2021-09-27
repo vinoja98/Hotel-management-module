@@ -59,9 +59,9 @@ useEffect(()=>{
                            <Text style={globalStyles. blackText}>Bed Count : </Text>
                            <Text style={globalStyles.itemText}>{item.bedCount}</Text>
                         </View>
-                        <View style={styles.cardRow}>
+                        {/* <View style={styles.cardRow}>
                            <Text style={globalStyles.itemText}>{item.status}</Text>
-                        </View>
+                        </View> */}
                            
                            
                            

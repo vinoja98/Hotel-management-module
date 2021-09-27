@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect,useState} from 'react';
 import { StyleSheet, Text, View, Platform,Button,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard,Alert} from 'react-native';
 import { TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
@@ -6,12 +6,15 @@ import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
 
 export default function RoomBookingForm({navigation ,setModelOpen}) {
   const[customerName,setName]=useState("")
   const[startDate,setDate]=useState(new Date())
     const[endDate,setDate2]=useState(new Date())
     const[room,setRoom]=useState("")
+    const[loading,setLoading]=useState(true)
+    const[rooms,setRooms]=useState([])
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -45,8 +48,18 @@ export default function RoomBookingForm({navigation ,setModelOpen}) {
     hideDatePicker2();
   };
 
-
+const getRooms=()=>{
+  fetch('http://10.0.2.2:5000/rooms/')
+  .then(res=>res.json())
+  .then(results=>{
+    setRooms(results)
+    setLoading(false)
+  }).catch(err=>{Alert.alert(err)})
+}
     
+useEffect(()=>{
+  getRooms()
+},[])
   const submitBooking=()=>{
     fetch('http://10.0.2.2:5000/booking/add',{
       method: 'POST',
@@ -65,6 +78,7 @@ export default function RoomBookingForm({navigation ,setModelOpen}) {
       // setFoodItems((prevFood)=>{
       //   return [data, ...prevFood]
       //  })
+      
       Alert.alert(`food item ${data.name} added`)
       setModelOpen(false)
     
@@ -85,6 +99,7 @@ export default function RoomBookingForm({navigation ,setModelOpen}) {
             }}
        */}
             {(props)=>(
+          
                 <View>
                     <TextInput style={globalStyles.input}
                         label="Customer's Name"
@@ -94,15 +109,25 @@ export default function RoomBookingForm({navigation ,setModelOpen}) {
                         value={customerName}
                         
                         />
-                    
-                        <TextInput style={globalStyles.input}
+                     
+                      <Dropdown 
+                         
+                          label="Room"
+                          data={rooms.map(item=> ({value:item.roomNo}))}
+                          // data={items}
+                          onChangeText={item => setRoom(item)}
+                        value={room}
+                       />
+                      
+                       
+                        {/* <TextInput style={globalStyles.input}
                         label='Room'
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
                         onChangeText={text => setRoom(text)}
                         value={room} //here put a dropdown to select entire room object from db, this dropdown should be taken from the backend
                         keyboardType='numeric'
-                        />
+                        /> */}
                      <Button title="Show Start Date Picker" onPress={showDatePicker} />
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -125,10 +150,11 @@ export default function RoomBookingForm({navigation ,setModelOpen}) {
       />
                    
                 
-                    <FlatButton text='Add' onPress={submitBooking}/>
+                    <FlatButton text='Add'/>
                 </View>
             )
             }
+            
         </Formik>
       </View>
     );
