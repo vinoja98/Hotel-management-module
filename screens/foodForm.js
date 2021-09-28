@@ -1,11 +1,12 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert,ScrollView} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert,ScrollView,ImageBackground} from 'react-native';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItems}) {
   const[name,setName]=useState("")
@@ -18,22 +19,22 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
     const[code,setCode]=useState("")
     // const[modelOpen,setModelOpen]=useState(false)
 
-    // const foodSchema=yup.object({
-    //   name:yup.string()
-    //   .required()
-    //   .min(3),
-    //   price:yup.string()
-    //   .required()
-    //   .min(2),
-    //   description:yup.string()
-    //   .required()
-    //   .min(3),
-    //   rating:yup.string()
-    //   .required()
-    //   .test('is 4 or 5','rating must be 4 or 5',(val)=>{
-    //     return parseInt(val)<6 && parseInt(val)>3
-    //   })
-    // })
+    const foodSchema=yup.object({
+      name:yup.string()
+      .required()
+      .min(3),
+      price:yup.string()
+      .required()
+      .min(2),
+      description:yup.string()
+      .required()
+      .min(3),
+      rating:yup.string()
+      .required()
+      .test('is 4 or 5','rating must be 4 or 5',(val)=>{
+        return parseInt(val)<6 && parseInt(val)>3
+      })
+    })
  const data1=[{value:'Available',},
  {value:'Not Available',},]
 
@@ -71,6 +72,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
     })
   }
     return (
+      <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
       <View style={globalStyles.container}>
         <ScrollView>
         <Formik
@@ -172,5 +174,6 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
         </Formik>
         </ScrollView>
       </View>
+      </ImageBackground>
     );
   }

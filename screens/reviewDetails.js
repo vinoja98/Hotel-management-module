@@ -1,9 +1,10 @@
 import React,{useEffect,useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,StatusBar,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,StatusBar,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard,ImageBackground} from 'react-native';
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
 import ReviewReply from './reviewReply'
+const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function ReviewDetails({navigation}) {
  
@@ -35,6 +36,7 @@ useEffect(()=>{
 },[])
 
   return (
+    <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
     <View style={globalStyles.container}>
     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
     {/* <Modal visible={modelOpen} animationType='slide'>
@@ -62,7 +64,10 @@ useEffect(()=>{
               <Card>
 
                 <View  style={styles.cardCol}>  
+                <View style={styles.cardRow}>
+                <Text style={globalStyles.itemText}>{item.name}</Text>
                 <Image style={styles.pic} source={images.ratings[item.rating]}/>
+                </View>
                           <View style={styles.cardRow}>
                            {/* <Text style={globalStyles. blackText}>Review  : </Text> */}
                            <Text style={globalStyles.itemText}>{item.review}</Text>
@@ -70,9 +75,9 @@ useEffect(()=>{
                            
                            {/* <Text style={globalStyles.itemText}>rating :{item.rating}</Text> */}
                            
-                           <View >
+                           {/* <View >
                            <Text style={globalStyles.itemText}>{item.name}</Text>
-                           </View>
+                           </View> */}
                            <View style={styles.cardRow}>
                            <Text style={globalStyles.itemText}>{item.createdAt.substring(0,10)}</Text>
                            <Text style={globalStyles.itemText}> at {item.createdAt.substring(11,16)}</Text>
@@ -99,7 +104,7 @@ useEffect(()=>{
           {/* }
      */}
     </View>
-   
+    </ImageBackground>
   );
 }
 const styles=StyleSheet.create({
@@ -115,7 +120,7 @@ const styles=StyleSheet.create({
   pic:{
     flex: 1,
     width: 185,
-    height: 20,
+    height: 15,
     resizeMode: 'contain'
     // flex: 1,
     // aspectRatio: 0.2, 

@@ -1,9 +1,10 @@
 import React,{useEffect,useState} from 'react';
-import { Alert,StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard,TouchableOpacity} from 'react-native';
+import { Alert,StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard,TouchableOpacity,ImageBackground} from 'react-native';
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
 import WaiterForm from './waiterForm'
+const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function Details() {
   const[loading,setLoading]=useState(true)
@@ -12,7 +13,7 @@ export default function Details() {
   
     const fetchReviews = ()=>{
       
-        fetch('https://galaxy-rest-be.herokuapp.com/review/')
+        fetch('https://galaxy-rest-be.herokuapp.com/waiters/')
         .then(res=>res.json())
         .then(results=>{
           setReviews(results)
@@ -26,6 +27,7 @@ export default function Details() {
   },[])
 
   return (
+    <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
     <View style={globalStyles.container}>
       <StatusBar backgroundColor="#03498f" barStyle="light-content" />
         <MaterialIcons
@@ -36,6 +38,7 @@ export default function Details() {
         />
  
  <Modal visible={modelOpen} animationType='slide'>
+ <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={globalStyles.modalContent}>
 
@@ -48,6 +51,7 @@ export default function Details() {
               <WaiterForm modelOpen={modelOpen} setModelOpen={setModelOpen}/>
           </View>
          </TouchableWithoutFeedback>
+        </ImageBackground>
       </Modal>
         {/* {loading?  
             <ActivityIndicator size='large' color='#0000ff'/>
@@ -60,19 +64,19 @@ export default function Details() {
 
                       <View  style={styles.cardCol}>
                           <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Name  : </Text><Text style={globalStyles.itemText}>Waiter1</Text>
+                           <Text style={globalStyles. blackText}>Name  : </Text><Text style={globalStyles.itemText}>{item.name}</Text>
                            </View>
                            <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Address : </Text>
-                           <Text style={globalStyles.itemText}>No7, Highlevel road</Text>
+                           <Text style={globalStyles. blackText}>NIC      : </Text>
+                           <Text style={globalStyles.itemText}>{item.nic}</Text>
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>Phone : </Text>
-                           <Text style={globalStyles.itemText}>0789657777</Text>
+                           <Text style={globalStyles.itemText}>{item.contactNo}</Text>
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>Salary : </Text>
-                           <Text style={globalStyles.itemText}>Rs 50,000</Text>
+                           <Text style={globalStyles.itemText}>Rs {item.salary}</Text>
                            </View>
                            <TouchableOpacity >
                              <Text style={globalStyles. blackText}>Messaging</Text>
@@ -97,7 +101,7 @@ export default function Details() {
           {/* }
      */}
     </View>
-   
+    </ImageBackground>
   );
 }
 const styles=StyleSheet.create({

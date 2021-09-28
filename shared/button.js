@@ -18,7 +18,10 @@ export default function FlatButton({text,onPress}) {
         borderRadius:8,
         paddingVertical:12,
         paddingHorizontal:10,
-        backgroundColor:'#08b8e1'
+        borderWidth:1,
+        backgroundColor:'#08b8e1',
+        borderColor:'#03498f',
+        opacity:0.8
     },
     buttonText:{
       color:'#03498f',

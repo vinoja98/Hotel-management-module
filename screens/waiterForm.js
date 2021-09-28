@@ -1,19 +1,20 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert,ScrollView,ImageBackground} from 'react-native';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodItems}) {
   const[name,setName]=useState("")
-    const[password,setPrice]=useState("")
+    const[password,setPassword]=useState("")
     const[email,setEmail]=useState("")
-    const[phone,setDescription]=useState("")
-    const[address,setAddress]=useState("")
-    const[salary,setRating]=useState("")
+    const[contactNo,setContactNo]=useState("")
+    const[nic,setNIC]=useState("")
+    const[salary,setSalary]=useState("")
     // const[modelOpen,setModelOpen]=useState(false)
 
     // const foodSchema=yup.object({
@@ -33,18 +34,19 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
     //   })
     // })
     
-  const submitFood=()=>{
-    fetch('https://galaxy-rest-be.herokuapp.com/food/add',{
+  const submitWaiter=()=>{
+    fetch('https://galaxy-rest-be.herokuapp.com/addWaiter/signup',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
           name,
-          price,
-          description,
-          // rating,
-         
+          email,
+          password,
+          contactNo,
+          nic,
+          salary
       })
     })
     .then(res=>res.json())
@@ -52,7 +54,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
       // setFoodItems((prevFood)=>{
       //   return [data, ...prevFood]
       //  })
-      Alert.alert(`food item ${data.name} added`)
+      Alert.alert(`Waiter ${data.name} added, REFRESH THE PAGE`)
       setModelOpen(false)
     
     })
@@ -61,9 +63,11 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
     })
   }
     return (
+      <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
       <View style={globalStyles.container}>
+        <ScrollView>
         <Formik
-            initialValues={{name:'',email:'',password:''}}>
+            initialValues={{name:'',email:'',password:'',nic:'',salary:'',contactNo:''}}>
             {/* validationSchema={foodSchema}
             onSubmit={(values,actions)=>{
                     onsubmit(values)
@@ -85,13 +89,15 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         label='Password'
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
-                        
+                        onChangeText={text => setPassword(text)}
+                        value={password}
                         />
                          <TextInput style={globalStyles.input}
                         label='Email'
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
-                        
+                        onChangeText={text => setEmail(text)}
+                        value={email}
                         />
                         {/* onBlur={props.handleBlur('name')}  */}
                     {/* <Text style={globalStyles.errorText}>{props.touched.name && props.errors.name}</Text> */}
@@ -99,21 +105,21 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         label='Phone'
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
-                        // onChangeText={text => setPrice(text)}
-                        // value={}
-                        
-                        // onBlur={props.handleBlur('price')}
-                        />
+                        onChangeText={text => setContactNo(text)}
+                        value={contactNo}
+                        keyboardType='numeric'/>
+                      
                     {/* <Text style={globalStyles.errorText}>{props.touched.price && props.errors.price}</Text> */}
                      <TextInput style={globalStyles.input}
                         
-                        label='Address'
+                        label='NIC'
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
-                        // onChangeText={text => setDescription(text)}
+                        onChangeText={text => setNIC(text)}
                         
-                        // value={description}
-                        />
+                        value={nic}
+                        keyboardType='numeric'/>
+                       
                         {/* onBlur={props.handleBlur('description')} */}
                       {/* <Text style={globalStyles.errorText}>{props.touched.description && props.errors.description}</Text> */}
                      {/* <TextInput style={globalStyles.input}
@@ -131,8 +137,8 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         mode="outlined"
                         theme={{colors:{primary:"#08b8e1"}}}
                         keyboardType='numeric'
-                        // onChangeText={text => setPrice(text)}
-                        // value={price}
+                        onChangeText={text => setSalary(text)}
+                        value={salary}
                         
                         // onBlur={props.handleBlur('price')}
                         
@@ -142,11 +148,13 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         // onBlur={props.handleBlur('price')}
                         /> 
                 
-                    <FlatButton text='Add' onPress={submitFood}/>
+                    <FlatButton text='Add' onPress={submitWaiter}/>
                 </View>
             )
             }
         </Formik>
+        </ScrollView>
       </View>
+      </ImageBackground>
     );
   }

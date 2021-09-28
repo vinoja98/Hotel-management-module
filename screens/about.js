@@ -1,9 +1,11 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard,ImageBackground} from 'react-native';
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
+import {AntDesign} from '@expo/vector-icons'
 import Card from '../shared/card';
 import FoodEdit from './foodEdit';
+const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function About({route}) {
   const {_id} =route.params
@@ -45,11 +47,14 @@ export default function About({route}) {
   const[img,setImg]=useState(getDetails("img"))
   const[code,setCode]=useState(getDetails("code"))
   return (
-    <View style={globalStyles.container}>
+    
+    <View style={[globalStyles.container,globalStyles.color]}>
       <Modal visible={modelOpen} animationType='slide'>
+      
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+         
           <View style={globalStyles.modalContent}>
-
+              
               <MaterialIcons
                 name='close'
                 size={24}
@@ -70,17 +75,25 @@ export default function About({route}) {
               />
           </View>
          </TouchableWithoutFeedback>
+   
       </Modal>
       <Card>
         {/* <View style={styles.cardTop}> */}
         <View  style={styles.cardCol}>
+        <View style={styles.name}>
+        <Text style={styles.nam}> {name}</Text>
+        <Text style={styles.nam}>-- {code}</Text>
+        </View>
+        <View style={styles.price}>
+        <Text style={globalStyles.itemText}>Rs.{price}</Text>
+        </View>
           <Image style={styles.pic2} source={{uri: img}}/>
           
-              <Text style={globalStyles.itemText}>--- {name}</Text>
-              <Text style={globalStyles.itemText}>--- {code}</Text>
-              <Text style={globalStyles.itemText}>--- Rs.{price}</Text>
-              <Text style={globalStyles.itemText}>--- {description}</Text>
+             
               
+              <View style={styles.desc}>
+              <Text style={globalStyles.itemText}>{description}</Text>
+              </View>
           </View>
           <View style={styles.iconCol}>
             <TouchableOpacity onPress={()=>setModelOpen(true)} >
@@ -96,20 +109,26 @@ export default function About({route}) {
         </View> */}
         <View style={styles.rating}>
           <View style={styles.cardCol}>
-          <Text style={[globalStyles.blackText,styles.createdText]}>createdAt:</Text>
+          <View style={styles.cardRow}>
+          <AntDesign  style={styles.right} name='star' size={14} />
+          <Text style={[globalStyles.blackText,styles.createdText]}> Added to the system :</Text>
+          </View>
           <View style={styles.cardRow}>
                            <Text style={[globalStyles.itemText,styles.created]}>{createdAt.substring(0,10)}</Text>
                            <Text style={[globalStyles.itemText,styles.created]}> at {createdAt.substring(11,16)}</Text>
           </View>
           <View style={styles.cardRow}>
-            <Text style={[globalStyles.blackText,styles.createdText]}>discount Percentage : </Text>
-                           <Text style={[globalStyles.itemText,styles.created]}>{discount} </Text>
+          <AntDesign  style={styles.right} name='star' size={14} />
+            <Text style={[globalStyles.blackText,styles.createdText]}>Discount Percentage : </Text>
+                           <Text style={[globalStyles.itemText,styles.created]}>{discount} %</Text>
           </View>
           <View style={styles.cardRow}>
+          <AntDesign  style={styles.right} name='star' size={14} />
           <Text style={[globalStyles.blackText,styles.createdText]}>Category : </Text>
                            <Text style={[globalStyles.itemText,styles.created]}>{category} </Text>
           </View>
           <View style={styles.cardRow}>
+          <AntDesign  style={styles.right} name='star' size={14} />
           <Text style={[globalStyles.blackText,styles.createdText]}>Status : </Text>
                            <Text style={[globalStyles.itemText,styles.created]}>{status} </Text>
           </View>
@@ -120,6 +139,12 @@ export default function About({route}) {
   );
 }
 const styles = StyleSheet.create({
+
+  right:{
+    paddingTop:3,
+    paddingRight:3,
+    color:'#03498f'
+   },
   rating:{
       flexDirection:'row',
       justifyContent:'center',
@@ -146,6 +171,24 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     // paddingLeft:10,
   },
+  price:{
+    alignSelf:'center'
+  },
+  nam:{
+    fontFamily:'nunito-bold',
+    color:'#03498f',
+    fontSize:18
+  },
+  name:{
+    fontFamily:'nunito-bold',
+    color:'#03498f',
+    flexDirection:'row',
+    alignSelf:'center',
+    
+  },
+  desc:{
+    alignSelf:'center'
+  },
   cardTop:{
     flexDirection:'row',
   },
@@ -162,12 +205,14 @@ const styles = StyleSheet.create({
   },
   created:{
     paddingTop:0,
+    paddingLeft:18
     // right:42
   },
   createdText:{
     left:0
   },
   cardRow:{
-    flexDirection:'row'
+    flexDirection:'row',
+    paddingTop:9
   },
 })

@@ -1,11 +1,12 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert,ScrollView} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert,ScrollView,ImageBackground} from 'react-native';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function FoodEdit({name,price,description,discount,status,code,category,img,setModelOpen,_id,setDescription,setDiscount,setName,setPrice,setStatus,setCode,setCategory,setImg}) {
    
@@ -47,7 +48,8 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
   })
 }
     return (
-      <View style={globalStyles.container}>
+     
+      <View style={[globalStyles.container,globalStyles.color]}>
         <ScrollView>
         <Formik>
             {(props)=>(
@@ -132,5 +134,6 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
         </Formik>
         </ScrollView>
       </View>
+      
     );
   }

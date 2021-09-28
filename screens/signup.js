@@ -9,7 +9,7 @@ import {
   StatusBar,
   TouchableOpacity,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,Keyboard
+  TouchableWithoutFeedback,Keyboard,ScrollView
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     <> 
    <KeyboardAvoidingView behavior="position" backgroundColor='white'>
    <StatusBar backgroundColor="#03498f" barStyle="light-content" />
-    
+    <ScrollView>
       <Text 
       style={{fontSize:25,textAlign:'center',marginTop:30,color:"#08b8e1",fontFamily:'nunito-bold'}}>Welcome to</Text>
       <View style={styles.logo}>
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
       onPress={()=>props.navigation.replace("login")}
       >Already have an account ?</Text>
       </TouchableOpacity>
-    
+      </ScrollView>
       </KeyboardAvoidingView>
    </>
   );

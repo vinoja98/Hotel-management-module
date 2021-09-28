@@ -1,11 +1,12 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert, TouchableWithoutFeedback,Keyboard} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert, TouchableWithoutFeedback,Keyboard,ImageBackground} from 'react-native';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function ReviewReply({route}) {
    
@@ -60,8 +61,9 @@ export default function ReviewReply({route}) {
   })
 }
     return (
+      <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
       <View style={globalStyles.container}>
-          <Text style={globalStyles.itemText}>review : {review} </Text>
+          <Text style={globalStyles.text}>Review : {review} </Text>
         <Formik>
         
             {(props)=>(
@@ -89,5 +91,6 @@ export default function ReviewReply({route}) {
        
               
       </View>
+      </ImageBackground>
     );
   }

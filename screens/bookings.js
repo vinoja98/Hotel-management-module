@@ -1,9 +1,10 @@
 import React,{useEffect,useState} from 'react';
-import { Alert,StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard,TouchableOpacity} from 'react-native';
+import { Alert,StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard,TouchableOpacity,ImageBackground} from 'react-native';
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
 import RoomBookingForm from './roomBookingForm';
+const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function Bookings({props}) {
  
@@ -38,6 +39,7 @@ export default function Bookings({props}) {
   
 
   return (
+    <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
     <View style={globalStyles.container}>
       
     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
@@ -48,6 +50,7 @@ export default function Bookings({props}) {
           onPress={()=>setModelOpen(true)}
         />
     <Modal visible={modelOpen} animationType='slide'>
+    <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={globalStyles.modalContent}>
 
@@ -61,6 +64,7 @@ export default function Bookings({props}) {
               />
           </View>
          </TouchableWithoutFeedback>
+         </ImageBackground>
       </Modal>
         {/* {loading?  
             <ActivityIndicator size='large' color='#0000ff'/>
@@ -81,11 +85,11 @@ export default function Bookings({props}) {
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>Start Date : </Text>
-                           <Text style={globalStyles.itemText}>{item.startDate}</Text>
+                           <Text style={globalStyles.itemText}>{item.startDate.substring(0,10)}</Text>
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>End Date : </Text>
-                           <Text style={globalStyles.itemText}>{item.endDate}</Text>
+                           <Text style={globalStyles.itemText}>{item.endDate.substring(0,10)}</Text>
                            </View>
                        </View>
                        <View style={styles.iconCol}>
@@ -107,6 +111,7 @@ export default function Bookings({props}) {
           {/* }
      */}
     </View>
+    </ImageBackground>
    
   );
 }

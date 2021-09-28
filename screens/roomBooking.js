@@ -1,9 +1,10 @@
 import React,{useEffect,useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard,ImageBackground} from 'react-native';
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
 import FlatButton from '../shared/button';
+const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function RoomBooking({navigation,props}) {
  
@@ -35,6 +36,7 @@ useEffect(()=>{
 },[])
 
   return (
+    <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
     <View style={globalStyles.container}>
     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
         {/* {loading?  
@@ -52,7 +54,7 @@ useEffect(()=>{
 
                       <View  style={styles.cardCol}>
                         <View style={styles.cardRow}>
-                            <Text style={globalStyles. blackText}>Room No  : </Text>
+                            <Text style={globalStyles. blackText}>Room No   : </Text>
                            <Text style={globalStyles.itemText}>{item.roomNo}</Text>
                         </View>
                         <View style={styles.cardRow}>
@@ -79,7 +81,9 @@ useEffect(()=>{
            />
           {/* }
      */}
+    
     </View>
+    </ImageBackground>
    
   );
 }
@@ -98,8 +102,8 @@ const styles=StyleSheet.create({
   },
   pic:{
     // flex: 1,
-    width: 150,
-    height: 40,
+    width: 350,
+    height: 100,
     // resizeMode: 'contain'
   },
   btn:{

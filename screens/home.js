@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,
-  Modal,TouchableWithoutFeedback,Keyboard,ActivityIndicator,StatusBar, KeyboardAvoidingView,} from 'react-native';
+  Modal,TouchableWithoutFeedback,Keyboard,ActivityIndicator,StatusBar, KeyboardAvoidingView,ImageBackground} from 'react-native';
 import { globalStyles } from '../styles/global';
 import Card from '../shared/card';
 import {MaterialIcons} from '@expo/vector-icons'
@@ -10,7 +10,7 @@ import FlatButton from '../shared/button';
 import ActionButton from 'react-native-action-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 export default function Home({navigation,props}) {
   const[loading,setLoading]=useState(true)
   const[modelOpen,setModelOpen]=useState(false)
@@ -84,10 +84,12 @@ useEffect(()=>{
       ]
     );
   return (
+    <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
     <View style={globalStyles.container}>
     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
     
       <Modal visible={modelOpen} animationType='slide'>
+      <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={globalStyles.modalContent}>
 
@@ -100,6 +102,7 @@ useEffect(()=>{
               <FoodForm modelOpen={modelOpen} setModelOpen={setModelOpen} foodItems={foodItems} setFoodItems={setFoodItems}/>
           </View>
          </TouchableWithoutFeedback>
+         </ImageBackground>
       </Modal>
      
       <View style={styles.topROw}>
@@ -131,15 +134,19 @@ useEffect(()=>{
                     
                      <Card>
                        <View style={styles.crdrow}>
-                           <Text style={globalStyles.itemText}>{item.name}</Text>
+                           <Text style={globalStyles.blackText}>{item.name}</Text>
                            
                            <View style={styles.ant}>
+                           
                            <TouchableOpacity onPress={()=>navigation.navigate('About',item)}>
                              <AntDesign  style={styles.right} name='doubleright' size={20} />
                              </TouchableOpacity>
                            </View>
+                           <View style={styles.code}>
+                           <Text style={globalStyles.itemText}>{item.code}</Text>
+                           </View>
                        </View>
-                       <Text style={globalStyles.itemText}>{item.code}</Text>
+                      
                      </Card> 
                    
                  </View>
@@ -158,7 +165,9 @@ useEffect(()=>{
            />
           {/* }
      */}
+     
     </View>
+    </ImageBackground>
    
   );
 }
@@ -174,7 +183,7 @@ const styles=StyleSheet.create({
     flexDirection:'row'
   },
   btn:{
-    paddingLeft:70
+    paddingLeft:25
   },
   btn2:{
     paddingLeft:10
@@ -202,11 +211,16 @@ const styles=StyleSheet.create({
   },
   del:{
     paddingTop:5,
-    color:'#03498f'
+    color:'#dcdbdb'
    },
   ant:{
     position:'absolute',
     right:0,
+    justifyContent:'center'
+  },
+  code:{
+    position:'absolute',
+    right:30,
     justifyContent:'center'
   }
 })
