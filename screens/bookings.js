@@ -3,6 +3,7 @@ import { Alert,StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWi
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
+import Toast from 'react-native-toast-message';
 import RoomBookingForm from './roomBookingForm';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
@@ -43,32 +44,7 @@ export default function Bookings({props}) {
     <View style={globalStyles.container}>
       
     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
-    <MaterialIcons
-          name='add'
-          size={24}
-          style={ globalStyles.modalToggle}
-          onPress={()=>setModelOpen(true)}
-        />
-    <Modal visible={modelOpen} animationType='slide'>
-    <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
-         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={globalStyles.modalContent}>
-
-              <MaterialIcons
-                name='close'
-                size={24}
-                style={[ globalStyles.modalToggle,  globalStyles.modalClose]}
-                onPress={()=>setModelOpen(false)}
-              />
-              < RoomBookingForm setModelOpen={setModelOpen} 
-              />
-          </View>
-         </TouchableWithoutFeedback>
-         </ImageBackground>
-      </Modal>
-        {/* {loading?  
-            <ActivityIndicator size='large' color='#0000ff'/>
-            :     */}
+    
             <FlatList
             data={bookings}
              renderItem={({item})=>(
@@ -77,12 +53,18 @@ export default function Bookings({props}) {
 
                       <View  style={styles.cardCol}>
                           <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Customer Name  : </Text><Text style={globalStyles.itemText}>{item.customerName}</Text>
+                           <Text style={globalStyles. blackText}>Customer Name : </Text><Text style={globalStyles.itemText}>{item.customerName}</Text>
                            </View>
                            <View style={styles.cardRow}>
+                           <Text style={globalStyles. blackText}>Email : </Text><Text style={globalStyles.itemText}>{item.customerEmail}</Text>
+                           </View>
+                           <View style={styles.cardRow}>
+                           <Text style={globalStyles. blackText}>ContactNo : </Text><Text style={globalStyles.itemText}>{item.customerContactNumber}</Text>
+                           </View>
+                           {/* <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>Room No : </Text>
                            <Text style={globalStyles.itemText}>{item.room.roomNo}</Text>
-                           </View>
+                           </View> */}
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>Start Date : </Text>
                            <Text style={globalStyles.itemText}>{item.startDate.substring(0,10)}</Text>
@@ -91,12 +73,16 @@ export default function Bookings({props}) {
                            <Text style={globalStyles. blackText}>End Date : </Text>
                            <Text style={globalStyles.itemText}>{item.endDate.substring(0,10)}</Text>
                            </View>
+                           <View style={styles.cardRow}>
+                           <Text style={globalStyles. blackText}>RoomID: </Text>
+                           <Text style={globalStyles.itemText}>{item.room}</Text>
+                           </View>
                        </View>
-                       <View style={styles.iconCol}>
+                       {/* <View style={styles.iconCol}>
                             <TouchableOpacity >
                             <MaterialIcons name='delete' size={28} style={styles.edit}/>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                      </Card> 
                    
              

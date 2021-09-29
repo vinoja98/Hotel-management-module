@@ -12,12 +12,13 @@ export const globalStyles = StyleSheet.create({
         flex:1,
         paddingTop:20,
         padding:24,
+        width:'100%'
         
       },
       itemText:{
-          fontFamily:'nunito-regular'
+          fontFamily:'nunito-bold'
           ,fontSize:15,
-          color:'#03498f'
+          color:'blue'
       },
       blackText:{
         fontFamily:'nunito-bold'
@@ -29,6 +30,11 @@ export const globalStyles = StyleSheet.create({
         ,fontSize:15,
         color:'#dcdbdb'
       },
+      addtext:{
+        fontFamily:'nunito-bold'
+        ,fontSize:15,
+        color:'blue'
+      },
       paragraph:{
           marginVertical:8,
           lineHeight:20
@@ -38,7 +44,8 @@ export const globalStyles = StyleSheet.create({
           borderColor:'#03498f',
         //   padding:0,
           fontSize:15,
-          borderRadius:0
+          borderRadius:0,
+          backgroundColor:'white'
       },
       errorText:{
           color:'#03498f',
@@ -51,7 +58,7 @@ export const globalStyles = StyleSheet.create({
         backgroundColor:'#e4e2e2'
       },
       modalToggle:{
-        color:'black',
+        color:'blue',
         marginBottom:2,
         borderWidth:1,
         borderColor:'#03498f',

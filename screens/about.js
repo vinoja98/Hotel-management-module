@@ -47,9 +47,9 @@ export default function About({route}) {
   const[img,setImg]=useState(getDetails("img"))
   const[code,setCode]=useState(getDetails("code"))
   return (
-    
-    <View style={[globalStyles.container,globalStyles.color]}>
-      <Modal visible={modelOpen} animationType='slide'>
+    <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
+    <View style={globalStyles.container}>
+      <Modal visible={modelOpen} animationType='slide' style={[globalStyles.container,globalStyles.color]}>
       
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          
@@ -136,6 +136,7 @@ export default function About({route}) {
         </View>
       </Card>
     </View>
+    </ImageBackground>
   );
 }
 const styles = StyleSheet.create({
@@ -161,9 +162,9 @@ const styles = StyleSheet.create({
   },
   pic2:{
     width: 250,
-    height: 100,
+    height: 150,
     resizeMode: 'contain',
-    borderRadius: 40,
+    borderRadius: 80,
     marginTop:10,
     alignSelf:'center'
   },

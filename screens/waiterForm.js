@@ -4,6 +4,7 @@ import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
+import Toast from 'react-native-toast-message';
 import FlatButton from '../shared/button';
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
@@ -15,26 +16,15 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
     const[contactNo,setContactNo]=useState("")
     const[nic,setNIC]=useState("")
     const[salary,setSalary]=useState("")
-    // const[modelOpen,setModelOpen]=useState(false)
-
-    // const foodSchema=yup.object({
-    //   name:yup.string()
-    //   .required()
-    //   .min(3),
-    //   price:yup.string()
-    //   .required()
-    //   .min(2),
-    //   description:yup.string()
-    //   .required()
-    //   .min(3),
-    //   rating:yup.string()
-    //   .required()
-    //   .test('is 4 or 5','rating must be 4 or 5',(val)=>{
-    //     return parseInt(val)<6 && parseInt(val)>3
-    //   })
-    // })
     
   const submitWaiter=()=>{
+    const data={
+      name,
+     password,
+     email,contactNo,
+     salary,nic
+}
+if(data.name.length>2 && data.password.length>4 && data.email.length>10 && data.contactNo.length==12 && data.salary.length>0 && data.nic.length==10 ){
     fetch('https://galaxy-rest-be.herokuapp.com/addWaiter/signup',{
       method: 'POST',
       headers: {
@@ -61,9 +51,17 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
     .catch(err=>{
       Alert.alert(err)
     })
+  }else {
+    if(data.name && data.password && data.email && data.contactNo && data.salary && data.nic ){
+    Alert.alert("Please add valid data")
+   }
+   else{
+    Alert.alert("Please fill all the details")
+   }
+}
   }
     return (
-      <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
+      // <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
       <View style={globalStyles.container}>
         <ScrollView>
         <Formik
@@ -79,7 +77,21 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                     <TextInput style={globalStyles.input}
                         label='Name'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setName(text)}
                         value={name}
                         
@@ -88,14 +100,42 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         <TextInput style={globalStyles.input}
                         label='Password'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setPassword(text)}
                         value={password}
                         />
                          <TextInput style={globalStyles.input}
                         label='Email'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                       theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setEmail(text)}
                         value={email}
                         />
@@ -104,7 +144,21 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                      <TextInput style={globalStyles.input}
                         label='Phone'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                       theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setContactNo(text)}
                         value={contactNo}
                         keyboardType='numeric'/>
@@ -114,28 +168,45 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         
                         label='NIC'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                       theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setNIC(text)}
                         
                         value={nic}
                         keyboardType='numeric'/>
                        
-                        {/* onBlur={props.handleBlur('description')} */}
-                      {/* <Text style={globalStyles.errorText}>{props.touched.description && props.errors.description}</Text> */}
-                     {/* <TextInput style={globalStyles.input}
-                        label='Rating'
-                        mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
-                        onChangeText={text => setRating(text)}
-                        
-                        value={rating}
-                        // onBlur={props.handleBlur('rating')}
-                        keyboardType='numeric'/> */}
-                    {/* <Text style={globalStyles.errorText}>{props.touched.rating && props.errors.rating}</Text> */}
+                       
                     <TextInput style={globalStyles.input}
                         label='Salary'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                       theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         keyboardType='numeric'
                         onChangeText={text => setSalary(text)}
                         value={salary}
@@ -155,6 +226,6 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
         </Formik>
         </ScrollView>
       </View>
-      </ImageBackground>
+      // </ImageBackground>
     );
   }

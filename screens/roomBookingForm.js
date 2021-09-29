@@ -8,14 +8,18 @@ import * as yup from 'yup'
 import FlatButton from '../shared/button';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+import Toast from 'react-native-toast-message';
+import {MaterialIcons} from '@expo/vector-icons'
 
-export default function RoomBookingForm({navigation ,setModelOpen}) {
+export default function RoomBookingForm({open, setOpen, room, navigation}) {
   const[customerName,setName]=useState("")
   const[startDate,setDate]=useState(new Date())
     const[endDate,setDate2]=useState(new Date())
-    const[room,setRoom]=useState("")
+    // const[room,setRoom]=useState("")
     const[loading,setLoading]=useState(true)
-    const[rooms,setRooms]=useState([])
+    
+    const[customerEmail,setcustomerEmail]=useState("")
+    const[customerContactNumber,setcustomerContactNumber]=useState("")
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -49,19 +53,18 @@ export default function RoomBookingForm({navigation ,setModelOpen}) {
     hideDatePicker2();
   };
 
-const getRooms=()=>{
-  fetch('http://10.0.2.2:5000/rooms/')
-  .then(res=>res.json())
-  .then(results=>{
-    setRooms(results)
-    setLoading(false)
-  }).catch(err=>{Alert.alert(err)})
-}
-    
-useEffect(()=>{
-  getRooms()
-},[])
+
+
   const submitBooking=()=>{
+    const data={
+      customerName,
+      customerEmail,
+      customerContactNumber,
+      startDate,
+      endDate,
+      room:room._id
+    }
+    if(data.customerEmail && data.customerContactNumber && data.customerName ){
     fetch('http://10.0.2.2:5000/booking/add',{
       method: 'POST',
       headers: {
@@ -69,8 +72,11 @@ useEffect(()=>{
       },
       body: JSON.stringify({
         customerName,
-        startDate,endDate,room
-          // rating,
+        customerEmail,
+        customerContactNumber,
+        startDate,
+        endDate,
+        room:room._id
          
       })
     })
@@ -79,21 +85,24 @@ useEffect(()=>{
       // setFoodItems((prevFood)=>{
       //   return [data, ...prevFood]
       //  })
-      
-      Alert.alert(`food item ${data.name} added`)
-      setModelOpen(false)
+      console.log(data)
+      Alert.alert('Room booking added')
+      setOpen(false)
     
     })
     .catch(err=>{
-      Alert.alert(err)
+      Alert.alert("Something went wrong")
     })
+  }else{
+    Alert.alert("Please fill all the details")
   }
+}
     return (
-      <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
+      // <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
       <View style={globalStyles.container}>
-       
+       <Text style={globalStyles.blackText}>Room No - {room?.roomNo}</Text>
         <Formik
-            initialValues={{name:'',email:'',password:''}}>
+            initialValues={{customerName:'',customerEmail:'',customerContactNumber:'',startDate:'',endDate:''}}>
             {/* validationSchema={foodSchema}
             onSubmit={(values,actions)=>{
                     onsubmit(values)
@@ -103,23 +112,76 @@ useEffect(()=>{
             {(props)=>(
           
                 <View>
+                   
                     <TextInput style={globalStyles.input}
                         label="Customer's Name"
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setName(text)}
                         value={customerName}
                         
                         />
+                         <TextInput style={globalStyles.input}
+                        label="Customer's Email"
+                        mode="outlined"
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
+                        onChangeText={text => setcustomerEmail(text)}
+                        value={customerEmail}
+                        
+                        />
+                         <TextInput style={globalStyles.input}
+                        label="Customer's Contact Number"
+                        mode="outlined"
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
+                        onChangeText={text => setcustomerContactNumber(text)}
+                        value={customerContactNumber}
+                        keyboardType='numeric'
+                        
+                        />
                      
-                      <Dropdown 
-                         
-                          label="Room"
-                          data={rooms.map(item=> ({value:item.roomNo}))}
-                          // data={items}
-                          onChangeText={item => setRoom(item)}
-                        value={room}
-                       />
+                    
                       
                        
                         {/* <TextInput style={globalStyles.input}
@@ -152,13 +214,13 @@ useEffect(()=>{
       />
                    
                 
-                    <FlatButton text='Add'/>
+                    <FlatButton text='Add' onPress={submitBooking}/>
                 </View>
             )
             }
             
         </Formik>
       </View>
-      </ImageBackground>
+      // </ImageBackground>
     );
   }

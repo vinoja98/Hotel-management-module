@@ -5,10 +5,12 @@ import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
+import Toast from 'react-native-toast-message';
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+import { get } from 'react-native/Libraries/Utilities/PixelRatio';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
-export default function ReviewReply({route}) {
+export default function ReviewReply({route,props,navigation}) {
    
   const {_id} =route.params
 
@@ -29,42 +31,52 @@ export default function ReviewReply({route}) {
       return ""
    }
 
-  const[reply,setReply]=useState(getDetails("reply"))
-  const[name,setName]=useState(getDetails("name"))
-  const[rating,setRating]=useState(getDetails("rating"))
-  const[review,setReview]=useState(getDetails("review"))
+  const[reply,setReply]=useState("")
+  // const[name,setName]=useState(getDetails("name"))
+  // const[rating,setRating]=useState(getDetails("rating"))
+  // const[review,setReview]=useState(getDetails("review"))
   
     
   const updateDetails = (_id)=>{
     const id=_id._id
     console.log(_id._id)
-    console.log(name)
-
-    fetch("https://galaxy-rest-be.herokuapp.com/food/update/"+id,{
+    const data={reply}
+    if(data.reply.length>3){
+      fetch("http://10.0.2.2:5000/review/update/"+id,{
         method:"POST",
         headers:{
           'Content-Type': 'application/json'
         },
         body:JSON.stringify({
-            review,
-            name,
-            rating,
+            review:getDetails("review"),
+            name:getDetails("name"),
+            rating:getDetails("rating"),
             reply
         })
     })
     .then(res=>res.json())
     .then(result=>{
       Alert.alert(`reply updated, REFRESH REVIEW PAGE`)
+      navigation.navigate("ReviewDetails")
     })
     .catch(err=>{
       Alert.alert(err)
   })
+    }else{
+      if(data.reply){
+        Alert.alert("Please add valid reply")
+      }
+      else{
+        Alert.alert("Please supply a reply")
+      }
+    }
+   
 }
     return (
       <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
       <View style={globalStyles.container}>
-          <Text style={globalStyles.text}>Review : {review} </Text>
-        <Formik>
+          <Text style={globalStyles.text}>Review  : {getDetails("review")} </Text>
+        <Formik> 
         
             {(props)=>(
               
@@ -80,7 +92,7 @@ export default function ReviewReply({route}) {
                         value={reply}/>
                       
                        
-                    <FlatButton  text='Add Reply'/>
+                    <FlatButton  text='Add Reply' onPress={()=>updateDetails({_id})}/>
                     </View>
                     // </TouchableWithoutFeedback>  
                     

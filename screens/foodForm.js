@@ -5,6 +5,8 @@ import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
+import axios from 'axios';
+import Toast from 'react-native-toast-message';
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
@@ -17,36 +19,14 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
     const[category,setCategory]=useState("")
     const[img,setImg]=useState("")
     const[code,setCode]=useState("")
-    // const[modelOpen,setModelOpen]=useState(false)
-
-    const foodSchema=yup.object({
-      name:yup.string()
-      .required()
-      .min(3),
-      price:yup.string()
-      .required()
-      .min(2),
-      description:yup.string()
-      .required()
-      .min(3),
-      rating:yup.string()
-      .required()
-      .test('is 4 or 5','rating must be 4 or 5',(val)=>{
-        return parseInt(val)<6 && parseInt(val)>3
-      })
-    })
+  
  const data1=[{value:'Available',},
  {value:'Not Available',},]
 
  const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Other',},]
     
-  const submitFood=()=>{
-    fetch('https://galaxy-rest-be.herokuapp.com/food/add',{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+ const submitFood = ()=>{
+  const data={
           name,
           price,
           description,
@@ -55,24 +35,52 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
           category,
           img,
           code
-
-      })
-    })
-    .then(res=>res.json())
-    .then(data=>{
-      // setFoodItems((prevFood)=>{
-      //   return [data, ...prevFood]
-      //  })
+  }
+  if(data.name && data.price && data.description && data.status && data.discount && data.category && data.img && data.code ){
+    axios.post('https://galaxy-rest-be.herokuapp.com/food/add',data).then(({data}) => {
       Alert.alert(`food item ${data.name} added, REFRESH HOME PAGE`)
       setModelOpen(false)
     
-    })
-    .catch(err=>{
+    }).catch(e => {
       Alert.alert(err)
-    })
+    });
+  } else {
+   Alert.alert("Please fill all the details")
   }
+}
+  // const submitFood=()=>{
+  //   fetch('https://galaxy-rest-be.herokuapp.com/food/add',{
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //         name,
+  //         price,
+  //         description,
+  //         status,
+  //         discount,
+  //         category,
+  //         img,
+  //         code
+
+  //     })
+  //   })
+  //   .then(res=>res.json())
+  //   .then(data=>{
+  //     // setFoodItems((prevFood)=>{
+  //     //   return [data, ...prevFood]
+  //     //  })
+  //     Alert.alert(`food item ${data.name} added, REFRESH HOME PAGE`)
+  //     setModelOpen(false)
+    
+  //   })
+  //   .catch(err=>{
+  //     Alert.alert(err)
+  //   })
+  // }
     return (
-      <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
+      // <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
       <View style={globalStyles.container}>
         <ScrollView>
         <Formik
@@ -88,7 +96,21 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                     <TextInput style={globalStyles.input}
                         label='Food Item'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setName(text)}
                         value={name}
                         
@@ -96,28 +118,78 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         <Dropdown 
                           label="Category"
                           data={data2}
+                          style = {{color:'#08b8e1',fontFamily:'nunito-bold' }} //for changed text color
+                          baseColor='#03498f' //for initial text color
+                         
+                          itemColor='blue'
+                          selectedItemColor='#08b8e1'
+                          itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}
+                          pickerStyle={{backgroundColor:'#dcbbdb'}}
+                         
                           onChangeText={text => setCategory(text)}
-                        value={category}/>
+                        value={category}
+                        />
                         <TextInput style={globalStyles.input}
                         label='Food Item Code'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setCode(text)}
                         value={code}
                         />
                          <TextInput style={globalStyles.input}
                         label='Image link'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setImg(text)}
                         value={img}
                         />
-                        {/* onBlur={props.handleBlur('name')}  */}
-                    {/* <Text style={globalStyles.errorText}>{props.touched.name && props.errors.name}</Text> */}
+                    
                      <TextInput style={globalStyles.input}
                         label='Price'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setPrice(text)}
                         value={price}
                         
@@ -128,26 +200,43 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         multiline minHeight={50}
                         label='Description'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setDescription(text)}
                         
                         value={description}/>
-                        {/* onBlur={props.handleBlur('description')} */}
-                      {/* <Text style={globalStyles.errorText}>{props.touched.description && props.errors.description}</Text> */}
-                     {/* <TextInput style={globalStyles.input}
-                        label='Rating'
-                        mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
-                        onChangeText={text => setRating(text)}
-                        
-                        value={rating}
-                        // onBlur={props.handleBlur('rating')}
-                        keyboardType='numeric'/> */}
-                    {/* <Text style={globalStyles.errorText}>{props.touched.rating && props.errors.rating}</Text> */}
+                       
                     <TextInput style={globalStyles.input}
                         label='Discount Percentage'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         keyboardType='numeric'
                         onChangeText={text => setDiscount(text)}
                         value={discount}
@@ -166,6 +255,13 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                           label="Status"
                           data={data1}
                           onChangeText={text => setStatus(text)}
+                          style = {{color:'#08b8e1' }} //for changed text color
+                          baseColor='#03498f' //for initial text color
+                          itemColor='blue'
+                          pickerStyle={{backgroundColor:'#dcbbdb'}}
+                         
+                          selectedItemColor='#08b8e1'
+                          itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}
                         value={status}/>
                     <FlatButton text='Add' onPress={submitFood}/>
                 </View>
@@ -174,6 +270,6 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
         </Formik>
         </ScrollView>
       </View>
-      </ImageBackground>
+      // </ImageBackground>
     );
   }

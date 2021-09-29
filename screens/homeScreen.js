@@ -38,7 +38,7 @@ const HomeScreen = (props) => {
           drawerContent={props => <DrawerContent {...props}  
             activeTintColor= '#03498f'
             inactiveTintColor='#08b8e1'
-            activeBackgroundColor='rgba(0, 0, 0, .04)'
+            activeBackgroundColor='#dcbbdb'
            
             
            />

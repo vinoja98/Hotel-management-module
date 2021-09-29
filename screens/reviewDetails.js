@@ -6,7 +6,7 @@ import Card from '../shared/card';
 import ReviewReply from './reviewReply'
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
-export default function ReviewDetails({navigation}) {
+export default function ReviewDetails({navigation,props}) {
  
   
   // return (
@@ -82,14 +82,15 @@ useEffect(()=>{
                            <Text style={globalStyles.itemText}>{item.createdAt.substring(0,10)}</Text>
                            <Text style={globalStyles.itemText}> at {item.createdAt.substring(11,16)}</Text>
                            </View>
-                           <View style={styles.cardRow}>
+                           <View style={[styles.cardRow,globalStyles.blackText]}>
                            <Text style={globalStyles.itemText}>Reply : {item.reply}</Text>
                            
                            </View>
+                           <View style={styles.add}> 
                            <TouchableOpacity onPress={()=>navigation.navigate('ReviewReply',item)}>
                              <Text style={globalStyles. blackText}>Add Reply</Text>
                           </TouchableOpacity>
-                          
+                          </View>
                        </View>
                      </Card> 
                    
@@ -108,7 +109,13 @@ useEffect(()=>{
   );
 }
 const styles=StyleSheet.create({
-
+  add:{
+    borderTopWidth:1,
+    borderTopColor:'blue',
+    backgroundColor:'#08b8e1',
+    width:'100%',
+    alignSelf:'center'
+  },
   cardCol:{
     flexDirection:'column',
     paddingLeft:5,

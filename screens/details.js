@@ -2,30 +2,74 @@ import React,{useEffect,useState} from 'react';
 import { Alert,StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard,TouchableOpacity,ImageBackground} from 'react-native';
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
+import {MaterialCommunityIcons} from '@expo/vector-icons'
+import {Ionicons} from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'; 
 import Card from '../shared/card';
 import WaiterForm from './waiterForm'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function Details() {
   const[loading,setLoading]=useState(true)
-  const[reviews,setReviews]=useState([])
+  const[waiters,setwaiters]=useState([])
   const[modelOpen,setModelOpen]=useState(false)
   
-    const fetchReviews = ()=>{
+    const fetchwaiters = ()=>{
       
         fetch('https://galaxy-rest-be.herokuapp.com/waiters/')
         .then(res=>res.json())
         .then(results=>{
-          setReviews(results)
+          setwaiters(results)
           
           console.log(results)
           setLoading(false)
         }).catch(err=>{Alert.alert(err)})
      }
   useEffect(()=>{
-     fetchReviews()
+     fetchwaiters()
   },[])
 
+//   const deleteWaiter= async(_id,name) =>{
+//     const token = await AsyncStorage.getItem("token")
+//     console.log(_id)
+//     fetch("http://10.0.2.2:5000/addWaiter/" +_id,{
+//       method: 'DELETE',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({
+//          id:_id
+//       })
+//     })
+//     .then(res=>res.json())
+//     .then(deleted=>{
+//       console.log("hello")
+//       Alert.alert(`${name} is deleted`)
+//       setwaiters((prevWaiter)=>{
+//      return prevWaiter.filter(waiter=> waiter._id != _id)
+//     })
+    
+    
+//     })
+//     .catch(err=>{
+//       Alert.alert("something went wrong")
+//     })
+//  }
+//  const deleteAlert = ({item,deleteWaiter}) =>
+//     Alert.alert(
+//       "Deleting Waiter",
+//       "Are you sure you want to delete?",
+//       [
+//         {
+//           text: "No",
+//           onPress: () => console.log('cancel'),
+//           style: "cancel"
+//         },
+//         { text: "Yes", onPress: () => deleteWaiter(item._id,item.name) }
+//       ]
+//     );
   return (
     <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
     <View style={globalStyles.container}>
@@ -38,7 +82,7 @@ export default function Details() {
         />
  
  <Modal visible={modelOpen} animationType='slide'>
- <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
+ {/* <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}> */}
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={globalStyles.modalContent}>
 
@@ -51,42 +95,46 @@ export default function Details() {
               <WaiterForm modelOpen={modelOpen} setModelOpen={setModelOpen}/>
           </View>
          </TouchableWithoutFeedback>
-        </ImageBackground>
+        {/* </ImageBackground> */}
       </Modal>
         {/* {loading?  
             <ActivityIndicator size='large' color='#0000ff'/>
             :     */}
             <FlatList
-            data={reviews}
+            data={waiters}
              renderItem={({item})=>(
                
                      <Card>
 
-                      <View  style={styles.cardCol}>
-                          <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Name  : </Text><Text style={globalStyles.itemText}>{item.name}</Text>
-                           </View>
-                           <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>NIC      : </Text>
-                           <Text style={globalStyles.itemText}>{item.nic}</Text>
-                           </View>
-                           <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Phone : </Text>
-                           <Text style={globalStyles.itemText}>{item.contactNo}</Text>
-                           </View>
-                           <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Salary : </Text>
-                           <Text style={globalStyles.itemText}>Rs {item.salary}</Text>
+                     
+                      <View style={styles.cardRow}>
+                        <View  style={styles.cardCol}>
+                              <View style={styles.cardRow}>
+                              <Ionicons name='person-circle' size={20} style={styles.edit}/><Text style={globalStyles.itemText}>{item.name}</Text>
+                              </View>
+                              <View style={styles.cardRow}>
+                              <MaterialCommunityIcons name='identifier' size={20} style={styles.edit}/>
+                              <Text style={globalStyles.itemText}>{item.nic}</Text>
+                              </View>
+                              <View style={styles.cardRow}>
+                              <MaterialIcons name='local-phone' size={20} style={styles.edit}/>
+                              <Text style={globalStyles.itemText}>{item.contactNo}</Text>
+                              </View>
+                              <View style={styles.cardRow}>
+                              <FontAwesome5 name="amazon-pay" size={20} style={styles.edit} />
+                              <Text style={globalStyles.itemText}>Rs {item.salary}</Text>
+                              </View>
                            </View>
                            <TouchableOpacity >
-                             <Text style={globalStyles. blackText}>Messaging</Text>
+                           <FontAwesome5 name="whatsapp" size={28} color="blue" />
                           </TouchableOpacity>
+                          
                        </View>
-                       <View style={styles.iconCol}>
-                            <TouchableOpacity >
+                       {/* <View style={styles.iconCol}>
+                            <TouchableOpacity onPress={()=>deleteAlert({item,deleteWaiter})}>
                             <MaterialIcons name='delete' size={28} style={styles.edit}/>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                      </Card> 
                    
              
@@ -94,7 +142,7 @@ export default function Details() {
                   
              )}
              keyExtractor={item=>item._id}
-             onRefresh={()=>fetchReviews()}
+             onRefresh={()=>fetchwaiters()}
              refreshing={loading}
            />
           
@@ -121,8 +169,8 @@ const styles=StyleSheet.create({
     // resizeMode: 'contain'
   },
   edit:{
-    color:'#03498f',
-    paddingTop:65
+    color:'blue',
+    marginRight:20
   },
   iconCol:{
     flexDirection:'column',

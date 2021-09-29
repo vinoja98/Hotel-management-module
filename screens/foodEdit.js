@@ -20,6 +20,17 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
     const id=_id._id
     console.log(_id._id)
     console.log(name)
+//     const data={
+//       name,
+//       price,
+//       description,
+//       status,
+//       discount,
+//       category,
+//       img,
+//       code
+// }
+
 
     fetch("https://galaxy-rest-be.herokuapp.com/food/update/"+id,{
         method:"POST",
@@ -44,12 +55,13 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
         setModelOpen(false)
     })
     .catch(err=>{
-      Alert.alert(err)
+      Alert.alert("something went wrong")
   })
+
 }
     return (
      
-      <View style={[globalStyles.container,globalStyles.color]}>
+      <View style={globalStyles.container}>
         <ScrollView>
         <Formik>
             {(props)=>(
@@ -58,26 +70,75 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
                          minHeight={50}
                          label='Food Item'
                          mode="outlined"
-                         theme={{colors:{primary:"#08b8e1"}}}
+                         theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text =>setName(text)}
                         value={name}
                         minLength={3}/>
                         <Dropdown 
                           label="Category"
                           data={data2}
+                          style = {{color:'#08b8e1' }} //for changed text color
+                          baseColor='#03498f' //for initial text color
+                          pickerStyle={{backgroundColor:'#dcbbdb'}}
+                      
+                          itemColor='blue'
+                          selectedItemColor='#08b8e1'
+                          itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}
                           onChangeText={text =>setCategory(text)}
                           value={category}/>
                         <TextInput style={globalStyles.input}
                         label='Food Item Code'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text =>setCode(text)}
                         value={code}
                         />
                         <TextInput style={globalStyles.input}
                         label='Image link'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text =>setImg(text)}
                         value={img}
                         />
@@ -86,7 +147,21 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
                      <TextInput style={globalStyles.input}
                           label='Price'
                           mode="outlined"
-                          theme={{colors:{primary:"#08b8e1"}}}
+                          theme={
+                            {
+                              fonts: {
+                                regular: {
+                                  fontFamily: 'nunito-bold'
+                                }
+                              },
+                              colors:{
+                                primary:'#08b8e1',
+                                accent:'#03498f',
+                                placeholder:'#03498f',
+                                text:'#08b8e1'
+                              }
+                            }
+                          }
                         onChangeText={text => setPrice(text)}
                         value={price.toString()}
                         // onBlur={props.handleBlur('price')}
@@ -96,7 +171,21 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
                         multiline minHeight={50}
                         label='Description'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         onChangeText={text => setDescription(text)}
                         value={description}
                         minLength={3}/>
@@ -107,22 +196,39 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
                     <TextInput style={globalStyles.input}
                         label='Discount Percentage'
                         mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
+                        theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         keyboardType='numeric'
                         onChangeText={text => setDiscount(text)}
                         value={discount.toString()}
                         
-                        // onBlur={props.handleBlur('price')}
-                        
-                        // onChangeText={text => setPrice(text)}
-                        // value={price}
-                        
-                        // onBlur={props.handleBlur('price')}
+                       
                         /> 
                          
                          
                           <Dropdown 
                           label="Status"
+                          style = {{color:'#08b8e1' }} //for changed text color
+                          baseColor='#03498f' //for initial text color
+                          // baseColor={'transparent'}
+                          itemColor='blue'
+                          pickerStyle={{backgroundColor:'#dcbbdb'}}
+                         
+                          selectedItemColor='#08b8e1'
+                          itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}
                           data={data1}
                           onChangeText={text => setStatus(text)}
                         value={status}/>

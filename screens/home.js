@@ -10,27 +10,29 @@ import FlatButton from '../shared/button';
 import ActionButton from 'react-native-action-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Toast from 'react-native-toast-message';
+import axios from 'axios';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
+
 export default function Home({navigation,props}) {
   const[loading,setLoading]=useState(true)
   const[modelOpen,setModelOpen]=useState(false)
   const[foodItems,setFoodItems]=useState([])
 
-
-   const Boiler = async ()=>{
-      const token = await AsyncStorage.getItem("token")
-      console.log(token)
-      fetch('https://galaxy-rest-be.herokuapp.com/food/')
-      .then(res=>res.json())
-      .then(results=>{
-        setFoodItems(results)
-        
-        console.log(results)
-        setLoading(false)
-      }).catch(err=>{Alert.alert(err)})
-   }
+  const Boiler = async ()=>{
+    const token = await AsyncStorage.getItem("token")
+    console.log(token)
+    fetch('https://galaxy-rest-be.herokuapp.com/food/')
+    .then(res=>res.json())
+    .then(results=>{
+      setFoodItems(results)
+      
+      console.log(results)
+      setLoading(false)
+    }).catch(err=>{Alert.alert(err)})
+ }
 useEffect(()=>{
-   Boiler()
+ Boiler()
 },[])
 
    const logout =(props)=>{
@@ -38,14 +40,7 @@ useEffect(()=>{
         navigation.replace("login")
       })
    }
-// useEffect(()=>{
-//   fetch('http://10.0.2.2:5000/food/')
-//   .then(res=>res.json())
-//   .then(results=>{
-//     setFoodItems(results)
-//     setLoading(false)
-//   })
-// })
+
 
   const deleteFood= async(_id,name) =>{
     const token = await AsyncStorage.getItem("token")
@@ -84,12 +79,15 @@ useEffect(()=>{
       ]
     );
   return (
+    
     <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
+       <Toast ref={(ref) => Toast.setRef(ref)} />
     <View style={globalStyles.container}>
     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
+   
     
-      <Modal visible={modelOpen} animationType='slide'>
-      <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
+      <Modal visible={modelOpen} animationType='slide' >
+      {/* <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}> */}
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={globalStyles.modalContent}>
 
@@ -102,7 +100,7 @@ useEffect(()=>{
               <FoodForm modelOpen={modelOpen} setModelOpen={setModelOpen} foodItems={foodItems} setFoodItems={setFoodItems}/>
           </View>
          </TouchableWithoutFeedback>
-         </ImageBackground>
+         {/* </ImageBackground> */}
       </Modal>
      
       <View style={styles.topROw}>
@@ -211,7 +209,7 @@ const styles=StyleSheet.create({
   },
   del:{
     paddingTop:5,
-    color:'#dcdbdb'
+    color:'#dcbbdb'
    },
   ant:{
     position:'absolute',
