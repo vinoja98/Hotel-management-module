@@ -24,7 +24,6 @@ export function DrawerContent({navigation,props}) {
     const closeMenu=()=>{
         navigation.closeDrawer()
     }
-
     // const paperTheme = useTheme();
 
     // const { signOut, toggleTheme } = React.useContext(AuthContext);
@@ -49,13 +48,11 @@ export function DrawerContent({navigation,props}) {
 
                         <View style={styles.row}>
                             <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>Welcome to</Paragraph>
+                                {/* <Paragraph style={[styles.paragraph, styles.caption]}>Welcome!</Paragraph> */}
+                                <Caption style={{marginLeft:60, fontSize: 19,lineHeight: 20,fontFamily:'nunito-bold',color:'#03498f'}}>Welcome!</Caption>
                                 {/* <Caption style={styles.caption}>to</Caption> */}
                             </View>
-                            <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>Galaxy Rest</Paragraph>
-                                {/* <Caption style={styles.caption}>Rest</Caption> */}
-                            </View>
+                           
                         </View>
                     </View>
 
@@ -126,6 +123,18 @@ export function DrawerContent({navigation,props}) {
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>
                 <DrawerItem 
+                    // icon={({color, size}) => (
+                    //     <Icon 
+                    //     name="exit-to-app" 
+                    //     color="#03498f"
+                    //     size={size}
+                    //     />
+                    // )}
+                    label="- Galaxy Rest -"
+                    labelStyle={{color:'#03498f',fontFamily:'nunito-bold',paddingLeft:65}}
+                    // onPress={() => {signOut()}}
+                />
+                {/* <DrawerItem 
                     icon={({color, size}) => (
                         <Icon 
                         name="exit-to-app" 
@@ -136,7 +145,7 @@ export function DrawerContent({navigation,props}) {
                     label="Sign Out"
                     labelStyle={{color:'#08b8e1',fontFamily:'nunito-bold'}}
                     // onPress={() => {signOut()}}
-                />
+                /> */}
             </Drawer.Section>
         </View>
     );
@@ -153,16 +162,17 @@ const styles = StyleSheet.create({
     },
     userInfoSection: {
       paddingLeft: 20,
+      backgroundColor:'#dcbbdb'
     },
     title: {
       fontSize: 16,
       marginTop: 3,
       fontFamily:'nunito-bold',
-      color:'#08b8e1',
+      color:'purple',
     },
     caption: {
       fontSize: 14,
-      lineHeight: 14,
+      lineHeight: 20,
       fontFamily:'nunito-regular',
       color:'#03498f'
 
@@ -179,18 +189,21 @@ const styles = StyleSheet.create({
     },
     paragraph: {
       fontWeight: 'bold',
-      marginRight: 3,
+    //   marginRight: 3,
+      paddingLeft:9,
       fontFamily:'nunito-regular',
       color:'#03498f'
     },
     drawerSection: {
       marginTop: 35,
-      fontFamily:'nunito-regular'
+      fontFamily:'nunito-regular',
+     
     },
     bottomDrawerSection: {
         marginBottom: 15,
         borderTopColor: '#dcbbdb',
-        borderTopWidth: 1
+        borderTopWidth: 1,
+        backgroundColor:'#dcbbdb'
     },
     preference: {
       flexDirection: 'row',

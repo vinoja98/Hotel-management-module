@@ -4,6 +4,7 @@ import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,
 import { globalStyles } from '../styles/global';
 import Card from '../shared/card';
 import {MaterialIcons} from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'; 
 import {AntDesign} from '@expo/vector-icons'
 import FoodForm from './foodForm';
 import FlatButton from '../shared/button';
@@ -22,7 +23,7 @@ export default function Home({navigation,props}) {
   const Boiler = async ()=>{
     const token = await AsyncStorage.getItem("token")
     console.log(token)
-    fetch('https://galaxy-rest-be.herokuapp.com/food/')
+    fetch('http://10.0.2.2:5000/food/')
     .then(res=>res.json())
     .then(results=>{
       setFoodItems(results)
@@ -45,7 +46,7 @@ useEffect(()=>{
   const deleteFood= async(_id,name) =>{
     const token = await AsyncStorage.getItem("token")
     console.log(_id)
-    fetch("https://galaxy-rest-be.herokuapp.com/food/" +_id,{
+    fetch("http://10.0.2.2:5000/food/" +_id,{
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -132,12 +133,14 @@ useEffect(()=>{
                     
                      <Card>
                        <View style={styles.crdrow}>
-                           <Text style={globalStyles.blackText}>{item.name}</Text>
+                       <Ionicons name="fast-food-sharp" size={20} color="blue" />
+                       {/* <Ionicons name="md-fast-food-outline" size={20} color="blue" /> */}
+                           <Text style={[globalStyles.blackText,styles.nam]}>{item.name}</Text>
                            
                            <View style={styles.ant}>
                            
                            <TouchableOpacity onPress={()=>navigation.navigate('About',item)}>
-                             <AntDesign  style={styles.right} name='doubleright' size={20} />
+                             <AntDesign  style={styles.right} name='doubleright' size={17} />
                              </TouchableOpacity>
                            </View>
                            <View style={styles.code}>
@@ -170,7 +173,9 @@ useEffect(()=>{
   );
 }
 const styles=StyleSheet.create({
-
+  nam:{
+      paddingLeft:3
+  },
   actionButtonIcon: {
     fontSize: 20,
     height: 22,
@@ -205,7 +210,8 @@ const styles=StyleSheet.create({
     flexDirection:'row',
   },
   right:{
-   color:'#03498f'
+   color:'#03498f',
+   paddingTop:2
   },
   del:{
     paddingTop:5,
@@ -218,7 +224,7 @@ const styles=StyleSheet.create({
   },
   code:{
     position:'absolute',
-    right:30,
-    justifyContent:'center'
+    right:20,
+    justifyContent:'center',
   }
 })

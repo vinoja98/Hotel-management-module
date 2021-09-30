@@ -1,6 +1,4 @@
-
 import React,{useEffect} from 'react';
-
 import {
   ActivityIndicator,
   View,
@@ -9,7 +7,6 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoadingScreen = (props) => {
-
 
   const detectLogin= async ()=>{
     const token = await AsyncStorage.getItem('token')
@@ -30,7 +27,6 @@ const LoadingScreen = (props) => {
   );
 };
 
-
 const styles= StyleSheet.create({
     loading:{
     //  flex:1,
@@ -39,6 +35,5 @@ const styles= StyleSheet.create({
     }
     
   })
-
 
 export default LoadingScreen;

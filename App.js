@@ -9,7 +9,6 @@ import LoadingScreen from './screens/loading';
 import LoginScreen from './screens/login';
 import SignupScreen from './screens/signup';
 const Stack = createStackNavigator();
-const Drawer=createDrawerNavigator()
 import HomeScreen from './screens/homeScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -17,7 +16,6 @@ const getFonts=()=>Font.loadAsync({
       'nunito-regular':require('./assets/fonts/Nunito-Regular.ttf'),
       'nunito-bold':require('./assets/fonts/Nunito-Bold.ttf')
     })
-
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded]=useState(false)
@@ -38,34 +36,13 @@ export default function App() {
   if(fontsLoaded){
     return (
       <NavigationContainer>
-          {/* <NavigationNativeContainer> */}
-      <Stack.Navigator
-      headerMode="none"
-      >
- 
-            <Stack.Screen name="loading" component={LoadingScreen} />
-            
-            <Stack.Screen name="login" component={LoginScreen} />
-            <Stack.Screen name="signup" component={SignupScreen} />
-            <Stack.Screen name="homeScreen" component={HomeScreen} />
-        
-        
-      </Stack.Navigator>
-    {/* </NavigationNativeContainer> */}
-        {/* <Drawer.Navigator
-           drawerContentOptions={{
-            activeTintColor: '#03498f',
-            inactiveTintColor:'#08b8e1',
-            itemStyle: { marginVertical: 5},
-            labelStyle:{fontFamily:'nunito-bold'}
-            
-          }}
-        >
-            <Drawer.Screen name="Home" children={Navigator} />
-            <Drawer.Screen name="Review Details" children={Navi}/>
-            <Drawer.Screen name="Special Offers" children={Navi2}/>
-            <Drawer.Screen name="Room Bookings" children={Navi3}/>
-        </Drawer.Navigator> */}
+          <Stack.Navigator
+          headerMode="none">
+                <Stack.Screen name="loading" component={LoadingScreen} />
+                <Stack.Screen name="login" component={LoginScreen} />
+                <Stack.Screen name="signup" component={SignupScreen} />
+                <Stack.Screen name="homeScreen" component={HomeScreen} /> 
+          </Stack.Navigator>
       </NavigationContainer>
       );
   }
@@ -75,11 +52,9 @@ export default function App() {
       startAsync={getFonts} 
       onFinish={()=>setFontsLoaded(true)}
       onError={console.warn}
-    />
-  
+    /> 
    )
   }
-
 }
 
 

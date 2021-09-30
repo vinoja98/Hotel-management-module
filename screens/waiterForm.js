@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert,ScrollView,ImageBackground} from 'react-native';
+import { StyleSheet, Text, View,Alert,ScrollView,ImageBackground} from 'react-native';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
@@ -11,11 +11,11 @@ const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc1
 
 export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodItems}) {
   const[name,setName]=useState("")
-    const[password,setPassword]=useState("")
-    const[email,setEmail]=useState("")
-    const[contactNo,setContactNo]=useState("")
-    const[nic,setNIC]=useState("")
-    const[salary,setSalary]=useState("")
+  const[password,setPassword]=useState("")
+  const[email,setEmail]=useState("")
+  const[contactNo,setContactNo]=useState("")
+  const[nic,setNIC]=useState("")
+  const[salary,setSalary]=useState("")
     
   const submitWaiter=()=>{
     const data={
@@ -23,8 +23,8 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
      password,
      email,contactNo,
      salary,nic
-}
-if(data.name.length>2 && data.password.length>4 && data.email.length>10 && data.contactNo.length==12 && data.salary.length>0 && data.nic.length==10 ){
+  }
+    if(data.name.length>2 && data.password.length>4 && data.email.length>10 && data.contactNo.length==12 && data.salary.length>0 && data.nic.length==10 ){
     fetch('https://galaxy-rest-be.herokuapp.com/addWaiter/signup',{
       method: 'POST',
       headers: {
@@ -41,12 +41,8 @@ if(data.name.length>2 && data.password.length>4 && data.email.length>10 && data.
     })
     .then(res=>res.json())
     .then(data=>{
-      // setFoodItems((prevFood)=>{
-      //   return [data, ...prevFood]
-      //  })
       Alert.alert(`Waiter ${data.name} added, REFRESH THE PAGE`)
       setModelOpen(false)
-    
     })
     .catch(err=>{
       Alert.alert(err)
@@ -210,15 +206,7 @@ if(data.name.length>2 && data.password.length>4 && data.email.length>10 && data.
                         keyboardType='numeric'
                         onChangeText={text => setSalary(text)}
                         value={salary}
-                        
-                        // onBlur={props.handleBlur('price')}
-                        
-                        // onChangeText={text => setPrice(text)}
-                        // value={price}
-                        
-                        // onBlur={props.handleBlur('price')}
                         /> 
-                
                     <FlatButton text='Add' onPress={submitWaiter}/>
                 </View>
             )

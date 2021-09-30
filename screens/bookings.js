@@ -2,6 +2,9 @@ import React,{useEffect,useState} from 'react';
 import { Alert,StyleSheet, Text, View,Image,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard,TouchableOpacity,ImageBackground} from 'react-native';
 import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
+import {Ionicons} from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons'; 
 import Card from '../shared/card';
 import Toast from 'react-native-toast-message';
 import RoomBookingForm from './roomBookingForm';
@@ -41,68 +44,50 @@ export default function Bookings({props}) {
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
-    <View style={globalStyles.container}>
-      
-    <StatusBar backgroundColor="#03498f" barStyle="light-content" />
-    
+      <View style={globalStyles.container}>  
+          <StatusBar backgroundColor="#03498f" barStyle="light-content" />
             <FlatList
             data={bookings}
              renderItem={({item})=>(
-               
-                     <Card>
-
+                <Card>
                       <View  style={styles.cardCol}>
                           <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Customer Name : </Text><Text style={globalStyles.itemText}>{item.customerName}</Text>
+                          <Ionicons name='person-circle' size={20} style={styles.cus}/><Text style={globalStyles.itemText}>{item.customerName}</Text>
                            </View>
                            <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Email : </Text><Text style={globalStyles.itemText}>{item.customerEmail}</Text>
+                           <MaterialCommunityIcons name="email-edit" size={20} style={styles.cus}/><Text style={globalStyles.itemText}>{item.customerEmail}</Text>
                            </View>
                            <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>ContactNo : </Text><Text style={globalStyles.itemText}>{item.customerContactNumber}</Text>
-                           </View>
-                           {/* <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Room No : </Text>
-                           <Text style={globalStyles.itemText}>{item.room.roomNo}</Text>
-                           </View> */}
-                           <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>Start Date : </Text>
-                           <Text style={globalStyles.itemText}>{item.startDate.substring(0,10)}</Text>
+                           <MaterialIcons name='local-phone' size={20} style={styles.cus}/><Text style={globalStyles.itemText}>{item.customerContactNumber}</Text>
                            </View>
                            <View style={styles.cardRow}>
-                           <Text style={globalStyles. blackText}>End Date : </Text>
-                           <Text style={globalStyles.itemText}>{item.endDate.substring(0,10)}</Text>
+                              <FontAwesome5 name="calendar-alt" size={30} style={styles.cus2} />
+                              <View  style={styles.cardCol}>
+                                <Text style={globalStyles.itemText}>{item.startDate.substring(0,10)}</Text>
+                                <Text style={globalStyles.itemText}>{item.endDate.substring(0,10)}</Text>
+                              </View>
+                           </View>
+                           <View style={styles.cardRow}>
+                           {/* <FontAwesome5 name="calendar-alt" size={20} style={styles.cus}/> */}
+                           
                            </View>
                            <View style={styles.cardRow}>
                            <Text style={globalStyles. blackText}>RoomID: </Text>
                            <Text style={globalStyles.itemText}>{item.room}</Text>
                            </View>
                        </View>
-                       {/* <View style={styles.iconCol}>
-                            <TouchableOpacity >
-                            <MaterialIcons name='delete' size={28} style={styles.edit}/>
-                            </TouchableOpacity>
-                        </View> */}
-                     </Card> 
-                   
-             
-                  
-                  
+                  </Card>      
              )}
              keyExtractor={item=>item._id}
              onRefresh={()=>fetchBookings()}
              refreshing={loading}
            />
-          
-          {/* }
-     */}
     </View>
     </ImageBackground>
-   
   );
 }
 const styles=StyleSheet.create({
-
+  cal:{paddingLeft:30},
   cardCol:{
     flexDirection:'column',
     paddingLeft:5,
@@ -121,10 +106,18 @@ const styles=StyleSheet.create({
     color:'#03498f',
     paddingTop:65
   },
+  cus:{
+    color:'blue',
+    marginRight:30,
+    
+  },
+  cus2:{
+    color:'blue',
+    marginRight:20,
+    // paddingLeft:10
+  },
   iconCol:{
     flexDirection:'column',
-    // paddingStart:35,
-    // paddingEnd:20
     position:'absolute',
     right:-10,
   },

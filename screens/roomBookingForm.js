@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { StyleSheet, Text, View, Platform,Button,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard,Alert,ImageBackground} from 'react-native';
+import { StyleSheet, Text, View, Platform,Button,Keyboard,Alert,TouchableOpacity} from 'react-native';
 import { TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
@@ -7,21 +7,15 @@ const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc1
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
-import Toast from 'react-native-toast-message';
 import {MaterialIcons} from '@expo/vector-icons'
 
 export default function RoomBookingForm({open, setOpen, room, navigation}) {
   const[customerName,setName]=useState("")
   const[startDate,setDate]=useState(new Date())
-    const[endDate,setDate2]=useState(new Date())
-    // const[room,setRoom]=useState("")
-    const[loading,setLoading]=useState(true)
-    
-    const[customerEmail,setcustomerEmail]=useState("")
-    const[customerContactNumber,setcustomerContactNumber]=useState("")
-
-    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const[endDate,setDate2]=useState(new Date())
+  const[customerEmail,setcustomerEmail]=useState("")
+  const[customerContactNumber,setcustomerContactNumber]=useState("")
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -52,8 +46,6 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
     setDate2(date)
     hideDatePicker2();
   };
-
-
 
   const submitBooking=()=>{
     const data={
@@ -110,9 +102,7 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
             }}
        */}
             {(props)=>(
-          
-                <View>
-                   
+                <View> 
                     <TextInput style={globalStyles.input}
                         label="Customer's Name"
                         mode="outlined"
@@ -180,40 +170,36 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
                         keyboardType='numeric'
                         
                         />
-                     
-                    
-                      
-                       
-                        {/* <TextInput style={globalStyles.input}
-                        label='Room'
-                        mode="outlined"
-                        theme={{colors:{primary:"#08b8e1"}}}
-                        onChangeText={text => setRoom(text)}
-                        value={room} //here put a dropdown to select entire room object from db, this dropdown should be taken from the backend
-                        keyboardType='numeric'
-                        /> */}
-                     <Button title="Show Start Date Picker" onPress={showDatePicker} />
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-        minimumDate={new Date()}
-        date={startDate}
-        onDateChange={date1=>setDate(date1)}
-      />
-      <Button title="Show End Date Picker" onPress={showDatePicker2} />
-       <DateTimePickerModal
-        isVisible={isDatePickerVisible2}
-        mode="date"
-        onConfirm={handleConfirm2}
-        onCancel={hideDatePicker2}
-        minimumDate={startDate}
-        date={endDate}
-        onDateChange={date1=>setDate2(date1)}
-      />
-                   
-                
+                     {/* <Button title="Show Start Date Picker" onPress={showDatePicker} /> */}
+                     <TouchableOpacity onPress={showDatePicker}>
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>Show Start Date Picker</Text>
+                      </View>
+                    </TouchableOpacity>
+                    <DateTimePickerModal
+                      isVisible={isDatePickerVisible}
+                      mode="date"
+                      onConfirm={handleConfirm}
+                      onCancel={hideDatePicker}
+                      minimumDate={new Date()}
+                      date={startDate}
+                      onDateChange={date1=>setDate(date1)}
+                    />
+                      <TouchableOpacity onPress={showDatePicker2}>
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>Show End Date Picker</Text>
+                      </View>
+                    </TouchableOpacity>
+                    {/* <Button title="Show End Date Picker" onPress={showDatePicker2} /> */}
+                    <DateTimePickerModal
+                      isVisible={isDatePickerVisible2}
+                      mode="date"
+                      onConfirm={handleConfirm2}
+                      onCancel={hideDatePicker2}
+                      minimumDate={startDate}
+                      date={endDate}
+                      onDateChange={date1=>setDate2(date1)}
+                    />
                     <FlatButton text='Add' onPress={submitBooking}/>
                 </View>
             )
@@ -224,3 +210,24 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
       // </ImageBackground>
     );
   }
+
+  const styles= StyleSheet.create({
+    button:{
+      marginTop:4,
+      borderRadius:6,
+      paddingVertical:12,
+      paddingHorizontal:10,
+      borderWidth:1,
+      backgroundColor:'white',
+      borderColor:'#03498f',
+      opacity:0.8
+  },
+  buttonText:{
+    color:'#03498f',
+    fontFamily:'nunito-bold',
+    // textTransform:'uppercase',
+    fontSize:15,
+    textAlign:'center'
+  },
+    
+  })

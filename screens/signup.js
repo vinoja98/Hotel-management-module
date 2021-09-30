@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,Keyboard,ScrollView
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignupScreen = (props) => {
@@ -21,8 +22,15 @@ const SignupScreen = (props) => {
   const [nic,setNIC] = useState('');
   const [contactNo,setContact] = useState('');
 
-  const sendCred= async (props)=>{
-    
+  const sendCred=(props)=>{
+    const data2={
+      password,
+      email,
+      nic,
+      name,
+      contactNo
+    }
+    if(data2.password.length>4 && data2.email.length>10 && data2.name.length>2 && data2.nic.length==10 && data2.contactNo.length==12){
      fetch("http://10.0.2.2:5000/signup",{
        method:"POST",
        headers: {
@@ -38,21 +46,54 @@ const SignupScreen = (props) => {
       })
      })
      .then(res=>res.json())
-     .then(async (data)=>{
-            try {
-              
-              await AsyncStorage.setItem('token',data.token)
-              props.navigation.replace("homeScreen")
+     .then(data =>{
+            try {   
+              props.navigation.replace("login")
+              Toast.show({
+                topOffset: 40,
+                visibilityTime: 1500,
+                position: 'top',
+                type: 'success',
+                text1: 'Successfully registered',
+              });
             } catch (e) {
-              console.log("error",e)
+              Toast.show({
+                topOffset: 40,
+                visibilityTime: 1500,
+                position: 'top',
+                type: 'error',
+                text1: 'Unknown Error',
+              });
             }
      })
+    }
+    else {
+      if (data2.password && data2.email && data2.nic && data2.contactNo && data2.name){
+        Toast.show({
+          topOffset: 40,
+          visibilityTime: 1500,
+          position: 'top',
+          type: 'error',
+          text1: 'Invalid Data',
+        });
+      }
+      else{
+        Toast.show({
+          topOffset: 40,
+          visibilityTime: 1500,
+          position: 'top',
+          type: 'error',
+          text1: 'Fill All the Details',
+        });
+      }
+      
+    }
   }
   
 const styles = StyleSheet.create({
     
   headerLogo:{
-      marginTop:30,
+      marginTop:10,
     height:100,
     width:100,
     borderRadius: 55,
@@ -76,6 +117,7 @@ const styles = StyleSheet.create({
   <View style={styles.container}>
    <StatusBar backgroundColor="#03498f" barStyle="light-content" />
     <ScrollView>
+    <Toast ref={(ref) => Toast.setRef(ref)} />
       <Text 
       style={{fontSize:25,textAlign:'center',marginTop:30,color:"#08b8e1",fontFamily:'nunito-bold'}}>Register Now!</Text>
       <View style={styles.logo}>
@@ -84,12 +126,12 @@ const styles = StyleSheet.create({
       
        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View>
-      <TextInput
+      <TextInput style={globalStyles.input}
         label='Name'
         placeholder='Min 3 characters needed'
         mode="outlined"
         value={name}
-        style={{marginTop:130,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
+        style={{marginTop:110,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
         theme={
           {
             fonts: {
@@ -98,14 +140,17 @@ const styles = StyleSheet.create({
               }
             },
             colors:{
-              primary:'#08b8e1'
+              primary:'#08b8e1',
+              accent:'#03498f',
+              placeholder:'#03498f',
+              text:'#08b8e1' 
             }
           }
         }
         onChangeText={(text)=>setName(text)}
      
       />
-      <TextInput
+      <TextInput style={globalStyles.input}
         label='NIC'
         placeholder='10 characters needed'
         mode="outlined"
@@ -120,13 +165,16 @@ const styles = StyleSheet.create({
               }
             },
             colors:{
-              primary:'#08b8e1'
+              primary:'#08b8e1',
+              accent:'#03498f',
+              placeholder:'#03498f',
+              text:'#08b8e1' 
             }
           }
         }
      
       />
-        <TextInput
+        <TextInput style={globalStyles.input}
         label='Email'
         placeholder='Min 5 characters needed'
         mode="outlined"
@@ -140,14 +188,17 @@ const styles = StyleSheet.create({
               }
             },
             colors:{
-              primary:'#08b8e1'
+              primary:'#08b8e1',
+              accent:'#03498f',
+              placeholder:'#03498f',
+              text:'#08b8e1' 
             }
           }
         }
         onChangeText={(text)=>setEmail(text)}
      
       />
-        <TextInput
+        <TextInput style={globalStyles.input}
         label='Contact Number'
         placeholder='12 characters needed'
         mode="outlined"
@@ -161,14 +212,17 @@ const styles = StyleSheet.create({
               }
             },
             colors:{
-              primary:'#08b8e1'
+              primary:'#08b8e1',
+              accent:'#03498f',
+              placeholder:'#03498f',
+              text:'#08b8e1' 
             }
           }
         }
         onChangeText={(text)=>setContact(text)}
      
       />
-        <TextInput
+        <TextInput style={globalStyles.input}
         label='Password'
         placeholder='Min 5 characters needed'
         mode="outlined"
@@ -182,7 +236,10 @@ const styles = StyleSheet.create({
               }
             },
             colors:{
-              primary:'#08b8e1'
+              primary:'#08b8e1',
+              accent:'#03498f',
+              placeholder:'#03498f',
+              text:'#08b8e1' 
             }
           }
         }
@@ -220,8 +277,6 @@ const styles = StyleSheet.create({
    </>
   );
 };
-
-
 
 export default SignupScreen;
 

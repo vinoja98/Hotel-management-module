@@ -37,74 +37,41 @@ useEffect(()=>{
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
-    <View style={globalStyles.container}>
-    <StatusBar backgroundColor="#03498f" barStyle="light-content" />
-    {/* <Modal visible={modelOpen} animationType='slide'>
-         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={globalStyles.modalContent}>
-
-              <MaterialIcons
-                name='close'
-                size={24}
-                style={[ globalStyles.modalToggle,  globalStyles.modalClose]}
-                onPress={()=>setModelOpen(false)}
-              />
-              <ReviewReply setModelOpen={setModelOpen}
-              />
-          </View>
-         </TouchableWithoutFeedback>
-      </Modal> */}
-        {/* {loading?  
-            <ActivityIndicator size='large' color='#0000ff'/>
-            :     */}
+      <View style={globalStyles.container}>
+      <StatusBar backgroundColor="#03498f" barStyle="light-content" />
             <FlatList
             data={reviews}
-             renderItem={({item})=>(
-               
+             renderItem={({item})=>(             
               <Card>
-
                 <View  style={styles.cardCol}>  
-                <View style={styles.cardRow}>
-                <Text style={globalStyles.itemText}>{item.name}</Text>
-                <Image style={styles.pic} source={images.ratings[item.rating]}/>
-                </View>
-                          <View style={styles.cardRow}>
-                           {/* <Text style={globalStyles. blackText}>Review  : </Text> */}
+                    <View style={styles.cardRow}>
+                          <Text style={globalStyles.itemText}>{item.name}</Text>
+                          <Image style={styles.pic} source={images.ratings[item.rating]}/>
+                    </View>
+                      <View style={styles.cardRow}>
                            <Text style={globalStyles.itemText}>{item.review}</Text>
-                           </View>
-                           
-                           {/* <Text style={globalStyles.itemText}>rating :{item.rating}</Text> */}
-                           
-                           {/* <View >
-                           <Text style={globalStyles.itemText}>{item.name}</Text>
-                           </View> */}
-                           <View style={styles.cardRow}>
+                      </View>
+                      <View style={styles.cardRow}>
                            <Text style={globalStyles.itemText}>{item.createdAt.substring(0,10)}</Text>
                            <Text style={globalStyles.itemText}> at {item.createdAt.substring(11,16)}</Text>
-                           </View>
-                           <View style={[styles.cardRow,globalStyles.blackText]}>
+                      </View>
+                      <View style={[styles.cardRow,globalStyles.blackText]}>
                            <Text style={globalStyles.itemText}>Reply : {item.reply}</Text>
                            
-                           </View>
-                           <View style={styles.add}> 
+                        </View>
+                        <View style={styles.add}> 
                            <TouchableOpacity onPress={()=>navigation.navigate('ReviewReply',item)}>
                              <Text style={globalStyles. blackText}>Add Reply</Text>
                           </TouchableOpacity>
-                          </View>
-                       </View>
-                     </Card> 
-                   
-             
-                  
-                  
+                        </View>
+                  </View>
+                 </Card>     
              )}
              keyExtractor={item=>item._id}
              onRefresh={()=>fetchReviews()}
              refreshing={loading}
            />
-          {/* }
-     */}
-    </View>
+      </View>
     </ImageBackground>
   );
 }

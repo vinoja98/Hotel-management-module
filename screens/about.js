@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard,ImageBackground} from 'react-native';
-import { globalStyles,images } from '../styles/global';
+import { StyleSheet, Text, View,Image,TouchableOpacity,Modal,TouchableWithoutFeedback,Keyboard,ImageBackground} from 'react-native';
+import { globalStyles } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import {AntDesign} from '@expo/vector-icons'
 import Card from '../shared/card';
@@ -9,13 +9,9 @@ const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc1
 
 export default function About({route}) {
   const {_id} =route.params
-
   const { createdAt } = route.params;
-  // const { price} = route.params;
-  // const { description } = route.params;
-  // const { rating } = route.params;
-      const getDetails = (type)=>{
-     
+
+  const getDetails = (type)=>{
          switch(type){
              case "name":
                  return route.params.name
@@ -34,9 +30,9 @@ export default function About({route}) {
               case "code":
                   return route.params.code
          }
-      
       return ""
    }
+
   const[modelOpen,setModelOpen]=useState(false)
   const[name,setName]=useState(getDetails("name"))
   const[price,setPrice]=useState(getDetails("price"))
@@ -46,15 +42,13 @@ export default function About({route}) {
   const[status,setStatus]=useState(getDetails("status"))
   const[img,setImg]=useState(getDetails("img"))
   const[code,setCode]=useState(getDetails("code"))
+
   return (
     <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
     <View style={globalStyles.container}>
       <Modal visible={modelOpen} animationType='slide' style={[globalStyles.container,globalStyles.color]}>
-      
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-         
-          <View style={globalStyles.modalContent}>
-              
+          <View style={globalStyles.modalContent}>  
               <MaterialIcons
                 name='close'
                 size={24}
@@ -75,64 +69,52 @@ export default function About({route}) {
               />
           </View>
          </TouchableWithoutFeedback>
-   
       </Modal>
       <Card>
-        {/* <View style={styles.cardTop}> */}
         <View  style={styles.cardCol}>
-        <View style={styles.name}>
-        <Text style={styles.nam}> {name}</Text>
-        <Text style={styles.nam}>-- {code}</Text>
-        </View>
-        <View style={styles.price}>
-        <Text style={globalStyles.itemText}>Rs.{price}</Text>
-        </View>
-          <Image style={styles.pic2} source={{uri: img}}/>
-          
-             
-              
-              <View style={styles.desc}>
-              <Text style={globalStyles.itemText}>{description}</Text>
-              </View>
+          <View style={styles.name}>
+            <Text style={styles.nam}> {name}</Text>
+            <Text style={styles.nam}>-- {code}</Text>
           </View>
-          <View style={styles.iconCol}>
+          <View style={styles.price}>
+            <Text style={globalStyles.itemText}>Rs.{price}</Text>
+          </View>
+          <Image style={styles.pic2} source={{uri: img}}/> 
+          <View style={styles.desc}>
+              <Text style={globalStyles.itemText}>{description}</Text>
+          </View>
+        </View>
+        <View style={styles.iconCol}>
             <TouchableOpacity onPress={()=>setModelOpen(true)} >
               <MaterialIcons name='mode-edit' size={28} style={styles.edit}/>
             </TouchableOpacity>
-          </View>
-          
-        {/* </View> */}
-        {/* <View style={styles.rating}>
-            <Text style={globalStyles.itemText}>Rating:</Text>
-            <Image style={styles.pic} source={images.ratings[rating]}/>
-            
-        </View> */}
+        </View>
         <View style={styles.rating}>
-          <View style={styles.cardCol}>
-          <View style={styles.cardRow}>
-          <AntDesign  style={styles.right} name='star' size={14} />
-          <Text style={[globalStyles.blackText,styles.createdText]}> Added to the system :</Text>
-          </View>
-          <View style={styles.cardRow}>
-                           <Text style={[globalStyles.itemText,styles.created]}>{createdAt.substring(0,10)}</Text>
-                           <Text style={[globalStyles.itemText,styles.created]}> at {createdAt.substring(11,16)}</Text>
-          </View>
-          <View style={styles.cardRow}>
-          <AntDesign  style={styles.right} name='star' size={14} />
-            <Text style={[globalStyles.blackText,styles.createdText]}>Discount Percentage : </Text>
-                           <Text style={[globalStyles.itemText,styles.created]}>{discount} %</Text>
-          </View>
-          <View style={styles.cardRow}>
-          <AntDesign  style={styles.right} name='star' size={14} />
-          <Text style={[globalStyles.blackText,styles.createdText]}>Category : </Text>
-                           <Text style={[globalStyles.itemText,styles.created]}>{category} </Text>
-          </View>
-          <View style={styles.cardRow}>
-          <AntDesign  style={styles.right} name='star' size={14} />
-          <Text style={[globalStyles.blackText,styles.createdText]}>Status : </Text>
-                           <Text style={[globalStyles.itemText,styles.created]}>{status} </Text>
-          </View>
-          </View>
+              <View style={styles.cardCol}>
+                  <View style={styles.cardRow}>
+                    <AntDesign  style={styles.right} name='star' size={14} />
+                    <Text style={[globalStyles.blackText,styles.createdText]}> Added to the system :</Text>
+                  </View>
+                  <View style={styles.cardRow}>
+                      <Text style={[globalStyles.itemText,styles.created]}>{createdAt.substring(0,10)}</Text>
+                      <Text style={[globalStyles.itemText,styles.created]}> at {createdAt.substring(11,16)}</Text>
+                  </View>
+                  <View style={styles.cardRow}>
+                      <AntDesign  style={styles.right} name='star' size={14} />
+                      <Text style={[globalStyles.blackText,styles.createdText]}>Discount Percentage : </Text>
+                      <Text style={[globalStyles.itemText,styles.created]}>{discount} %</Text>
+                  </View>
+                  <View style={styles.cardRow}>
+                    <AntDesign  style={styles.right} name='star' size={14} />
+                    <Text style={[globalStyles.blackText,styles.createdText]}>Category : </Text>
+                    <Text style={[globalStyles.itemText,styles.created]}>{category} </Text>
+                  </View>
+                  <View style={styles.cardRow}>
+                    <AntDesign  style={styles.right} name='star' size={14} />
+                    <Text style={[globalStyles.blackText,styles.createdText]}>Status : </Text>
+                    <Text style={[globalStyles.itemText,styles.created]}>{status} </Text>
+                  </View>
+              </View>
         </View>
       </Card>
     </View>
@@ -140,7 +122,6 @@ export default function About({route}) {
   );
 }
 const styles = StyleSheet.create({
-
   right:{
     paddingTop:3,
     paddingRight:3,
@@ -152,7 +133,7 @@ const styles = StyleSheet.create({
       paddingTop:16,
       marginTop:16,
       borderTopWidth:1,
-      borderTopColor:'#333'
+      borderTopColor:'purple'
   },
   pic:{
     flex: 1,
@@ -161,16 +142,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   pic2:{
-    width: 250,
+    width: 230,
     height: 150,
     resizeMode: 'contain',
-    borderRadius: 80,
+    borderRadius: 90,
     marginTop:10,
     alignSelf:'center'
   },
   cardCol:{
     flexDirection:'column',
-    // paddingLeft:10,
   },
   price:{
     alignSelf:'center'
@@ -195,8 +175,6 @@ const styles = StyleSheet.create({
   },
   iconCol:{
     flexDirection:'column',
-    // paddingStart:35,
-    // paddingEnd:20
     position:'absolute',
     right:-10,
   },
@@ -207,7 +185,6 @@ const styles = StyleSheet.create({
   created:{
     paddingTop:0,
     paddingLeft:18
-    // right:42
   },
   createdText:{
     left:0

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Button,Image,ImageBackground} from 'react-native';
+import { StyleSheet, Text, View ,Image} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons'
 
 export default function Header({navigation,title}) {
@@ -7,7 +7,6 @@ export default function Header({navigation,title}) {
     const openMenu=()=>{
         navigation.openDrawer()
     }
-
     return (
       // <ImageBackground source={require('../assets/pexels-photo-2504911.jpeg')} style={styles.header}>
       <View style={styles.header}>

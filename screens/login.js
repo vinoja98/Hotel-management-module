@@ -12,105 +12,71 @@ import {
   TouchableWithoutFeedback,Keyboard,ScrollView,
   Alert
 } from 'react-native';
+import { globalStyles,images } from '../styles/global';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Feather from 'react-native-vector-icons/Feather';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
 const LoginScreen = (props) => {
   const [email,setEmail] = useState('');
   const [password,setPassword]=useState('')
   const { colors } = useTheme();
-  const styles = StyleSheet.create({
-    
-    headerLogo:{
-        marginTop:30,
-      height:100,
-      width:100,
-      borderRadius: 55,
-      position:'absolute',
-      
-    },
-    container: {
-      flex:1,
-      backgroundColor:'white',
-    },
-    logo:{
-      alignItems:'center'
-    },
-    action: {
-      flexDirection: 'row',
-      paddingRight:40,
-      marginTop: 170,
-      alignSelf:'center'
-  },
-  action2: {
-    flexDirection: 'row',
-    marginTop: 20,
-    paddingRight:40,
- 
-    alignSelf:'center'
-},
- 
- })
- const login = (props)=>{
-  const data2={
-    password,
-    email
-  }
-  if(data2.password.length>4 && data2.email.length>11){
-    fetch("https://galaxy-rest-be.herokuapp.com/auth/signin",{
-      method:"POST",
-      headers: {
-       'Content-Type': 'application/json'
-     },
-     body:JSON.stringify({
-       "email":email,
-       "password":password
-     })
-    })
-    .then(res=>res.json())
-    .then(async (data)=>{
-           try {
-             await AsyncStorage.setItem('token',data.token)
-             props.navigation.replace("homeScreen")
-           } catch (e) {
-            Toast.show({
-              topOffset: 40,
-              visibilityTime: 1500,
-              position: 'top',
-              type: 'error',
-              text1: 'Unknown Error',
-            });
-           }
-    })
-  } 
-  else {
-    if (data2.password && data2.email){
-      Toast.show({
-        topOffset: 40,
-        visibilityTime: 1500,
-        position: 'top',
-        type: 'error',
-        text1: 'Invalid Password or Username',
-      });
-    }
-    else{
-      Toast.show({
-        topOffset: 40,
-        visibilityTime: 1500,
-        position: 'top',
-        type: 'error',
-        text1: 'Fill Password && Username',
-      });
-    }
-    
-  }
-}
 
-
+  const login = (props)=>{
+      const data2={
+        password,
+        email
+      }
+      if(data2.password.length>4 && data2.email.length>10){
+        fetch("https://galaxy-rest-be.herokuapp.com/auth/signin",{
+          method:"POST",
+          headers: {
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+          "email":email,
+          "password":password
+        })
+        })
+        .then(res=>res.json())
+        .then(async (data)=>{
+              try {
+                await AsyncStorage.setItem('token',data.token)
+                props.navigation.replace("homeScreen")
+              } catch (e) {
+                Toast.show({
+                  topOffset: 40,
+                  visibilityTime: 1500,
+                  position: 'top',
+                  type: 'error',
+                  text1: 'Unknown Error',
+                });
+              }
+        })
+      } 
+      else {
+        if (data2.password && data2.email){
+          Toast.show({
+            topOffset: 40,
+            visibilityTime: 1500,
+            position: 'top',
+            type: 'error',
+            text1: 'Invalid Password or Username',
+          });
+        }
+        else{
+          Toast.show({
+            topOffset: 40,
+            visibilityTime: 1500,
+            position: 'top',
+            type: 'error',
+            text1: 'Fill Password && Username',
+          });
+        }
+        
+      }
+    }
   return (
    <> 
    <View style={styles.container}>
@@ -118,86 +84,77 @@ const LoginScreen = (props) => {
      <StatusBar backgroundColor="#03498f" barStyle="light-content" />
      <ScrollView>
      <Toast ref={(ref) => Toast.setRef(ref)} />
-      <Text 
-      style={{paddingTop:20,fontSize:25,textAlign:'center',color:"#08b8e1",fontFamily:'nunito-bold'}}>Welcome!</Text>
+      <Text style={{paddingTop:20,fontSize:25,textAlign:'center',color:"#08b8e1",fontFamily:'nunito-bold'}}>Welcome!</Text>
       <View style={styles.logo}>
-      <Image style={styles.headerLogo} source={require('../assets/logo.png')}/>
+          <Image style={styles.headerLogo} source={require('../assets/logo.png')}/>
       </View>
-      
        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View>
-         <View style={styles.action}>
-         <FontAwesome 
-                    style={{padding:12}}
-                    name="user-o"
-                    color={colors.accent}
-                    size={20}
-                />
-      <TextInput
-        label='Email'
-        mode="outlined"
-        value={email}
-        style={{height:40,width:'65%',fontFamily:'nunito-bold'}}
-        theme={
-          {
-            fonts: {
-              regular: {
-                fontFamily: 'nunito-bold'
+              <View style={styles.action}>
+              <FontAwesome 
+                          style={{padding:12}}
+                          name="user-o"
+                          color={colors.accent}
+                          size={20}
+                      />
+            <TextInput style={globalStyles.input}
+              label='Email'
+              mode="outlined"
+              value={email}
+              style={{height:40,width:'65%',fontFamily:'nunito-bold'}}
+              theme={
+                {
+                  fonts: {
+                    regular: {
+                      fontFamily: 'nunito-bold'
+                    }
+                  },
+                  colors:{
+                    primary:'#08b8e1',
+                    accent:'#03498f',
+                    placeholder:'#03498f',
+                    text:'#08b8e1' 
+                  }
+                }
               }
-            },
-            colors:{
-              primary:'#08b8e1',
-              accent:'#03498f',
-              placeholder:'#03498f',
-              text:'#08b8e1'
-              
-            }
-          }
-        }
-        onChangeText={(text)=>setEmail(text)}
-     
-      />
-       </View>
-     
-       <View style={styles.action2}>
-        <Feather 
-         style={{padding:12}}
-                    name="lock"
-                    color={colors.accent}
-                    size={20}
-                />
-                
-                 
-      <TextInput
-        label='Password'
-        mode="outlined"
-        secureTextEntry={true}
-        value={password}
-        onChangeText={(text)=>{setPassword(text)}}
-        
-        style={{height:40,width:'65%',fontFamily:'nunito-bold'}}
-        // theme={{colors:{primary:"#08b8e1",fonts: { regular: "" } }}}
-        theme={
-          {
-            fonts: {
-              regular: {
-                fontFamily: 'nunito-bold'
+              onChangeText={(text)=>setEmail(text)}
+            />
+            </View>
+            <View style={styles.action2}>
+              <Feather 
+              style={{padding:12}}
+                          name="lock"
+                          color={colors.accent}
+                          size={20}
+                      />       
+            <TextInput style={globalStyles.input}
+              label='Password'
+              mode="outlined"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={(text)=>{setPassword(text)}}
+              style={{height:40,width:'65%',fontFamily:'nunito-bold'}}
+              // theme={{colors:{primary:"#08b8e1",fonts: { regular: "" } }}}
+              theme={
+                {
+                  fonts: {
+                    regular: {
+                      fontFamily: 'nunito-bold'
+                    }
+                  },
+                  colors:{
+                    primary:'#08b8e1',
+                    accent:'#03498f',
+                    placeholder:'#03498f',
+                    text:'#08b8e1'
+                  }
+                }
               }
-            },
-            colors:{
-              primary:'#08b8e1',
-              accent:'#03498f',
-              placeholder:'#03498f',
-              text:'#08b8e1'
-            }
-          }
-        }
-     
-      />
-     
-      </View>
-      </View>
-        </TouchableWithoutFeedback>
+          
+            />
+            </View>
+          </View>
+      </TouchableWithoutFeedback>
       <Button 
         mode="contained"
         style={{marginTop:38,alignSelf:'center',height:40,width:'60%',backgroundColor:"#08b8e1"}}
@@ -207,19 +164,14 @@ const LoginScreen = (props) => {
       }}>Login</Text>
       </Button>
     
-        <Text
-      style={{
-        fontSize:18,marginTop:20,fontFamily:'nunito-bold',color:"#03498f",alignSelf:'center'
-      }}
-      onPress={()=>props.navigation.replace("signup")}
-      >Don't have an account ?</Text>
+      <Text style={{fontSize:18,marginTop:20,fontFamily:'nunito-bold',color:"#03498f",alignSelf:'center'}} onPress={()=>props.navigation.replace("signup")}>Don't have an account ?</Text>
       <TouchableOpacity>
-        <Text
-      style={{
-        fontSize:18,marginTop:20,fontFamily:'nunito-bold',color:"#08b8e1",alignSelf:'center'
-      }}
-      onPress={()=>props.navigation.replace("signup")}
-      >Sign Up</Text>
+            <Text
+          style={{
+            fontSize:18,marginTop:20,fontFamily:'nunito-bold',color:"#08b8e1",alignSelf:'center'
+          }}
+          onPress={()=>props.navigation.replace("signup")}
+          >Sign Up</Text>
       </TouchableOpacity>
       {/* </KeyboardAvoidingView> */}
       </ScrollView>
@@ -228,6 +180,36 @@ const LoginScreen = (props) => {
   );
 };
 
+const styles = StyleSheet.create({ 
+  headerLogo:{
+      marginTop:30,
+    height:100,
+    width:100,
+    borderRadius: 55,
+    position:'absolute',
+    
+  },
+  container: {
+    flex:1,
+    backgroundColor:'white',
+  },
+  logo:{
+    alignItems:'center'
+  },
+  action: {
+    flexDirection: 'row',
+    paddingRight:40,
+    marginTop: 170,
+    alignSelf:'center'
+},
+action2: {
+  flexDirection: 'row',
+  marginTop: 20,
+  paddingRight:40,
 
+  alignSelf:'center'
+},
+
+})
 
 export default LoginScreen;

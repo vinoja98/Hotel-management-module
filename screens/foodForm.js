@@ -120,7 +120,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                           data={data2}
                           style = {{color:'#08b8e1',fontFamily:'nunito-bold' }} //for changed text color
                           baseColor='#03498f' //for initial text color
-                         
+                          textColor='#03498f'
                           itemColor='blue'
                           selectedItemColor='#08b8e1'
                           itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}

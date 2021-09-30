@@ -13,9 +13,7 @@ const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc1
 export default function ReviewReply({route,props,navigation}) {
    
   const {_id} =route.params
-
-      const getDetails = (type)=>{
-     
+  const getDetails = (type)=>{
          switch(type){
              case "name":
                  return route.params.name
@@ -24,19 +22,14 @@ export default function ReviewReply({route,props,navigation}) {
              case "rating":
                return route.params.rating
              case "reply":
-                 return route.params.reply
-           
+                 return route.params.reply  
          }
-      
       return ""
    }
-
   const[reply,setReply]=useState("")
   // const[name,setName]=useState(getDetails("name"))
   // const[rating,setRating]=useState(getDetails("rating"))
   // const[review,setReview]=useState(getDetails("review"))
-  
-    
   const updateDetails = (_id)=>{
     const id=_id._id
     console.log(_id._id)
@@ -74,35 +67,43 @@ export default function ReviewReply({route,props,navigation}) {
 }
     return (
       <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
-      <View style={globalStyles.container}>
+        <View style={globalStyles.container}>
           <Text style={globalStyles.text}>Review  : {getDetails("review")} </Text>
-        <Formik> 
-        
-            {(props)=>(
-              
+          <Formik> 
+            {(props)=>( 
               // <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
               <View>
                     <TextInput style={globalStyles.input}
                          minHeight={50}
                          label='Reply'
                          mode="outlined"
-                         theme={{colors:{primary:"#08b8e1"}}}
+                         theme={
+                          {
+                            fonts: {
+                              regular: {
+                                fontFamily: 'nunito-bold'
+                              }
+                            },
+                            colors:{
+                              primary:'#08b8e1',
+                              accent:'#03498f',
+                              placeholder:'#03498f',
+                              text:'#08b8e1'
+                            }
+                          }
+                        }
                         minLength={3}
                         onChangeText={text =>setReply(text)}
                         value={reply}/>
                       
                        
                     <FlatButton  text='Add Reply' onPress={()=>updateDetails({_id})}/>
-                    </View>
-                    // </TouchableWithoutFeedback>  
-                    
-            )
-            }
-           
-        </Formik>
-       
-              
-      </View>
+              </View>
+                    // </TouchableWithoutFeedback>       
+               )
+              }   
+          </Formik>     
+        </View>
       </ImageBackground>
     );
   }

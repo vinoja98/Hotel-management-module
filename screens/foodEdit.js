@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert,ScrollView,ImageBackground} from 'react-native';
+import { View,Alert,ScrollView,ImageBackground} from 'react-native';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
@@ -10,7 +10,6 @@ const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc1
 
 export default function FoodEdit({name,price,description,discount,status,code,category,img,setModelOpen,_id,setDescription,setDiscount,setName,setPrice,setStatus,setCode,setCategory,setImg}) {
    
- 
 const data1=[{value:'Available',},
 {value:'Not Available',},]
 
@@ -30,8 +29,6 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
 //       img,
 //       code
 // }
-
-
     fetch("https://galaxy-rest-be.herokuapp.com/food/update/"+id,{
         method:"POST",
         headers:{
