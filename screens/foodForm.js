@@ -1,13 +1,14 @@
 import React,{useState} from 'react';
 import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,Alert,ScrollView,ImageBackground} from 'react-native';
-import { Button ,TextInput} from 'react-native-paper';
+import { Provider,Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
-import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+// import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+import DropDown from "react-native-paper-dropdown";
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItems}) {
@@ -16,14 +17,16 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
     const[description,setDescription]=useState("")
     const[status,setStatus]=useState("")
     const[discount,setDiscount]=useState("")
-    const[category,setCategory]=useState("")
+    const[category,setCategory]=useState("");
     const[img,setImg]=useState("")
     const[code,setCode]=useState("")
+    const [showDropDown, setShowDropDown] = useState(false);
+    const [showDropDown2, setShowDropDown2] = useState(false);
   
- const data1=[{value:'Available',},
- {value:'Not Available',},]
+ const data1=[{label:'Available',value:'Available',},
+ {label:'Not Available',value:'Not Available',},]
 
- const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Other',},]
+ const data2=[{label:'Pizza',value:'Pizza',},{label:'Drinks',value:'Drinks',},{label:'Fried Rice',value:'Fried Rice',},{label:'Other',value:'Other',},]
     
  const submitFood = ()=>{
   const data={
@@ -37,7 +40,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
           code
   }
   if(data.name && data.price && data.description && data.status && data.discount && data.category && data.img && data.code ){
-    axios.post('https://galaxy-rest-be.herokuapp.com/food/add',data).then(({data}) => {
+    axios.post('http://10.0.2.2:5000/food/add',data).then(({data}) => {
       Alert.alert(`food item ${data.name} added, REFRESH HOME PAGE`)
       setModelOpen(false)
     
@@ -81,6 +84,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
   // }
     return (
       // <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
+      <Provider>
       <View style={globalStyles.container}>
         <ScrollView>
         <Formik
@@ -115,7 +119,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         value={name}
                         
                         />
-                        <Dropdown 
+                        {/* <Dropdown 
                           label="Category"
                           data={data2}
                           style = {{color:'#08b8e1',fontFamily:'nunito-bold' }} //for changed text color
@@ -128,7 +132,35 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                          
                           onChangeText={text => setCategory(text)}
                         value={category}
-                        />
+                        /> */}
+                         <DropDown
+              label={"Category"}
+              mode={"outlined"}
+              visible={showDropDown}
+
+              showDropDown={() =>  setShowDropDown(true)}
+
+              onDismiss={() =>  setShowDropDown(false)}
+              value={category}
+              activeColor={"#08b8e1"}
+              dropDownItemTextStyle={{fontFamily:'nunito-bold',color:'blue'}}
+              setValue={setCategory}
+              list={data2}
+            />
+              <DropDown
+              label={"Status"}
+              mode={"outlined"}
+              visible={showDropDown2}
+
+              showDropDown={() =>  setShowDropDown2(true)}
+
+              onDismiss={() =>  setShowDropDown2(false)}
+              value={status}
+              activeColor={"#08b8e1"}
+              dropDownItemTextStyle={{fontFamily:'nunito-bold',color:'blue'}}
+              setValue={setStatus}
+              list={data1}
+            />
                         <TextInput style={globalStyles.input}
                         label='Food Item Code'
                         mode="outlined"
@@ -251,7 +283,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         /> 
                          
                          
-                          <Dropdown 
+                          {/* <Dropdown 
                           label="Status"
                           data={data1}
                           onChangeText={text => setStatus(text)}
@@ -262,7 +294,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                          
                           selectedItemColor='#08b8e1'
                           itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}
-                        value={status}/>
+                        value={status}/> */}
                     <FlatButton text='Add' onPress={submitFood}/>
                 </View>
             )
@@ -270,6 +302,6 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
         </Formik>
         </ScrollView>
       </View>
-      // </ImageBackground>
+      </Provider>
     );
   }

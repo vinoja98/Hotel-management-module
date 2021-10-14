@@ -28,7 +28,7 @@ const LoginScreen = (props) => {
         password,
         email
       }
-      if(data2.password.length>4 && data2.email.length>10){
+      if(data2.password.length>4 && data2.email.length>11){
         fetch("https://galaxy-rest-be.herokuapp.com/auth/signin",{
           method:"POST",
           headers: {
@@ -168,7 +168,7 @@ const LoginScreen = (props) => {
       <TouchableOpacity>
             <Text
           style={{
-            fontSize:18,marginTop:20,fontFamily:'nunito-bold',color:"#08b8e1",alignSelf:'center'
+            fontSize:18,marginTop:10,fontFamily:'nunito-bold',color:"#08b8e1",alignSelf:'center'
           }}
           onPress={()=>props.navigation.replace("signup")}
           >Sign Up</Text>

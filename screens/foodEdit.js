@@ -1,20 +1,23 @@
 import React,{useState} from 'react';
 import { View,Alert,ScrollView,ImageBackground} from 'react-native';
-import { Button ,TextInput} from 'react-native-paper';
+import { Provider,Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
-import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+// import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+import DropDown from "react-native-paper-dropdown";
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function FoodEdit({name,price,description,discount,status,code,category,img,setModelOpen,_id,setDescription,setDiscount,setName,setPrice,setStatus,setCode,setCategory,setImg}) {
-   
-const data1=[{value:'Available',},
-{value:'Not Available',},]
 
-const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Other',},]
-    
+const [showDropDown, setShowDropDown] = useState(false);
+    const [showDropDown2, setShowDropDown2] = useState(false);
+     
+ const data1=[{label:'Available',value:'Available',},
+ {label:'Not Available',value:'Not Available',},]
+
+ const data2=[{label:'Pizza',value:'Pizza',},{label:'Drinks',value:'Drinks',},{label:'Fried Rice',value:'Fried Rice',},{label:'Other',value:'Other',},]
   const updateDetails = (_id)=>{
     const id=_id._id
     console.log(_id._id)
@@ -57,7 +60,7 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
 
 }
     return (
-     
+      <Provider>
       <View style={globalStyles.container}>
         <ScrollView>
         <Formik>
@@ -85,7 +88,35 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
                         onChangeText={text =>setName(text)}
                         value={name}
                         minLength={3}/>
-                        <Dropdown 
+                        <DropDown
+              label={"Category"}
+              mode={"outlined"}
+              visible={showDropDown}
+
+              showDropDown={() =>  setShowDropDown(true)}
+
+              onDismiss={() =>  setShowDropDown(false)}
+              value={category}
+              activeColor={"#08b8e1"}
+              dropDownItemTextStyle={{fontFamily:'nunito-bold',color:'blue'}}
+              setValue={setCategory}
+              list={data2}
+            />
+              <DropDown
+              label={"Status"}
+              mode={"outlined"}
+              visible={showDropDown2}
+
+              showDropDown={() =>  setShowDropDown2(true)}
+
+              onDismiss={() =>  setShowDropDown2(false)}
+              value={status}
+              activeColor={"#08b8e1"}
+              dropDownItemTextStyle={{fontFamily:'nunito-bold',color:'blue'}}
+              setValue={setStatus}
+              list={data1}
+            />
+                        {/* <Dropdown 
                           label="Category"
                           data={data2}
                           style = {{color:'#08b8e1' }} //for changed text color
@@ -96,7 +127,7 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
                           selectedItemColor='#08b8e1'
                           itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}
                           onChangeText={text =>setCategory(text)}
-                          value={category}/>
+                          value={category}/> */}
                         <TextInput style={globalStyles.input}
                         label='Food Item Code'
                         mode="outlined"
@@ -215,7 +246,7 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
                        
                         /> 
                          
-                         
+{/*                          
                           <Dropdown 
                           label="Status"
                           style = {{color:'#08b8e1' }} //for changed text color
@@ -228,7 +259,7 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
                           itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}
                           data={data1}
                           onChangeText={text => setStatus(text)}
-                        value={status}/>
+                        value={status}/> */}
                     <FlatButton  text='Modify' onPress={()=>updateDetails({_id})}/>
                    
                 </View>
@@ -237,6 +268,6 @@ const data2=[{value:'Pizza',},{value:'Drinks',},{value:'Fried Rice',},{value:'Ot
         </Formik>
         </ScrollView>
       </View>
-      
+    </Provider>
     );
   }

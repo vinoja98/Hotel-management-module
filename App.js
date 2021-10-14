@@ -4,13 +4,13 @@ import AppLoading from 'expo-app-loading';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoadingScreen from './screens/loading';
 import LoginScreen from './screens/login';
 import SignupScreen from './screens/signup';
-const Stack = createStackNavigator();
 import HomeScreen from './screens/homeScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const Stack = createStackNavigator();
 
 const getFonts=()=>Font.loadAsync({
       'nunito-regular':require('./assets/fonts/Nunito-Regular.ttf'),
@@ -35,6 +35,7 @@ export default function App() {
 
   if(fontsLoaded){
     return (
+     
       <NavigationContainer>
           <Stack.Navigator
           headerMode="none">
@@ -44,6 +45,7 @@ export default function App() {
                 <Stack.Screen name="homeScreen" component={HomeScreen} /> 
           </Stack.Navigator>
       </NavigationContainer>
+   
       );
   }
   else{

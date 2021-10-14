@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     width: 230,
     height: 150,
     resizeMode: 'contain',
-    borderRadius: 90,
+    borderRadius: 93,
     marginTop:10,
     alignSelf:'center'
   },

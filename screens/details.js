@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { Alert,StyleSheet, Text, View,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard,TouchableOpacity,ImageBackground} from 'react-native';
+import { Alert,StyleSheet, Text,Linking, View,FlatList,StatusBar,Modal,TouchableWithoutFeedback,Keyboard,TouchableOpacity,ImageBackground} from 'react-native';
 import { globalStyles } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import {MaterialCommunityIcons} from '@expo/vector-icons'
@@ -77,7 +77,7 @@ export default function Details() {
                               <Text style={globalStyles.itemText}>Rs. {item.salary}</Text>
                               </View>
                            </View>
-                           <TouchableOpacity >
+                           <TouchableOpacity onPress={() => Linking.openURL(`https://api.whatsapp.com/send?phone=+${item.contactNo}`)}>
                            <FontAwesome5 name="whatsapp" size={28} color="blue" />
                           </TouchableOpacity>
                           
