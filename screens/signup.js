@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles } from '../styles/global';
 import {
@@ -8,11 +8,9 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,Keyboard,ScrollView
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignupScreen = (props) => {
 
@@ -121,12 +119,13 @@ const styles = StyleSheet.create({
       <Text 
       style={{fontSize:25,textAlign:'center',marginTop:30,color:"#08b8e1",fontFamily:'nunito-bold'}}>Register Now!</Text>
       <View style={styles.logo}>
-      <Image style={styles.headerLogo} source={require('../assets/logo.png')}/>
+      <Image style={styles.headerLogo} testID="background" source={require('../assets/logo.png')}/>
       </View>
       
        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View>
       <TextInput style={globalStyles.input}
+      accessibilityLabel="Name"
         label='Name'
         placeholder='Min 3 characters needed'
         mode="outlined"
@@ -148,9 +147,10 @@ const styles = StyleSheet.create({
           }
         }
         onChangeText={(text)=>setName(text)}
-     
+        testID="SignUp.usernameInput"
       />
       <TextInput style={globalStyles.input}
+      accessibilityLabel="NIC"
         label='NIC'
         placeholder='10 characters needed'
         mode="outlined"
@@ -172,9 +172,10 @@ const styles = StyleSheet.create({
             }
           }
         }
-     
+        testID="SignUp.NICInput"
       />
         <TextInput style={globalStyles.input}
+        accessibilityLabel="Email"
         label='Email'
         placeholder='Min 5 characters needed'
         mode="outlined"
@@ -196,9 +197,10 @@ const styles = StyleSheet.create({
           }
         }
         onChangeText={(text)=>setEmail(text)}
-     
+        testID="SignUp.emailInput"
       />
         <TextInput style={globalStyles.input}
+        accessibilityLabel="Contact Number"
         label='Contact Number'
         placeholder='12 characters needed'
         mode="outlined"
@@ -220,9 +222,10 @@ const styles = StyleSheet.create({
           }
         }
         onChangeText={(text)=>setContact(text)}
-     
+        testID="SignUp.numInput"
       />
         <TextInput style={globalStyles.input}
+        accessibilityLabel="Password"
         label='Password'
         placeholder='Min 5 characters needed'
         mode="outlined"
@@ -244,7 +247,7 @@ const styles = StyleSheet.create({
           }
         }
         onChangeText={(text)=>setPassword(text)}
-     
+        testID="SignUp.passInput"
       />
       </View>
         </TouchableWithoutFeedback>
@@ -265,7 +268,7 @@ const styles = StyleSheet.create({
       >Already have an account ?</Text>
       
       <TouchableOpacity>
-        <Text
+        <Text testID="SignUp.Button"
       style={{
         fontSize:18,marginTop:10,fontFamily:'nunito-bold',color:"#08b8e1",alignSelf:'center'
       }}

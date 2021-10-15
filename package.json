@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest --coverage --verbose --force-exit"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.5",
@@ -40,10 +41,25 @@
     "react-native-toast-message": "^1.6.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
+    "react-test-renderer": "^17.0.2",
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "@testing-library/jest-native": "^4.0.2",
+    "@testing-library/react-native": "^7.2.0",
+    "fetch-mock-jest": "^1.5.1",
+    "jest": "^26.0.0",
+    "jest-fetch-mock": "^3.0.3"
+  },
+  "jest": {
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
+    "setupFiles": [
+      "./setupJest.js"
+    ]
   },
   "private": true
 }
