@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
       />
       </View>
         </TouchableWithoutFeedback>
-      <Button 
+      <Button testID="SignUp.Button"
         mode="contained"
         style={{marginTop:20,alignSelf:'center',height:30,width:'60%',backgroundColor:"#08b8e1"}}
         onPress={() => sendCred(props)}>
@@ -264,11 +264,10 @@ const styles = StyleSheet.create({
       style={{
         fontSize:18,marginTop:10,fontFamily:'nunito-bold',color:"#03498f",alignSelf:'center'
       }}
-      onPress={()=>props.navigation.replace("login")}
       >Already have an account ?</Text>
       
       <TouchableOpacity>
-        <Text testID="SignUp.Button"
+        <Text testID="login.Button"
       style={{
         fontSize:18,marginTop:10,fontFamily:'nunito-bold',color:"#08b8e1",alignSelf:'center'
       }}

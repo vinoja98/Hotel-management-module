@@ -13,8 +13,8 @@ import {
   Alert
 } from 'react-native';
 import { globalStyles,images } from '../styles/global';
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import Feather from 'react-native-vector-icons/Feather';
+// import FontAwesome from 'react-native-vector-icons/FontAwesome'
+// import Feather from 'react-native-vector-icons/Feather';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -86,18 +86,19 @@ const LoginScreen = (props) => {
      <Toast ref={(ref) => Toast.setRef(ref)} />
       <Text style={{paddingTop:20,fontSize:25,textAlign:'center',color:"#08b8e1",fontFamily:'nunito-bold'}}>Welcome!</Text>
       <View style={styles.logo}>
-          <Image style={styles.headerLogo} source={require('../assets/logo.png')}/>
+          <Image style={styles.headerLogo} testID="background" source={require('../assets/logo.png')}/>
       </View>
        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View>
               <View style={styles.action}>
-              <FontAwesome 
+              {/* <FontAwesome 
                           style={{padding:12}}
                           name="user-o"
                           color={colors.accent}
                           size={20}
-                      />
+                      /> */}
             <TextInput style={globalStyles.input}
+            accessibilityLabel="Email"
               label='Email'
               mode="outlined"
               value={email}
@@ -118,18 +119,21 @@ const LoginScreen = (props) => {
                 }
               }
               onChangeText={(text)=>setEmail(text)}
+              testID="Login.emailInput"
             />
             </View>
             <View style={styles.action2}>
-              <Feather 
+              {/* <Feather 
               style={{padding:12}}
                           name="lock"
                           color={colors.accent}
                           size={20}
-                      />       
+                      />        */}
             <TextInput style={globalStyles.input}
+            accessibilityLabel="Password"
               label='Password'
               mode="outlined"
+              testID="Login.passInput"
               secureTextEntry={true}
               value={password}
               onChangeText={(text)=>{setPassword(text)}}
@@ -159,14 +163,14 @@ const LoginScreen = (props) => {
         mode="contained"
         style={{marginTop:38,alignSelf:'center',height:40,width:'60%',backgroundColor:"#08b8e1"}}
         onPress={() => login(props)}>
-           <Text style={{
+           <Text testID="login.Button" style={{
         fontSize:13,fontFamily:'nunito-bold',color:"#03498f"
       }}>Login</Text>
       </Button>
     
       <Text style={{fontSize:18,marginTop:20,fontFamily:'nunito-bold',color:"#03498f",alignSelf:'center'}} onPress={()=>props.navigation.replace("signup")}>Don't have an account ?</Text>
       <TouchableOpacity>
-            <Text
+            <Text testID="SignUp.Button"
           style={{
             fontSize:18,marginTop:10,fontFamily:'nunito-bold',color:"#08b8e1",alignSelf:'center'
           }}

@@ -58,7 +58,8 @@
       "@testing-library/jest-native/extend-expect"
     ],
     "setupFiles": [
-      "./setupJest.js"
+      "./setupJest.js",
+      "./mock.js"
     ]
   },
   "private": true
