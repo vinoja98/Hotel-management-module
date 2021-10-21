@@ -94,10 +94,11 @@ export default function ReviewReply({route,props,navigation}) {
                         }
                         minLength={3}
                         onChangeText={text =>setReply(text)}
+                        testID="review.reply"
                         value={reply}/>
                       
                        
-                    <FlatButton  text='Add Reply' onPress={()=>updateDetails({_id})}/>
+                    <FlatButton  testID="review.Button" text='Add Reply' onPress={()=>updateDetails({_id})}/>
               </View>
                     // </TouchableWithoutFeedback>       
                )

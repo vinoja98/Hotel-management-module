@@ -299,7 +299,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                           selectedItemColor='#08b8e1'
                           itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}
                         value={status}/> */}
-                    <FlatButton text='Add' onPress={submitFood}/>
+                    <FlatButton testID="food.Button" text='Add' onPress={submitFood}/>
                 </View>
             )
             }

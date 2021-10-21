@@ -265,7 +265,7 @@ const [showDropDown, setShowDropDown] = useState(false);
                           data={data1}
                           onChangeText={text => setStatus(text)}
                         value={status}/> */}
-                    <FlatButton  text='Modify' onPress={()=>updateDetails({_id})}/>
+                    <FlatButton  testID="edit.Button" text='Modify' onPress={()=>updateDetails({_id})}/>
                    
                 </View>
             )

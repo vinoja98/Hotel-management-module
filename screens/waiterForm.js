@@ -211,7 +211,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         testID="Waiter.sala"
                         value={salary}
                         /> 
-                    <FlatButton text='Add' onPress={submitWaiter}/>
+                    <FlatButton testID="book.Button" text='Add' onPress={submitWaiter}/>
                 </View>
             )
             }

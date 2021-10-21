@@ -200,7 +200,7 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
                       date={endDate}
                       onDateChange={date1=>setDate2(date1)}
                     />
-                    <FlatButton text='Add' onPress={submitBooking}/>
+                    <FlatButton testID="room.Button" text='Add' onPress={submitBooking}/>
                 </View>
             )
             }
