@@ -1,9 +1,9 @@
 import React,{useState} from 'react';
 import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,TextInput,Button} from 'react-native';
 
-export default function FlatButton({text,onPress}) {
+export default function FlatButton({text,onPress,testID}) {
     return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} testID={testID}>
         <View style={styles.button}>
             <Text style={styles.buttonText}>{text}</Text>
         

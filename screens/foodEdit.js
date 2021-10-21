@@ -86,6 +86,7 @@ const [showDropDown, setShowDropDown] = useState(false);
                           }
                         }
                         onChangeText={text =>setName(text)}
+                        testID="FoodEdit.food"
                         value={name}
                         minLength={3}/>
                         <DropDown
@@ -147,6 +148,7 @@ const [showDropDown, setShowDropDown] = useState(false);
                           }
                         }
                         onChangeText={text =>setCode(text)}
+                        testID="FoodEdit.code"
                         value={code}
                         />
                         <TextInput style={globalStyles.input}
@@ -169,6 +171,7 @@ const [showDropDown, setShowDropDown] = useState(false);
                         }
                         onChangeText={text =>setImg(text)}
                         value={img}
+                        testID="FoodEdit.img"
                         />
                         {/* onBlur={props.handleBlur('name')}  */}
                     {/* <Text style={globalStyles.errorText}>{props.touched.name && props.errors.name}</Text> */}
@@ -192,6 +195,7 @@ const [showDropDown, setShowDropDown] = useState(false);
                           }
                         onChangeText={text => setPrice(text)}
                         value={price.toString()}
+                        testID="FoodEdit.price"
                         // onBlur={props.handleBlur('price')}
                         keyboardType='numeric'/>
                     {/* <Text style={globalStyles.errorText}>{props.touched.price && props.errors.price}</Text> */}
@@ -216,6 +220,7 @@ const [showDropDown, setShowDropDown] = useState(false);
                         }
                         onChangeText={text => setDescription(text)}
                         value={description}
+                        testID="FoodEdit.desc"
                         minLength={3}/>
                         {/* onBlur={props.handleBlur('description')} */}
                       {/* <Text style={globalStyles.errorText}>{props.touched.description && props.errors.description}</Text> */}
@@ -242,7 +247,7 @@ const [showDropDown, setShowDropDown] = useState(false);
                         keyboardType='numeric'
                         onChangeText={text => setDiscount(text)}
                         value={discount.toString()}
-                        
+                        testID="FoodEdit.dis"
                        
                         /> 
                          

@@ -60,7 +60,7 @@ useEffect(()=>{
                            
                         </View>
                         <View style={styles.add}> 
-                           <TouchableOpacity onPress={()=>navigation.navigate('ReviewReply',item)}>
+                           <TouchableOpacity testID="ReviewReply.Button" onPress={()=>navigation.navigate('ReviewReply',item)}>
                              <Text style={globalStyles. blackText}>Add Reply</Text>
                           </TouchableOpacity>
                         </View>

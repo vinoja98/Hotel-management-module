@@ -51,7 +51,7 @@ export default function RoomBooking({navigation,props}) {
             {/* </ImageBackground> */}
           </Modal>
              <View style={styles.btn}>
-                <FlatButton  text='View Room Bookings' onPress={() =>
+                <FlatButton testID="Booking.Button" text='View Room Bookings' onPress={() =>
                     navigation.navigate('Bookings')}/>
             </View>
             <FlatList

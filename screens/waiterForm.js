@@ -90,7 +90,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         }
                         onChangeText={text => setName(text)}
                         value={name}
-                        
+                        testID="Waiter.usernameInput"
                         />
                     
                         <TextInput style={globalStyles.input}
@@ -112,6 +112,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                           }
                         }
                         onChangeText={text => setPassword(text)}
+                        testID="Waiter.passInput"
                         value={password}
                         />
                          <TextInput style={globalStyles.input}
@@ -133,6 +134,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                           }
                         }
                         onChangeText={text => setEmail(text)}
+                        testID="Waiter.emailInput"
                         value={email}
                         />
                         {/* onBlur={props.handleBlur('name')}  */}
@@ -156,6 +158,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                           }
                         }
                         onChangeText={text => setContactNo(text)}
+                        testID="Waiter.numInput"
                         value={contactNo}
                         keyboardType='numeric'/>
                       
@@ -180,7 +183,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                           }
                         }
                         onChangeText={text => setNIC(text)}
-                        
+                        testID="Waiter.NICInput"
                         value={nic}
                         keyboardType='numeric'/>
                        
@@ -205,6 +208,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         }
                         keyboardType='numeric'
                         onChangeText={text => setSalary(text)}
+                        testID="Waiter.sala"
                         value={salary}
                         /> 
                     <FlatButton text='Add' onPress={submitWaiter}/>

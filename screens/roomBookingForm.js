@@ -123,7 +123,7 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
                         }
                         onChangeText={text => setName(text)}
                         value={customerName}
-                        
+                        testID="RoomBookForm.name"
                         />
                          <TextInput style={globalStyles.input}
                         label="Customer's Email"
@@ -145,7 +145,7 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
                         }
                         onChangeText={text => setcustomerEmail(text)}
                         value={customerEmail}
-                        
+                        testID="RoomBookForm.email"
                         />
                          <TextInput style={globalStyles.input}
                         label="Customer's Contact Number"
@@ -168,7 +168,7 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
                         onChangeText={text => setcustomerContactNumber(text)}
                         value={customerContactNumber}
                         keyboardType='numeric'
-                        
+                        testID="RoomBookForm.phone"
                         />
                      {/* <Button title="Show Start Date Picker" onPress={showDatePicker} /> */}
                      <TouchableOpacity onPress={showDatePicker}>

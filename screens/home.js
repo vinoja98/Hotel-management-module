@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,
-  Modal,TouchableWithoutFeedback,Keyboard,ActivityIndicator,StatusBar, KeyboardAvoidingView,ImageBackground} from 'react-native';
+  Modal,TouchableWithoutFeedback,Keyboard,StatusBar,ImageBackground} from 'react-native';
 import { globalStyles } from '../styles/global';
 import Card from '../shared/card';
 import {MaterialIcons} from '@expo/vector-icons'
@@ -8,11 +8,8 @@ import { Ionicons } from '@expo/vector-icons';
 import {AntDesign} from '@expo/vector-icons'
 import FoodForm from './foodForm';
 import FlatButton from '../shared/button';
-import ActionButton from 'react-native-action-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Icon from 'react-native-vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
-import axios from 'axios';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function Home({navigation,props}) {
@@ -113,11 +110,11 @@ useEffect(()=>{
         />
         
         <View style={styles.btn}>
-          <FlatButton  text='Staff   Details' onPress={() =>
+          <FlatButton testID="Staff.Button" text='Staff   Details' onPress={() =>
             navigation.navigate('Details')}/>
         </View>
         <View style={styles.btn2}>
-          <FlatButton  text='Logout' onPress={() => logout(props)}/>
+          <FlatButton testID="Logout.Button" text='Logout' onPress={() => logout(props)}/>
           
         </View>
         
@@ -139,7 +136,7 @@ useEffect(()=>{
                            
                            <View style={styles.ant}>
                            
-                           <TouchableOpacity onPress={()=>navigation.navigate('About',item)}>
+                           <TouchableOpacity testID="About.Button" onPress={()=>navigation.navigate('About',item)}>
                              <AntDesign  style={styles.right} name='doubleright' size={17} />
                              </TouchableOpacity>
                            </View>

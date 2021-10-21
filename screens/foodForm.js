@@ -117,7 +117,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         }
                         onChangeText={text => setName(text)}
                         value={name}
-                        
+                        testID="FoodForm.food"
                         />
                         {/* <Dropdown 
                           label="Category"
@@ -181,6 +181,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         }
                         onChangeText={text => setCode(text)}
                         value={code}
+                        testID="FoodForm.code"
                         />
                          <TextInput style={globalStyles.input}
                         label='Image link'
@@ -202,6 +203,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         }
                         onChangeText={text => setImg(text)}
                         value={img}
+                        testID="FoodForm.img"
                         />
                     
                      <TextInput style={globalStyles.input}
@@ -224,6 +226,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         }
                         onChangeText={text => setPrice(text)}
                         value={price}
+                        testID="FoodForm.price"
                         
                         // onBlur={props.handleBlur('price')}
                         keyboardType='numeric'/>
@@ -248,10 +251,11 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                           }
                         }
                         onChangeText={text => setDescription(text)}
-                        
+                        testID="FoodForm.desc"
                         value={description}/>
                        
                     <TextInput style={globalStyles.input}
+                   testID="Percentage"
                         label='Discount Percentage'
                         mode="outlined"
                         theme={
@@ -273,7 +277,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         onChangeText={text => setDiscount(text)}
                         value={discount}
              
-                        
+                        testID="FoodForm.dis"
                         // onBlur={props.handleBlur('price')}
                         
                         // onChangeText={text => setPrice(text)}

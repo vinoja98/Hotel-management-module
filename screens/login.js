@@ -13,8 +13,8 @@ import {
   Alert
 } from 'react-native';
 import { globalStyles,images } from '../styles/global';
-// import FontAwesome from 'react-native-vector-icons/FontAwesome'
-// import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Feather from 'react-native-vector-icons/Feather';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -91,12 +91,12 @@ const LoginScreen = (props) => {
        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View>
               <View style={styles.action}>
-              {/* <FontAwesome 
+              <FontAwesome 
                           style={{padding:12}}
                           name="user-o"
                           color={colors.accent}
                           size={20}
-                      /> */}
+                      />
             <TextInput style={globalStyles.input}
             accessibilityLabel="Email"
               label='Email'
@@ -123,12 +123,12 @@ const LoginScreen = (props) => {
             />
             </View>
             <View style={styles.action2}>
-              {/* <Feather 
+              <Feather 
               style={{padding:12}}
                           name="lock"
                           color={colors.accent}
                           size={20}
-                      />        */}
+                      />       
             <TextInput style={globalStyles.input}
             accessibilityLabel="Password"
               label='Password'
