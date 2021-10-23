@@ -4,6 +4,7 @@ import { globalStyles,images } from '../styles/global';
 import {MaterialIcons} from '@expo/vector-icons'
 import Card from '../shared/card';
 import ReviewReply from './reviewReply'
+import FadeInView from '../shared/fadeInView';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function ReviewDetails({navigation,props}) {
@@ -37,7 +38,7 @@ useEffect(()=>{
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
-      <View style={globalStyles.container}>
+      <FadeInView style={globalStyles.container}>
       <StatusBar backgroundColor="#03498f" barStyle="light-content" />
             <FlatList
             data={reviews}
@@ -46,7 +47,9 @@ useEffect(()=>{
                 <View  style={styles.cardCol}>  
                     <View style={styles.cardRow}>
                           <Text style={globalStyles.itemText}>{item.name}</Text>
+                          <View style={styles.rat}>
                           <Image style={styles.pic} source={images.ratings[item.rating]}/>
+                          </View>
                     </View>
                       <View style={styles.cardRow}>
                            <Text style={globalStyles.itemText}>{item.review}</Text>
@@ -71,7 +74,7 @@ useEffect(()=>{
              onRefresh={()=>fetchReviews()}
              refreshing={loading}
            />
-      </View>
+      </FadeInView>
     </ImageBackground>
   );
 }
@@ -104,4 +107,7 @@ const styles=StyleSheet.create({
     // height: '100%',
     // resizeMode: 'cover', 
   },
+  rat:{
+  paddingLeft:70
+  }
 })

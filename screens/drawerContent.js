@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import FadeInView from '../shared/fadeInView';
 import {
     useTheme,
     Avatar,
@@ -29,7 +30,7 @@ export function DrawerContent({navigation,props}) {
     // const { signOut, toggleTheme } = React.useContext(AuthContext);
 
     return(
-        <View style={{flex:1}}>
+        <FadeInView style={{flex:1}}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
@@ -147,7 +148,7 @@ export function DrawerContent({navigation,props}) {
                     // onPress={() => {signOut()}}
                 /> */}
             </Drawer.Section>
-        </View>
+        </FadeInView>
     );
 }
 

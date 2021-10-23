@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import Card from '../shared/card';
 import FlatButton from '../shared/button';
+import FadeInView from '../shared/fadeInView';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 import RoomBookingForm from './roomBookingForm';
 
@@ -32,7 +33,7 @@ export default function RoomBooking({navigation,props}) {
 
   return (
   <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
-    <View style={globalStyles.container}>
+    <FadeInView style={globalStyles.container}>
     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
         <Modal visible={bookModel} animationType='slide' >
           {/* <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}> */}
@@ -98,7 +99,7 @@ export default function RoomBooking({navigation,props}) {
              keyExtractor={item=>item._id}
              numColumns={2}
        />
-    </View>
+    </FadeInView>
   </ImageBackground>
    
   );

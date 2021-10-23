@@ -5,6 +5,7 @@ import {MaterialIcons} from '@expo/vector-icons'
 import {AntDesign} from '@expo/vector-icons'
 import Card from '../shared/card';
 import FoodEdit from './foodEdit';
+import FadeInView from '../shared/fadeInView';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function About({route}) {
@@ -45,7 +46,7 @@ export default function About({route}) {
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
-    <View style={globalStyles.container}>
+    <FadeInView style={globalStyles.container}>
       <Modal visible={modelOpen} animationType='slide' style={[globalStyles.container,globalStyles.color]}>
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={globalStyles.modalContent}>  
@@ -117,7 +118,7 @@ export default function About({route}) {
               </View>
         </View>
       </Card>
-    </View>
+    </FadeInView>
     </ImageBackground>
   );
 }

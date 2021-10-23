@@ -1,13 +1,14 @@
 import React,{useState} from 'react';
 import { StyleSheet, Text, View,Image,FlatList,TouchableOpacity,TextInput,Button} from 'react-native';
+import FadeInView from '../shared/fadeInView';
 
 export default function FlatButton({text,onPress,testID}) {
     return (
     <TouchableOpacity onPress={onPress} testID={testID}>
-        <View style={styles.button}>
+        < FadeInView style={styles.button}>
             <Text style={styles.buttonText}>{text}</Text>
         
-      </View>
+      </ FadeInView>
     </TouchableOpacity>
       
     );

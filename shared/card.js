@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet,View} from 'react-native';
+import FadeInView from '../shared/fadeInView';
 
 export default function Card(props) {
     return (
-      <View style={style.card}>
+      < FadeInView style={style.card}>
         <View style={style.cardContent}>
             {props.children}
         </View>
-      </View>
+      </ FadeInView>
     );
   }
 

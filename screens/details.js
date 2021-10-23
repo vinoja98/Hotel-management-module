@@ -9,6 +9,7 @@ import Card from '../shared/card';
 import WaiterForm from './waiterForm'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import FadeInView from '../shared/fadeInView';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function Details() {
@@ -33,7 +34,7 @@ export default function Details() {
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
-    <View style={globalStyles.container}>
+    <FadeInView style={globalStyles.container}>
       <StatusBar backgroundColor="#03498f" barStyle="light-content" />
         <MaterialIcons
           name='add'
@@ -91,7 +92,7 @@ export default function Details() {
           
           {/* }
      */}
-    </View>
+    </FadeInView>
     </ImageBackground>
   );
 }

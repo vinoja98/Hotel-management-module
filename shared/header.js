@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View ,Image} from 'react-native';
+import FadeInView from '../shared/fadeInView';
 import {MaterialIcons} from '@expo/vector-icons'
 
 export default function Header({navigation,title}) {
@@ -9,16 +10,16 @@ export default function Header({navigation,title}) {
     }
     return (
       // <ImageBackground source={require('../assets/pexels-photo-2504911.jpeg')} style={styles.header}>
-      <View style={styles.header}>
+      <FadeInView style={styles.header}>
           <MaterialIcons name='menu' size={28} onPress={openMenu} style={styles.icon}/>
-         <View style={styles.headerTitle}>
+         <FadeInView style={styles.headerTitle}>
            
             <Text style={styles.headerText}>{ title }</Text>
-            <View style={styles.logo}>
+            <FadeInView style={styles.logo}>
               <Image style={styles.headerLogo} source={require('../assets/logo.png')}/>
-            </View>
-         </View>
-      </View>
+            </FadeInView>
+         </FadeInView>
+      </FadeInView>
        
     );
   }

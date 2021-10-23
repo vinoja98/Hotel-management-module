@@ -5,9 +5,7 @@ import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
-import Toast from 'react-native-toast-message';
-import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
-import { get } from 'react-native/Libraries/Utilities/PixelRatio';
+import FadeInView from '../shared/fadeInView';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function ReviewReply({route,props,navigation}) {
@@ -67,7 +65,7 @@ export default function ReviewReply({route,props,navigation}) {
 }
     return (
       <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
-        <View style={globalStyles.container}>
+        <FadeInView style={globalStyles.container}>
           <Text style={globalStyles.text}>Review  : {getDetails("review")} </Text>
           <Formik> 
             {(props)=>( 
@@ -104,7 +102,7 @@ export default function ReviewReply({route,props,navigation}) {
                )
               }   
           </Formik>     
-        </View>
+        </FadeInView>
       </ImageBackground>
     );
   }

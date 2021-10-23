@@ -1,5 +1,5 @@
-import React,{useEffect,useState} from 'react';
-import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,
+import React,{useEffect,useState,useRef} from 'react';
+import { Alert, StyleSheet, Text, View ,FlatList,TouchableOpacity,LayoutAnimation,
   Modal,TouchableWithoutFeedback,Keyboard,StatusBar,ImageBackground} from 'react-native';
 import { globalStyles } from '../styles/global';
 import Card from '../shared/card';
@@ -10,6 +10,7 @@ import FoodForm from './foodForm';
 import FlatButton from '../shared/button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import FadeInView from '../shared/fadeInView';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function Home({navigation,props}) {
@@ -19,18 +20,22 @@ export default function Home({navigation,props}) {
 
   const Boiler = async ()=>{
     const token = await AsyncStorage.getItem("token")
-    console.log(token)
+    //console.log(token)
     fetch('http://10.0.2.2:5000/food/')
     .then(res=>res.json())
     .then(results=>{
       setFoodItems(results)
       
-      console.log(results)
+      //console.log(results)
       setLoading(false)
     }).catch(err=>{Alert.alert(err)})
  }
+
 useEffect(()=>{
  Boiler()
+ return () => {
+  setFoodItems({}); // This worked for me
+};
 },[])
 
    const logout =(props)=>{
@@ -77,10 +82,9 @@ useEffect(()=>{
       ]
     );
   return (
-    
     <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
        <Toast ref={(ref) => Toast.setRef(ref)} />
-    <View style={globalStyles.container}>
+    <FadeInView style={globalStyles.container}>
     <StatusBar backgroundColor="#03498f" barStyle="light-content" />
    
     
@@ -164,7 +168,7 @@ useEffect(()=>{
           {/* }
      */}
      
-    </View>
+    </FadeInView>
     </ImageBackground>
    
   );

@@ -6,8 +6,7 @@ import {Ionicons} from '@expo/vector-icons'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import Card from '../shared/card';
-import Toast from 'react-native-toast-message';
-import RoomBookingForm from './roomBookingForm';
+import FadeInView from '../shared/fadeInView';
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function Bookings({props}) {
@@ -44,7 +43,7 @@ export default function Bookings({props}) {
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
-      <View style={globalStyles.container}>  
+      <FadeInView style={globalStyles.container}>  
           <StatusBar backgroundColor="#03498f" barStyle="light-content" />
             <FlatList
             data={bookings}
@@ -82,7 +81,7 @@ export default function Bookings({props}) {
              onRefresh={()=>fetchBookings()}
              refreshing={loading}
            />
-    </View>
+    </FadeInView>
     </ImageBackground>
   );
 }
