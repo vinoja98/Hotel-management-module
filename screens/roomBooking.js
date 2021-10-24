@@ -20,7 +20,7 @@ export default function RoomBooking({navigation,props}) {
   const[loading,setLoading]=useState(true)
 
   const getRooms=()=>{
-    fetch('http://10.0.2.2:5000/rooms/')
+    fetch('https://galaxy-rest-be.herokuapp.com/rooms/')
     .then(res=>res.json())
     .then(results=>{
       setRooms(results)

@@ -5,9 +5,7 @@ import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
 import FlatButton from '../shared/button';
-import axios from 'axios';
-import Toast from 'react-native-toast-message';
-// import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDown from "react-native-paper-dropdown";
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
@@ -28,7 +26,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
 
  const data2=[{label:'Pizza',value:'Pizza',},{label:'Drinks',value:'Drinks',},{label:'Fried Rice',value:'Fried Rice',},{label:'Other',value:'Other',},]
     
- const submitFood = ()=>{
+ const submitFood = async()=>{
   const data={
           name,
           price,
@@ -39,49 +37,39 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
           img,
           code
   }
+  const token = await AsyncStorage.getItem("token")
   if(data.name && data.price && data.description && data.status && data.discount && data.category && data.img && data.code ){
-    axios.post('http://10.0.2.2:5000/food/add',data).then(({data}) => {
+  fetch("https://galaxy-rest-be.herokuapp.com/food/add",{
+        method:"POST",
+        headers:new Headers({
+          'Content-Type': 'application/json',
+          Authorization:"Bearer "+token
+        }),
+        body:JSON.stringify({
+          
+            name,
+            price,
+            description,
+            status,
+            discount,
+            category,
+            img,
+            code
+        })
+    })
+    .then(res=>res.json())
+    .then(data=>{
       Alert.alert(`food item ${data.name} added, REFRESH HOME PAGE`)
-      setModelOpen(false)
-    
-    }).catch(e => {
-      Alert.alert(err)
-    });
-  } else {
+        setModelOpen(false)
+    })
+    .catch(err=>{
+      Alert.alert("something went wrong")
+  })}
+  else {
    Alert.alert("Please fill all the details")
   }
-}
-  // const submitFood=()=>{
-  //   fetch('https://galaxy-rest-be.herokuapp.com/food/add',{
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //         name,
-  //         price,
-  //         description,
-  //         status,
-  //         discount,
-  //         category,
-  //         img,
-  //         code
-
-  //     })
-  //   })
-  //   .then(res=>res.json())
-  //   .then(data=>{
-  //     // setFoodItems((prevFood)=>{
-  //     //   return [data, ...prevFood]
-  //     //  })
-  //     Alert.alert(`food item ${data.name} added, REFRESH HOME PAGE`)
-  //     setModelOpen(false)
-    
-  //   })
-  //   .catch(err=>{
-  //     Alert.alert(err)
-  //   })
-  // }
+ }
+  
     return (
       // <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
       <Provider>

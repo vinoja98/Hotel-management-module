@@ -26,7 +26,7 @@ export default function Bookings({props}) {
   
     const fetchBookings = ()=>{
       
-        fetch('http://10.0.2.2:5000/booking/')
+        fetch('https://galaxy-rest-be.herokuapp.com/booking/')
         .then(res=>res.json())
         .then(results=>{
           setBookings(results)

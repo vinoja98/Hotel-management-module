@@ -3,10 +3,9 @@ import { StyleSheet, Text, View,Alert,ScrollView,ImageBackground} from 'react-na
 import { Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
-import * as yup from 'yup'
-import Toast from 'react-native-toast-message';
 import FlatButton from '../shared/button';
-import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const image = { uri: "https://i.pinimg.com/originals/2e/e9/18/2ee918427712255bc116749e33616d33.png" };
 
 export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodItems}) {
@@ -17,19 +16,21 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
   const[nic,setNIC]=useState("")
   const[salary,setSalary]=useState("")
     
-  const submitWaiter=()=>{
+  const submitWaiter=async()=>{
     const data={
       name,
      password,
      email,contactNo,
      salary,nic
   }
+  const token = await AsyncStorage.getItem("token")
     if(data.name.length>2 && data.password.length>4 && data.email.length>10 && data.contactNo.length==12 && data.salary.length>0 && data.nic.length==10 ){
     fetch('https://galaxy-rest-be.herokuapp.com/addWaiter/signup',{
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers:new Headers({
+        'Content-Type': 'application/json',
+        Authorization:"Bearer "+token
+      }),
       body: JSON.stringify({
           name,
           email,

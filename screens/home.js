@@ -21,7 +21,7 @@ export default function Home({navigation,props}) {
   const Boiler = async ()=>{
     const token = await AsyncStorage.getItem("token")
     //console.log(token)
-    fetch('http://10.0.2.2:5000/food/')
+    fetch('https://galaxy-rest-be.herokuapp.com/food/')
     .then(res=>res.json())
     .then(results=>{
       setFoodItems(results)
@@ -48,11 +48,12 @@ useEffect(()=>{
   const deleteFood= async(_id,name) =>{
     const token = await AsyncStorage.getItem("token")
     console.log(_id)
-    fetch("http://10.0.2.2:5000/food/" +_id,{
+    fetch("https://galaxy-rest-be.herokuapp.com/food/" +_id,{
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers:new Headers({
+        'Content-Type': 'application/json',
+        Authorization:"Bearer "+token
+      }),
       body: JSON.stringify({
          id:_id
       })

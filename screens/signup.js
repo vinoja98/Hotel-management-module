@@ -29,7 +29,7 @@ const SignupScreen = (props) => {
       contactNo
     }
     if(data2.password.length>4 && data2.email.length>10 && data2.name.length>2 && data2.nic.length==10 && data2.contactNo.length==12){
-     fetch("http://10.0.2.2:5000/signup",{
+     fetch("https://galaxy-rest-be.herokuapp.com/signup",{
        method:"POST",
        headers: {
         // 'Accept': 'application/json',

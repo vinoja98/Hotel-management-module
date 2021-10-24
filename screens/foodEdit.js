@@ -4,6 +4,7 @@ import { Provider,Button ,TextInput} from 'react-native-paper';
 import { globalStyles,images } from '../styles/global';
 import { Formik,  Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import FlatButton from '../shared/button';
 // import { Dropdown } from 'react-native-material-dropdown-v2-fixed'
 import DropDown from "react-native-paper-dropdown";
@@ -18,25 +19,15 @@ const [showDropDown, setShowDropDown] = useState(false);
  {label:'Not Available',value:'Not Available',},]
 
  const data2=[{label:'Pizza',value:'Pizza',},{label:'Drinks',value:'Drinks',},{label:'Fried Rice',value:'Fried Rice',},{label:'Other',value:'Other',},]
-  const updateDetails = (_id)=>{
+  const updateDetails =  async(_id)=>{
     const id=_id._id
-    console.log(_id._id)
-    console.log(name)
-//     const data={
-//       name,
-//       price,
-//       description,
-//       status,
-//       discount,
-//       category,
-//       img,
-//       code
-// }
+    const token = await AsyncStorage.getItem("token")
     fetch("https://galaxy-rest-be.herokuapp.com/food/update/"+id,{
         method:"POST",
-        headers:{
-          'Content-Type': 'application/json'
-        },
+        headers:new Headers({
+          'Content-Type': 'application/json',
+          Authorization:"Bearer "+token
+        }),
         body:JSON.stringify({
           
             name,

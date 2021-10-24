@@ -57,7 +57,7 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
       room:room._id
     }
     if(data.customerEmail && data.customerContactNumber && data.customerName ){
-    fetch('http://10.0.2.2:5000/booking/add',{
+    fetch('https://galaxy-rest-be.herokuapp.com/booking/add',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
