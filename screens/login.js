@@ -23,7 +23,7 @@ const LoginScreen = (props) => {
   const [password,setPassword]=useState('')
   const { colors } = useTheme();
 
-  const login = (props)=>{
+  const login2 = (props)=>{
       const data2={
         password,
         email
@@ -162,7 +162,7 @@ const LoginScreen = (props) => {
       <Button 
         mode="contained"
         style={{marginTop:38,alignSelf:'center',height:40,width:'60%',backgroundColor:"#08b8e1"}}
-        onPress={() => login(props)}>
+        onPress={() => login2(props)}>
            <Text testID="login.Button" style={{
         fontSize:13,fontFamily:'nunito-bold',color:"#03498f"
       }}>Login</Text>
