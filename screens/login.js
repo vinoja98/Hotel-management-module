@@ -62,7 +62,7 @@ const LoginScreen = (props) => {
             visibilityTime: 1500,
             position: 'top',
             type: 'error',
-            text1: 'Invalid Password or Username',
+            text1: 'Invalid Email/Password',
           });
         }
         else{
@@ -71,7 +71,7 @@ const LoginScreen = (props) => {
             visibilityTime: 1500,
             position: 'top',
             type: 'error',
-            text1: 'Fill Password && Username',
+            text1: 'Fill Email && Password',
           });
         }
         
@@ -80,7 +80,6 @@ const LoginScreen = (props) => {
   return (
    <> 
    <View style={styles.container}>
-   {/* <KeyboardAvoidingView behavior="position" backgroundColor='white'> */}
      <StatusBar backgroundColor="#03498f" barStyle="light-content" />
      <ScrollView>
      <Toast ref={(ref) => Toast.setRef(ref)} />
@@ -161,8 +160,9 @@ const LoginScreen = (props) => {
       </TouchableWithoutFeedback>
       <Button 
         mode="contained"
+        color={ email.length>0 && password.length>0 ? '#08b8e1' : 'gray'}
         disabled={!email || !password}
-        style={{marginTop:38,alignSelf:'center',height:40,width:'60%',backgroundColor:"#08b8e1"}}
+        style={{marginTop:38,alignSelf:'center',height:40,width:'60%'}}
         onPress={() => login2(props)}>
            <Text testID="login.Button" style={{
         fontSize:13,fontFamily:'nunito-bold',color:"#03498f"

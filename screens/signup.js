@@ -253,8 +253,9 @@ const styles = StyleSheet.create({
         </TouchableWithoutFeedback>
       <Button testID="SignUp.Button"
         mode="contained"
+        color={ email.length>0 && password.length>0 && nic.length>0 && contactNo.length>0 && name.length>0 ? '#08b8e1' : 'gray'}
         disabled={!email || !password || !nic ||!contactNo ||!name}
-        style={{marginTop:20,alignSelf:'center',height:30,width:'60%',backgroundColor:"#08b8e1"}}
+        style={{marginTop:20,alignSelf:'center',height:30,width:'60%'}}
         onPress={() => sendCred(props)}>
            <Text style={{
         fontSize:13,fontFamily:'nunito-bold',color:"#03498f"
