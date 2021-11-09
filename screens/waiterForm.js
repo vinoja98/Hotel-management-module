@@ -186,7 +186,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         onChangeText={text => setNIC(text)}
                         testID="Waiter.NICInput"
                         value={nic}
-                        keyboardType='numeric'/>
+                        />
                        
                        
                     <TextInput style={globalStyles.input}

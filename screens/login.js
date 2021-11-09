@@ -161,6 +161,7 @@ const LoginScreen = (props) => {
       </TouchableWithoutFeedback>
       <Button 
         mode="contained"
+        disabled={!email || !password}
         style={{marginTop:38,alignSelf:'center',height:40,width:'60%',backgroundColor:"#08b8e1"}}
         onPress={() => login2(props)}>
            <Text testID="login.Button" style={{
