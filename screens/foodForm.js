@@ -38,15 +38,14 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
           code
   }
   const token = await AsyncStorage.getItem("token")
-  if(data.name && data.price && data.description && data.status && data.discount && data.category && data.img && data.code ){
+  if(data.name && data.price && data.description && data.status && data.discount && data.category && data.img && data.code.length==4 ){
   fetch("https://galaxy-rest-be.herokuapp.com/food/add",{
         method:"POST",
         headers:new Headers({
           'Content-Type': 'application/json',
           Authorization:"Bearer "+token
         }),
-        body:JSON.stringify({
-          
+        body:JSON.stringify({     
             name,
             price,
             description,
@@ -66,7 +65,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
       Alert.alert("something went wrong")
   })}
   else {
-   Alert.alert("Please fill all the details")
+   Alert.alert("Please add valid details")
   }
  }
   
@@ -77,17 +76,12 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
         <ScrollView>
         <Formik
             initialValues={{name:'',price:'',description:'',category:'',status:'',discount:'',status:'',img:''}}>
-            {/* validationSchema={foodSchema}
-            onSubmit={(values,actions)=>{
-                    onsubmit(values)
-                    actions.resetForm()
-            }}
-       */}
             {(props)=>(
                 <View>
                     <TextInput style={globalStyles.input}
                         label='Food Item'
                         mode="outlined"
+                        placeholder='Min 4 characters needed'
                         theme={
                           {
                             fonts: {
@@ -107,51 +101,38 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         value={name}
                         testID="FoodForm.food"
                         />
-                        {/* <Dropdown 
-                          label="Category"
-                          data={data2}
-                          style = {{color:'#08b8e1',fontFamily:'nunito-bold' }} //for changed text color
-                          baseColor='#03498f' //for initial text color
-                          textColor='#03498f'
-                          itemColor='blue'
-                          selectedItemColor='#08b8e1'
-                          itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}
-                          pickerStyle={{backgroundColor:'#dcbbdb'}}
-                         
-                          onChangeText={text => setCategory(text)}
-                        value={category}
-                        /> */}
                          <DropDown
-              label={"Category"}
-              mode={"outlined"}
-              visible={showDropDown}
+                        label={"Category"}
+                        mode={"outlined"}
+                        visible={showDropDown}
 
-              showDropDown={() =>  setShowDropDown(true)}
+                        showDropDown={() =>  setShowDropDown(true)}
 
-              onDismiss={() =>  setShowDropDown(false)}
-              value={category}
-              activeColor={"#08b8e1"}
-              dropDownItemTextStyle={{fontFamily:'nunito-bold',color:'blue'}}
-              setValue={setCategory}
-              list={data2}
-            />
-              <DropDown
-              label={"Status"}
-              mode={"outlined"}
-              visible={showDropDown2}
+                        onDismiss={() =>  setShowDropDown(false)}
+                        value={category}
+                        activeColor={"#08b8e1"}
+                        dropDownItemTextStyle={{fontFamily:'nunito-bold',color:'blue'}}
+                        setValue={setCategory}
+                        list={data2}
+                      />
+                      <DropDown
+                      label={"Status"}
+                      mode={"outlined"}
+                      visible={showDropDown2}
 
-              showDropDown={() =>  setShowDropDown2(true)}
+                      showDropDown={() =>  setShowDropDown2(true)}
 
-              onDismiss={() =>  setShowDropDown2(false)}
-              value={status}
-              activeColor={"#08b8e1"}
-              dropDownItemTextStyle={{fontFamily:'nunito-bold',color:'blue'}}
-              setValue={setStatus}
-              list={data1}
-            />
+                      onDismiss={() =>  setShowDropDown2(false)}
+                      value={status}
+                      activeColor={"#08b8e1"}
+                      dropDownItemTextStyle={{fontFamily:'nunito-bold',color:'blue'}}
+                      setValue={setStatus}
+                      list={data1}
+                    />
                         <TextInput style={globalStyles.input}
                         label='Food Item Code'
                         mode="outlined"
+                        placeholder='4 characters needed'
                         theme={
                           {
                             fonts: {
@@ -196,6 +177,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                     
                      <TextInput style={globalStyles.input}
                         label='Price'
+                        placeholder='Min 3 characters needed'
                         mode="outlined"
                         theme={
                           {
@@ -215,13 +197,12 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         onChangeText={text => setPrice(text)}
                         value={price}
                         testID="FoodForm.price"
-                        
-                        // onBlur={props.handleBlur('price')}
                         keyboardType='numeric'/>
-                    {/* <Text style={globalStyles.errorText}>{props.touched.price && props.errors.price}</Text> */}
+      
                      <TextInput style={globalStyles.input}
                         multiline minHeight={50}
                         label='Description'
+                        placeholder='Min 3 characters needed'
                         mode="outlined"
                         theme={
                           {
@@ -246,6 +227,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                    testID="Percentage"
                         label='Discount Percentage'
                         mode="outlined"
+                        placeholder='Value between 0 ,100'
                         theme={
                           {
                             fonts: {
@@ -266,27 +248,7 @@ export default function FoodForm({navigation ,setModelOpen,setFoodItems,foodItem
                         value={discount}
              
                         testID="FoodForm.dis"
-                        // onBlur={props.handleBlur('price')}
-                        
-                        // onChangeText={text => setPrice(text)}
-                        // value={price}
-                        
-                        // onBlur={props.handleBlur('price')}
                         /> 
-                         
-                         
-                          {/* <Dropdown 
-                          label="Status"
-                          data={data1}
-                          onChangeText={text => setStatus(text)}
-                          style = {{color:'#08b8e1' }} //for changed text color
-                          baseColor='#03498f' //for initial text color
-                          itemColor='blue'
-                          pickerStyle={{backgroundColor:'#dcbbdb'}}
-                         
-                          selectedItemColor='#08b8e1'
-                          itemTextStyle={{paddingLeft:30,fontFamily:'nunito-bold'}}
-                        value={status}/> */}
                     <FlatButton testID="food.Button" text='Add' onPress={submitFood}/>
                 </View>
             )

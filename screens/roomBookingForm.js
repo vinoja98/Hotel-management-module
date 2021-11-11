@@ -56,7 +56,8 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
       endDate,
       room:room._id
     }
-    if(data.customerEmail && data.customerContactNumber && data.customerName ){
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if(data.customerEmail.length>9 && data.customerContactNumber.length>9 && data.customerName.length>3 && reg.test(data.customerEmail) === true){
     fetch('https://galaxy-rest-be.herokuapp.com/booking/add',{
       method: 'POST',
       headers: {
@@ -74,9 +75,6 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
     })
     .then(res=>res.json())
     .then(data=>{
-      // setFoodItems((prevFood)=>{
-      //   return [data, ...prevFood]
-      //  })
       console.log(data)
       Alert.alert('Room booking added')
       setOpen(false)
@@ -86,7 +84,7 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
       Alert.alert("Something went wrong")
     })
   }else{
-    Alert.alert("Please fill all the details")
+    Alert.alert("Please add valid details")
   }
 }
     return (
@@ -95,16 +93,12 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
        <Text style={globalStyles.blackText}>Room No - {room?.roomNo}</Text>
         <Formik
             initialValues={{customerName:'',customerEmail:'',customerContactNumber:'',startDate:'',endDate:''}}>
-            {/* validationSchema={foodSchema}
-            onSubmit={(values,actions)=>{
-                    onsubmit(values)
-                    actions.resetForm()
-            }}
-       */}
+        
             {(props)=>(
                 <View> 
                     <TextInput style={globalStyles.input}
                         label="Customer's Name"
+                        placeholder='Min 3 characters needed'
                         mode="outlined"
                         theme={
                           {
@@ -127,6 +121,7 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
                         />
                          <TextInput style={globalStyles.input}
                         label="Customer's Email"
+                        placeholder='Min 10 characters needed'
                         mode="outlined"
                         theme={
                           {
@@ -149,6 +144,7 @@ export default function RoomBookingForm({open, setOpen, room, navigation}) {
                         />
                          <TextInput style={globalStyles.input}
                         label="Customer's Contact Number"
+                        placeholder='Min 10 characters needed'
                         mode="outlined"
                         theme={
                           {

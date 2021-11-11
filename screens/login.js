@@ -188,8 +188,8 @@ const LoginScreen = (props) => {
 const styles = StyleSheet.create({ 
   headerLogo:{
       marginTop:30,
-    height:100,
-    width:100,
+    height:120,
+    width:120,
     borderRadius: 55,
     position:'absolute',
     

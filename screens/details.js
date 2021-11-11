@@ -71,7 +71,7 @@ export default function Details() {
                               </View>
                               <View style={styles.cardRow}>
                               <MaterialIcons name='local-phone' size={20} style={styles.edit}/>
-                              <Text style={globalStyles.itemText}>{item.contactNo}</Text>
+                              <Text style={globalStyles.itemText}>+{item.contactNo}</Text>
                               </View>
                               <View style={styles.cardRow}>
                               <FontAwesome5 name="amazon-pay" size={20} style={styles.edit} />

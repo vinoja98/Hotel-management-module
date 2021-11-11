@@ -81,8 +81,8 @@ export default function About({route}) {
             <Text style={globalStyles.itemText}>Rs.{price}</Text>
           </View>
           <Image style={styles.pic2} source={{uri: img}}/> 
-          <View style={styles.desc}>
-              <Text style={globalStyles.itemText}>{description}</Text>
+          <View>
+              <Text style={[globalStyles.itemText,styles.desc]}>{description}</Text>
           </View>
         </View>
         <View style={styles.iconCol}>
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     
   },
   desc:{
-    alignSelf:'center'
+    textAlign:'center'
   },
   cardTop:{
     flexDirection:'row',

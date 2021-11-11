@@ -28,7 +28,9 @@ const SignupScreen = (props) => {
       name,
       contactNo
     }
-    if(data2.password.length>4 && data2.email.length>10 && data2.name.length>2 && data2.nic.length==10 && data2.contactNo.length==12){
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if(data2.password.length>4 && data2.email.length>9 && data2.name.length>2 && data2.nic.length==10 && data2.contactNo.length==12
+      && reg.test(data2.email) === true){
      fetch("https://galaxy-rest-be.herokuapp.com/signup",{
        method:"POST",
        headers: {
@@ -43,7 +45,7 @@ const SignupScreen = (props) => {
         password
       })
      })
-     .then(res=>res.json())
+     .then(res=>res.text())
      .then(data =>{
             try {   
               props.navigation.replace("login")
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
     <ScrollView>
     <Toast ref={(ref) => Toast.setRef(ref)} />
       <Text 
-      style={{fontSize:25,textAlign:'center',marginTop:30,color:"#08b8e1",fontFamily:'nunito-bold'}}>Register Now!</Text>
+      style={{fontSize:25,textAlign:'center',marginTop:15,color:"#08b8e1",fontFamily:'nunito-bold'}}>Register Now!</Text>
       <View style={styles.logo}>
       <Image style={styles.headerLogo} testID="background" source={require('../assets/logo.png')}/>
       </View>
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
         placeholder='Min 3 characters needed'
         mode="outlined"
         value={name}
-        style={{marginTop:110,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
+        style={{marginTop:110,alignSelf:'center',height:40,width:'60%',fontFamily:'nunito-bold'}}
         theme={
           {
             fonts: {
@@ -156,7 +158,7 @@ const styles = StyleSheet.create({
         mode="outlined"
         value={nic}
         onChangeText={(text)=>{setNIC(text)}}
-        style={{marginTop:10,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
+        style={{marginTop:10,alignSelf:'center',height:40,width:'60%',fontFamily:'nunito-bold'}}
         theme={
           {
             fonts: {
@@ -177,10 +179,10 @@ const styles = StyleSheet.create({
         <TextInput style={globalStyles.input}
         accessibilityLabel="Email"
         label='Email'
-        placeholder='Min 5 characters needed'
+        placeholder='Min 10 characters'
         mode="outlined"
         value={email}
-        style={{marginTop:10,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
+        style={{marginTop:10,alignSelf:'center',height:40,width:'60%',fontFamily:'nunito-bold'}}
         theme={
           {
             fonts: {
@@ -205,7 +207,7 @@ const styles = StyleSheet.create({
         placeholder='12 characters needed'
         mode="outlined"
         value={contactNo}
-        style={{marginTop:10,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
+        style={{marginTop:10,alignSelf:'center',height:40,width:'60%',fontFamily:'nunito-bold'}}
         theme={
           {
             fonts: {
@@ -223,6 +225,7 @@ const styles = StyleSheet.create({
         }
         onChangeText={(text)=>setContact(text)}
         testID="SignUp.numInput"
+        keyboardType='numeric'
       />
         <TextInput style={globalStyles.input}
         accessibilityLabel="Password"
@@ -230,7 +233,7 @@ const styles = StyleSheet.create({
         placeholder='Min 5 characters needed'
         mode="outlined"
         value={password}
-        style={{marginTop:10,alignSelf:'center',height:30,width:'60%',fontFamily:'nunito-bold'}}
+        style={{marginTop:10,alignSelf:'center',height:40,width:'60%',fontFamily:'nunito-bold'}}
         theme={
           {
             fonts: {
@@ -255,7 +258,7 @@ const styles = StyleSheet.create({
         mode="contained"
         color={ email.length>0 && password.length>0 && nic.length>0 && contactNo.length>0 && name.length>0 ? '#08b8e1' : 'gray'}
         disabled={!email || !password || !nic ||!contactNo ||!name}
-        style={{marginTop:20,alignSelf:'center',height:30,width:'60%'}}
+        style={{marginTop:20,alignSelf:'center',height:40,width:'60%'}}
         onPress={() => sendCred(props)}>
            <Text style={{
         fontSize:13,fontFamily:'nunito-bold',color:"#03498f"
@@ -271,7 +274,7 @@ const styles = StyleSheet.create({
       <TouchableOpacity>
         <Text testID="login.Button"
       style={{
-        fontSize:18,marginTop:10,fontFamily:'nunito-bold',color:"#08b8e1",alignSelf:'center'
+        fontSize:18,marginTop:1,fontFamily:'nunito-bold',color:"#08b8e1",alignSelf:'center'
       }}
       onPress={()=>props.navigation.replace("login")}
       >Login</Text>

@@ -23,8 +23,10 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
      email,contactNo,
      salary,nic
   }
+
   const token = await AsyncStorage.getItem("token")
-    if(data.name.length>2 && data.password.length>4 && data.email.length>10 && data.contactNo.length==12 && data.salary.length>0 && data.nic.length==10 ){
+  let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if(data.name.length>2 && data.password.length>4 && data.email.length>9 && data.contactNo.length==12 && data.salary.length>0 && data.nic.length==10 && reg.test(data.email) === true){
     fetch('https://galaxy-rest-be.herokuapp.com/addWaiter/signup',{
       method: 'POST',
       headers:new Headers({
@@ -40,9 +42,9 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
           salary
       })
     })
-    .then(res=>res.json())
+    .then(res=>res.text())
     .then(data=>{
-      Alert.alert(`Waiter ${data.name} added, REFRESH THE PAGE`)
+      Alert.alert(`Waiter added, REFRESH THE PAGE`)
       setModelOpen(false)
     })
     .catch(err=>{
@@ -58,22 +60,16 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
 }
   }
     return (
-      // <ImageBackground source={image} resizeMode="cover" style={globalStyles.image}>
       <View style={globalStyles.container}>
         <ScrollView>
         <Formik
             initialValues={{name:'',email:'',password:'',nic:'',salary:'',contactNo:''}}>
-            {/* validationSchema={foodSchema}
-            onSubmit={(values,actions)=>{
-                    onsubmit(values)
-                    actions.resetForm()
-            }}
-       */}
             {(props)=>(
                 <View>
                     <TextInput style={globalStyles.input}
                         label='Name'
                         mode="outlined"
+                        placeholder='Min 3 characters needed'
                         theme={
                           {
                             fonts: {
@@ -97,6 +93,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         <TextInput style={globalStyles.input}
                         label='Password'
                         mode="outlined"
+                        placeholder='Min 3 characters needed'
                         theme={
                           {
                             fonts: {
@@ -117,8 +114,10 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         value={password}
                         />
                          <TextInput style={globalStyles.input}
+                       
                         label='Email'
                         mode="outlined"
+                        placeholder='Min 10 characters needed'
                        theme={
                           {
                             fonts: {
@@ -138,11 +137,11 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         testID="Waiter.emailInput"
                         value={email}
                         />
-                        {/* onBlur={props.handleBlur('name')}  */}
-                    {/* <Text style={globalStyles.errorText}>{props.touched.name && props.errors.name}</Text> */}
+                      
                      <TextInput style={globalStyles.input}
                         label='Phone'
                         mode="outlined"
+                        placeholder='12 characters needed'
                        theme={
                           {
                             fonts: {
@@ -163,11 +162,12 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                         value={contactNo}
                         keyboardType='numeric'/>
                       
-                    {/* <Text style={globalStyles.errorText}>{props.touched.price && props.errors.price}</Text> */}
+                   
                      <TextInput style={globalStyles.input}
                         
                         label='NIC'
                         mode="outlined"
+                        placeholder='10 characters needed'
                        theme={
                           {
                             fonts: {
@@ -192,6 +192,7 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
                     <TextInput style={globalStyles.input}
                         label='Salary'
                         mode="outlined"
+                        placeholder='Should be a positive value'
                        theme={
                           {
                             fonts: {
@@ -219,6 +220,5 @@ export default function WaiterForm({navigation ,setModelOpen,setFoodItems,foodIt
         </Formik>
         </ScrollView>
       </View>
-      // </ImageBackground>
     );
   }
